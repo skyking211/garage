@@ -755,6 +755,292 @@
       "photoStyle": "photo"
     },
     {
+      "id": "eagle",
+      "category": "aircraft",
+      "name": "Eagle",
+      "subtitle": "Aero Commander A9B Quail",
+      "powered": true,
+      "requestTitle": "Eagle",
+      "requestSubject": "Garage request: Eagle",
+      "year": null,
+      "make": "Aero Commander",
+      "model": "A9B",
+      "color": "White",
+      "colorHex": "#f2f3f1",
+      "engine": "Lycoming IO-540 (per TCDS)",
+      "totalTime": null,
+      "tach": null,
+      "meterDate": null,
+      "meterNeedsUpdate": true,
+      "photo": "images/eagle/eagle-1280.webp",
+      "photoSm": "images/eagle/eagle-640.webp",
+      "photoAlt": "Eagle, Aero Commander A9B, in the hangar",
+      "photoFallback": "images/glider.svg",
+      "photoStyle": "photo",
+      "photoCredit": "credit-eagle",
+      "specs": [
+        {
+          "label": "Model (TCDS designation)",
+          "value": "A-9B (Quail Commander), restricted category only",
+          "note": "Data plate reads “AERO COMANDER A9B”. FAA TCDS A-758, section XII (approved Dec 16, 1966)",
+          "source": "tcds-a758",
+          "status": "TCDS"
+        },
+        {
+          "label": "Category",
+          "value": "Restricted category (per placard)",
+          "note": "“RESTRICTED” is painted at the cockpit entrance; TCDS A-758 Note 11 requires that placard on the A-9B",
+          "source": "tcds-a758",
+          "status": "from photo"
+        },
+        {
+          "label": "Year built",
+          "value": "",
+          "note": "add it from the logbook; keep the serial number itself in the Vault"
+        },
+        {
+          "label": "Engine (per TCDS)",
+          "value": "Lycoming IO-540-G1C5, 290 hp @ 2575 rpm · optional IO-540-K1A5, 300 hp @ 2700 rpm",
+          "note": "Fuel-injected IO-540, not a carbureted O-540. Confirm which one is installed from the engine data plate or logbook",
+          "source": "tcds-a758",
+          "status": "TCDS"
+        },
+        {
+          "label": "Installed engine model",
+          "value": "",
+          "note": "add it from the engine data plate; the engine serial goes in the Vault"
+        },
+        {
+          "label": "Fuel",
+          "value": "100/130 minimum grade aviation gasoline",
+          "source": "tcds-a758",
+          "status": "TCDS"
+        },
+        {
+          "label": "Fuel capacity",
+          "value": "40 US gal (2 tanks, 20 gal each)",
+          "note": "see TCDS Note 1 for unusable fuel",
+          "source": "tcds-a758",
+          "status": "TCDS"
+        },
+        {
+          "label": "Oil capacity",
+          "value": "3 US gal (12 qt)",
+          "source": "tcds-a758",
+          "status": "TCDS"
+        },
+        {
+          "label": "Oil type",
+          "value": "Ashless-dispersant aviation oil (SAE J1899); grade by outside air temp, e.g. SAE 15W-50 or 20W-50 for all temperatures",
+          "note": "Lycoming SI 1014P, Table 1. Use non-dispersant mineral oil for the first 50 hrs after new or overhaul (break-in)",
+          "source": "si1014p",
+          "status": "Lycoming"
+        },
+        {
+          "label": "Engine TBO",
+          "value": "IO-540-G: 1,600 hrs · IO-540-K: 2,000 hrs (field overhaul) or 2,600 hrs (factory new/rebuilt) · and 12 calendar years",
+          "note": "Lycoming SI 1009BF (Jul 20, 2026), Table 1. IO-540-G drops to 1,200 hrs if built with 7/16 in exhaust valve stems (Note 1). Extensions only under Notes 11, 15, 16",
+          "source": "si1009bf",
+          "status": "Lycoming"
+        },
+        {
+          "label": "Propeller (per TCDS)",
+          "value": "McCauley 1A200 DFA, 88–90 in diameter",
+          "note": "confirm the installed prop; prop ADs depend on its model",
+          "source": "tcds-a758",
+          "status": "TCDS"
+        },
+        {
+          "label": "Maximum weight (TCDS)",
+          "value": "3,000 lb",
+          "source": "tcds-a758",
+          "status": "TCDS"
+        },
+        {
+          "label": "Never-exceed speed (TCDS)",
+          "value": "135 mph",
+          "source": "tcds-a758",
+          "status": "TCDS"
+        },
+        {
+          "label": "Seats (TCDS)",
+          "value": "1",
+          "source": "tcds-a758",
+          "status": "TCDS"
+        },
+        {
+          "label": "Hobbs / total time (hrs)",
+          "value": ""
+        },
+        {
+          "label": "Tach (hrs)",
+          "value": ""
+        },
+        {
+          "label": "Engine time since overhaul",
+          "value": ""
+        },
+        {
+          "label": "Last weight & balance",
+          "value": ""
+        },
+        {
+          "label": "Instruments / radio / transponder",
+          "value": ""
+        }
+      ],
+      "tips": [
+        {
+          "title": "Other ADs to check (part-dependent)",
+          "text": "The FAA DRS lists more ADs for the IO-540-G1C5 and -K1A5, but each one only applies if certain parts, serial numbers or dates match, so check them against the engine logbook at the annual: 2026-17-10 (piston pins), 2026-04-11 (connecting rods), 2022-16-03 (magnetos), 2017-16-11, 2012-19-01 (crankshafts), 2012-03-06 and 2009-02-03 (fuel servos), 2006-10-21 (ECi rods), 2005-19-11, 2005-12-06, 2004-10-14, 2004-05-24, 2003-14-03, 2002-19-03, 99-04-04 (Slick mags), 97-15-11, 96-23-03, 95-07-01, 83-22-04, 79-04-05, 78-23-10, 75-09-15, 75-08-09, 73-23-01, 66-20-04. Propeller ADs depend on the installed prop.",
+          "note": "Searched on the FAA DRS by model (A-9B, IO-540-G1C5, IO-540-K1A5). Superseded (historical) ADs are left out.",
+          "source": "drs-ads",
+          "status": "to check"
+        }
+      ],
+      "schedule": [
+        {
+          "id": "annual",
+          "task": "Annual inspection",
+          "everyMonths": 12,
+          "basis": "Required within the preceding 12 calendar months (14 CFR 91.409(a)). Due at the end of the month.",
+          "source": "far91409",
+          "status": "verified"
+        },
+        {
+          "id": "100hr",
+          "task": "100-hour inspection (if used for hire)",
+          "everyHours": 100,
+          "basis": "14 CFR 91.409(b): required within each 100 hrs time in service when the aircraft carries any person (other than a crewmember) for hire, or is provided for flight instruction for hire. An annual also counts. Up to 10 hrs over only to reach a place where it can be done.",
+          "note": "Conditional. The rule text names carrying persons for hire and flight instruction for hire; it does not mention towing. If the aircraft tows for hire, confirm with your IA or FSDO whether a 100-hour applies.",
+          "source": "far91409",
+          "status": "conditional"
+        },
+        {
+          "id": "oil",
+          "task": "Engine oil & filter change",
+          "everyHours": 50,
+          "everyMonths": 4,
+          "basis": "Lycoming SB 480F: with a full-flow oil filter, every 50 hrs or 4 months, whichever comes first. With only an oil pressure screen, every 25 hrs or 4 months (clean the screen). First change at 25 hrs after new or overhaul.",
+          "note": "Not yet known whether this engine has a spin-on filter or only a screen. If it’s a screen, edit this item to 25 hrs.",
+          "source": "sb480f",
+          "status": "Lycoming"
+        },
+        {
+          "id": "ad201519",
+          "task": "AD 2015-19-07: fuel injector lines & clamps inspection",
+          "everyHours": 110,
+          "basis": "Applies to IO-540-G1C5 and -K1A5 with external fuel injector lines. Repeat within every 110 hrs time in service, after any maintenance that loosens or moves a fuel-line clamp, and after each overhaul (Lycoming MSB 342G).",
+          "source": "ad201519",
+          "status": "verified"
+        },
+        {
+          "id": "ad732202",
+          "task": "AD 73-22-02: wing lift strut eye-fitting welds",
+          "once": true,
+          "basis": "Applies to Models A-9, A-9A and A-9B. One-time: check for 360° welds at the P/N 10671 eye fittings on all four lift struts. If not sealed, check for water and corrosion, then weld. Record the compliance method.",
+          "source": "ad732202",
+          "status": "verified"
+        },
+        {
+          "id": "ad921205",
+          "task": "AD 92-12-05: piston pin records check",
+          "once": true,
+          "basis": "Applies to IO-540 series engines (except -W). One-time records check for piston pins P/N LW-14077 bought Jun 18 – Aug 5, 1991, or an engine serial listed in Lycoming SB 501B. Replace affected pins.",
+          "source": "ad921205",
+          "status": "verified"
+        },
+        {
+          "id": "ad960910",
+          "task": "AD 96-09-10: oil pump impeller check",
+          "once": true,
+          "basis": "Applies to IO-540 series except “5D” models, so both TCDS engines. Confirm hardened-steel oil pump impellers; sintered-iron or aluminum impellers must be replaced (at overhaul or pump removal per the AD). Record the compliance.",
+          "source": "ad960910",
+          "status": "verified"
+        },
+        {
+          "id": "ad782006",
+          "task": "AD 78-20-06: hopper carry-through tube corrosion",
+          "once": true,
+          "basis": "Applies to A-9, A-9A and A-9B that have the wing-strut carry-through tube running through the hopper. Inspect the fiberglass wrap; remove corrosion; replace tube P/N 11013 if past the limits.",
+          "note": "Conditional: only if the carry-through tube runs through the hopper.",
+          "source": "ad782006",
+          "status": "conditional"
+        },
+        {
+          "id": "elt",
+          "task": "ELT inspection & battery (if an ELT is installed)",
+          "everyMonths": 12,
+          "calendarMonths": true,
+          "basis": "14 CFR 91.207(d): inspect within 12 calendar months. 91.207(c): replace or recharge the battery after 1 cumulative hr of use or at 50% of its useful life (date marked on the unit).",
+          "note": "Conditional: 91.207(f)(9) exempts aircraft equipped to carry not more than one person (the TCDS lists 1 seat), and (f)(6) ag application flights. Track it if an ELT is installed.",
+          "source": "far91207",
+          "status": "conditional"
+        },
+        {
+          "id": "xpdr",
+          "task": "Transponder test (91.413)",
+          "everyMonths": 24,
+          "calendarMonths": true,
+          "basis": "14 CFR 91.413: an installed ATC transponder must be tested and inspected within the preceding 24 calendar months.",
+          "note": "Conditional: only if a transponder is installed and used.",
+          "source": "far91413",
+          "status": "conditional"
+        },
+        {
+          "id": "altimeter",
+          "task": "Altimeter / static system test (91.411)",
+          "everyMonths": 24,
+          "calendarMonths": true,
+          "basis": "14 CFR 91.411: altimeter, static system and encoder tested within the preceding 24 calendar months to fly IFR in controlled airspace.",
+          "note": "Conditional: only for IFR.",
+          "source": "far91411",
+          "status": "conditional"
+        }
+      ],
+      "scheduleNote": "Hours are total time in service (Hobbs). Every item stays “not yet logged” until you log it. “Conditional” items only apply in the case described. Listed ADs are the ones confirmed to apply to the A-9B airframe or to both TCDS engines; part-dependent ADs are in the box above.",
+      "parts": [
+        {
+          "id": "p-plugs",
+          "category": "Ignition",
+          "name": "Spark plugs (shielded, 18 mm)",
+          "qty": "12",
+          "numbers": [
+            {
+              "brand": "Champion",
+              "number": "RHM38E",
+              "status": "verified",
+              "note": "Champion catalog AV-14 lists the “Super A9 Quail, Lyco IO-540 (290 hp)”: 12 plugs, RHM38E / REM38E, or RHM38S / REM38S (iridium). RHM = 3/4-20 harness thread, REM = 5/8-24. Gap 0.016–0.021 in.",
+              "source": "champion-av14"
+            },
+            {
+              "brand": "Champion",
+              "number": "REM38E",
+              "status": "verified",
+              "note": "Same listing, for a 5/8-24 ignition harness.",
+              "source": "champion-av14"
+            }
+          ],
+          "notes": "Match the plug thread to the ignition harness on the engine. The listing is for the 290 hp IO-540 (the TCDS -G1C5).",
+          "buy": "Champion RHM38E spark plug"
+        },
+        {
+          "id": "p-oilfilter",
+          "category": "Engine oil",
+          "name": "Oil filter",
+          "flag": "part # needed",
+          "numbers": [],
+          "notes": "Not confirmed for the A-9B. Check first that a spin-on full-flow filter is fitted (some engines have only a pressure screen). Lead to check: Champion lists CH48110-1 for Lycoming IO-540-G and -K engines in other airplanes (e.g. Bellanca 17-31, Piper Aerostar), not for the A-9B.",
+          "sources": [
+            "champion-av33"
+          ],
+          "buy": "Lycoming IO-540 oil filter Champion CH48110-1"
+        }
+      ],
+      "log": [],
+      "todos": []
+    },
+    {
       "id": "ford-445c",
       "category": "tractor",
       "name": "FORD 445C",
@@ -1934,6 +2220,66 @@
     "tractordata-naa-engine": {
       "title": "TractorData — Ford Golden Jubilee NAA engine (134 ci)",
       "url": "https://www.tractordata.com/farm-tractors/000/2/1/219-ford-naa-engine.html"
+    },
+    "tcds-a758": {
+      "title": "FAA TCDS A-758, Rev 23 (CallAir / Aero Commander / APDC), section XII Model A-9B and Note 11",
+      "url": "https://drs.faa.gov/browse/excelExternalWindow/B5CBEDEAF1D011B48525672B006D45F2.0001"
+    },
+    "si1009bf": {
+      "title": "Lycoming Service Instruction 1009BF — TBO schedules (Jul 20, 2026)",
+      "url": "https://www.lycoming.com/sites/default/files/file/2026-07/SI1009BF_%20TBO_Schedule.pdf"
+    },
+    "sb480f": {
+      "title": "Lycoming Service Bulletin 480F — oil servicing (May 25, 2017)",
+      "url": "https://www.lycoming.com/sites/default/files/attachments/SB480F%2520Oil%2520ServicingMetallic%2520Solids%2520Identification%2520After%2520Oil%2520Servicing%2520and%2520Associated%2520Corrective%2520Action.pdf"
+    },
+    "si1014p": {
+      "title": "Lycoming Service Instruction 1014P — lubricating oil recommendations (Feb 10, 2026)",
+      "url": "https://www.lycoming.com/sites/default/files/file/2026-02/SI1014P%20Lubricating%20Oil%20Recommendations.pdf"
+    },
+    "far91207": {
+      "title": "14 CFR 91.207 — Emergency locator transmitters (eCFR)",
+      "url": "https://www.ecfr.gov/current/title-14/chapter-I/subchapter-F/part-91/subpart-C/section-91.207"
+    },
+    "far91411": {
+      "title": "14 CFR 91.411 — Altimeter system and altitude reporting equipment tests (eCFR)",
+      "url": "https://www.ecfr.gov/current/title-14/chapter-I/subchapter-F/part-91/subpart-E/section-91.411"
+    },
+    "far91413": {
+      "title": "14 CFR 91.413 — ATC transponder tests and inspections (eCFR)",
+      "url": "https://www.ecfr.gov/current/title-14/chapter-I/subchapter-F/part-91/subpart-E/section-91.413"
+    },
+    "ad201519": {
+      "title": "FAA AD 2015-19-07 — Lycoming fuel-injected engines, fuel injector fuel lines (FAA DRS)",
+      "url": "https://drs.faa.gov/browse/excelExternalWindow/B39E0B81ACB0F30786257ECF005D80C7.0001"
+    },
+    "ad732202": {
+      "title": "FAA AD 73-22-02 — APDC Models A-9, A-9A, A-9B, wing lift struts (FAA DRS)",
+      "url": "https://drs.faa.gov/browse/excelExternalWindow/D5EF2870659F6AAD86256A3400480456.0001"
+    },
+    "ad782006": {
+      "title": "FAA AD 78-20-06 — APDC Models A-9, A-9A, A-9B, hopper carry-through tube (FAA DRS)",
+      "url": "https://drs.faa.gov/browse/excelExternalWindow/CE050FB01CBBB94B86256E0D004DEF0A.0001"
+    },
+    "ad921205": {
+      "title": "FAA AD 92-12-05 — Textron Lycoming piston pins (FAA DRS)",
+      "url": "https://drs.faa.gov/browse/excelExternalWindow/EB7F913B8170444C8625684A005E1FB9.0001"
+    },
+    "ad960910": {
+      "title": "FAA AD 96-09-10 — Textron Lycoming oil pump impellers (FAA DRS)",
+      "url": "https://drs.faa.gov/browse/excelExternalWindow/5DE5ACBD6CBC8B2A8625684D00643AC1.0001"
+    },
+    "drs-ads": {
+      "title": "FAA DRS — Airworthiness Directives search (filter Model: A-9B, IO-540-G1C5, IO-540-K1A5)",
+      "url": "https://drs.faa.gov/browse/ADFRAWD/doctypeDetails"
+    },
+    "champion-av14": {
+      "title": "Champion Aerospace Aviation Catalog AV-14 (rev. Jan 2010) — spark plugs by aircraft, “Super A9 Quail”",
+      "url": "https://psaenterprises.com/files/uploads/downloads/Champion%20Application%20Guide.pdf"
+    },
+    "champion-av33": {
+      "title": "Champion Aerospace application guide AV33 — oil filters by aircraft (IO-540-G & K: CH48110-1 in other airframes)",
+      "url": "https://www.championaerospace.com/wp-content/uploads/2022/06/AV33-20141.pdf"
     }
   },
   "credits": {
@@ -1976,6 +2322,10 @@
     },
     "credit-lilred": {
       "text": "Lil Red photo: the owner's own photo.",
+      "links": []
+    },
+    "credit-eagle": {
+      "text": "Eagle photo: the owner's own photo.",
       "links": []
     }
   }

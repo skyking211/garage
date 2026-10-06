@@ -27,6 +27,12 @@ The token lives **only in that browser's localStorage**. It is never committed. 
 
 If two devices edit at once, the site detects the conflict and asks you to **Merge both** (recommended), **Keep mine**, **Use GitHub's**, or **Not now**.
 
+## Sky Sailing
+The **Sky Sailing** tab (`#/sky`, sky theme) holds the aircraft. Gliders track **total time**; powered aircraft track **Hobbs / total time** plus **tach**.
+- Owl: Schweizer SGS 1-26E glider.
+- Eagle: Aero Commander A9B Quail, a powered aircraft, restricted category per its placard. Engine and fuel/oil data come from FAA TCDS A-758. The TCDS lists either a Lycoming IO-540-G1C5 or an IO-540-K1A5; the installed model is left as "add". TBO comes from Lycoming SI 1009BF, oil changes from SB 480F, and the inspection chart and confirmed ADs from 14 CFR 91 and FAA DRS. Items marked *conditional* depend on how the aircraft is used or equipped (for hire, IFR, ELT). Part-dependent ADs are listed separately to check against the logbooks.
+- The N-number, serial number and data-plate details go only in the aircraft's **Vault**, never in normal fields.
+
 ## Tractors
 The **Tractors** tab (`#/tractors`, Ford-yellow theme) holds machines that run on an engine **hour meter**, so the schedule, log and meter forms use **Hours** instead of miles.
 - Ford 445C tractor loader / backhoe. The year (1990) is decoded from the ID plate's unit code. The specs, schedule and parts each list a source. Anything that couldn't be confirmed is labelled *unverified*, *uncertain* or *part # needed*, or left blank as "add".
@@ -61,7 +67,7 @@ Note: the destination email is visible in the page source. FormSubmit can swap i
 
 ## Files
 - `index.html`: the whole app (hash routes: `#/`, `#/sky`, `#/tractors`, `#/v/<id>`, `#/request/<id>`, `#/settings`, `#/search/<q>`)
-- `data/garage.json`: all data. Each item has `category: "vehicle"`, `"aircraft"` or `"tractor"`. Tractors use `hours` + `meterDate`.
+- `data/garage.json`: all data. Each item has `category: "vehicle"`, `"aircraft"` or `"tractor"`. Tractors use `hours` + `meterDate`. Powered aircraft set `powered: true` and use `totalTime` (Hobbs) + `tach`. Optional `requestSubject` and `photoAlt` override the request email subject and photo alt text.
 - `js/store.js`: load/save and GitHub sync · `js/vault.js`: encrypted Vault · `js/schedule.js`: due/overdue math · `js/turntable.js`: drag-to-spin viewer · `js/app.js`: UI
 - `thanks.html`: page shown after a request is sent
 
@@ -69,9 +75,10 @@ Note: the destination email is visible in the page source. FormSubmit can swap i
 - Enclave photos: "2022 Buick Enclave Premium AWD in Quicksilver Metallic" (front left and rear right) by **Elise240SX**, **CC BY-SA 4.0**, via Wikimedia Commons.
   Background removed, resized and mirrored for the turntable; those derivatives are shared under CC BY-SA 4.0.
 - Owl (the SGS 1-26E) photo, `images/sgs-126/`: the owner's own photo. Resized, with all EXIF/GPS metadata removed.
+- Eagle (the Aero Commander A9B) photo, `images/eagle/`: the owner's own photo. Cropped and resized, with all EXIF/GPS metadata removed.
 - Ford 445C photo, `images/ford-445c/`: the owner's own photo. Cropped and resized, with all EXIF/GPS metadata removed.
 - Glider fallback artwork (`images/glider.svg`): original stylized SVG made for this site.
 - Keith's Tractor photo (`images/keiths-tractor/`) and Lil Red photo (`images/lil-red/`): the owner's own photos. Cropped and resized, with all EXIF/GPS metadata removed.
 - Tractor fallback artwork (`images/tractor.svg`): original SVG made for this site.
 - Fonts: Big Shoulders Display, Inter, JetBrains Mono (SIL Open Font License) via Google Fonts.
-- Maintenance intervals come from the 2022 Buick Enclave Owner's Manual. Aircraft items come from 14 CFR 91.409 and FAA ADs 87-02-01 / 87-17-01. Satoh S-650G items come from the factory Instruction Book and TractorData. Ford 445C items come from TractorData, quotes from operator's manual 42034530, WIX application lookups and parts-seller fitment lists. Each profile lists its sources.
+- Maintenance intervals come from the 2022 Buick Enclave Owner's Manual. Glider items come from 14 CFR 91.409 and FAA ADs 87-02-01 / 87-17-01. Eagle's items come from FAA TCDS A-758, Lycoming SI 1009BF, SB 480F and SI 1014P, Champion Aviation catalog AV-14, 14 CFR 91.207 / 91.409 / 91.411 / 91.413, and FAA ADs 2015-19-07, 73-22-02, 78-20-06, 92-12-05 and 96-09-10. Satoh S-650G items come from the factory Instruction Book and TractorData. Ford 445C items come from TractorData, quotes from operator's manual 42034530, WIX application lookups and parts-seller fitment lists. Each profile lists its sources.

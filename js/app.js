@@ -29,13 +29,17 @@
     tractor: { route: '#/tractors', home: 'Tractors', noun: 'machine', kicker: 'Tractor', theme: 'tractor', chip: 'Tractor', add: 'Add tractor', color: '#0d0b05' }
   };
   function catInfo(v) { return CAT[catOf(v)]; }
+  function isPowered(v) { return isAir(v) && !!v.powered; }  // powered aircraft (engine, Hobbs) vs glider
+  function kickerFor(v) { return isPowered(v) ? 'Powered aircraft' : catInfo(v).kicker; }
+  function chipFor(v) { return isPowered(v) ? 'Powered' : catInfo(v).chip; }
+  function ttLabel(v) { return isPowered(v) ? 'Hobbs / total time (hrs)' : 'Total time (hrs)'; }
   function ymm(v) { return [v.year, v.make, v.model].filter(Boolean).join(' '); }
   function img(src) { return (src && Store.cachedImage(src)) || src || null; }
   function placeholderFor(v) { return isAir(v) ? 'images/glider.svg' : isTractor(v) ? 'images/tractor.svg' : 'images/car-placeholder.svg'; }
   function srcFor(v) { return img(v.photo) || placeholderFor(v); }
   function isPhoto(v) { return v.photoStyle === 'photo'; }  // a real photo (not a cut-out): show full-bleed, no turntable
   function fallbackAttr(v) { return ' onerror="this.onerror=null;this.removeAttribute(\'srcset\');this.src=\'' + esc(v.photoFallback || placeholderFor(v)) + '\'"'; }
-  function photoAlt(v) { return v.name + (ymm(v) ? ', ' + ymm(v) : ''); }
+  function photoAlt(v) { return v.photoAlt || (v.name + (ymm(v) ? ', ' + ymm(v) : '')); }
   function unitWord(v) { return usesHours(v) ? 'hrs' : 'mi'; }
 
   var toastEl = document.getElementById('toast'), toastT;
@@ -223,7 +227,7 @@
     var air = cat === 'aircraft';
     var list = Store.data.vehicles.filter(function (v) { return v.category === cat; });
     var html = '<section class="intro reveal-up">' +
-      (air ? '<p class="kicker">Sky Sailing · gliders</p><h1 class="display chrome">Ridge lift &amp; logbooks</h1><p class="lede">Annuals, ADs and squawks for the fleet. Tap a glider for its profile.</p>'
+      (air ? '<p class="kicker">Sky Sailing · ' + list.length + ' aircraft</p><h1 class="display chrome">Ridge lift &amp; logbooks</h1><p class="lede">Annuals, ADs and squawks for the fleet. Tap an aircraft for its profile.</p>'
            : cat === 'tractor' ? '<p class="kicker">Tractors · ' + list.length + ' machine' + (list.length === 1 ? '' : 's') + '</p><h1 class="display chrome">Hours, grease &amp; hydraulics</h1><p class="lede">Hour-meter service, filters and grease points. Tap a machine.</p>'
            : '<p class="kicker">The Garage · ' + list.length + ' vehicle' + (list.length === 1 ? '' : 's') + '</p><h1 class="display chrome">Oil, iron &amp; elbow grease</h1><p class="lede">What’s due, what’s done, and the part numbers. Tap a card.</p>') +
       '</section><section class="cards">';
@@ -232,7 +236,7 @@
       html += '<article class="card" style="--i:' + i + '">' +
         '<a class="card-photo' + (isPhoto(v) ? ' is-photo' : '') + '" href="#/v/' + encodeURIComponent(v.id) + '" aria-label="Open ' + esc(v.name) + ' profile"><span class="card-spot"></span><img src="' + esc(srcFor(v)) + '"' +
           (isPhoto(v) && v.photoSm && !Store.cachedImage(v.photo) ? ' srcset="' + esc(v.photoSm) + ' 640w, ' + esc(v.photo) + ' 1280w" sizes="(min-width: 700px) 420px, 100vw"' : '') + ' alt="' + esc(photoAlt(v)) + '" loading="lazy"' + fallbackAttr(v) + '></a>' +
-        '<div class="card-body"><div class="card-top"><h2 class="card-name">' + nw(v.name) + '</h2>' + (catInfo(v).chip ? '<span class="cat-chip">' + catInfo(v).chip + '</span>' : '') + '</div>' +
+        '<div class="card-body"><div class="card-top"><h2 class="card-name">' + nw(v.name) + '</h2>' + (chipFor(v) ? '<span class="cat-chip">' + chipFor(v) + '</span>' : '') + '</div>' +
         '<p class="card-ymm">' + esc(v.subtitle || ymm(v) || 'Year / make / model: add') + '</p>' +
         '<p class="card-meter">' + meterLine(v) + '</p>' +
         '<p class="badges"><span class="badge ' + b.cls + '">' + esc(b.text) + '</span>' + (b.extra ? '<span class="badge ghost">' + esc(b.extra) + '</span>' : '') + '</p>' +
@@ -248,7 +252,7 @@
     var air = isAir(v), trac = isTractor(v), ci = catInfo(v), u = unitWord(v);
     var sum = S.summary(v), next = S.nextService(v);
     var h = '<nav class="crumbs"><a href="' + ci.route + '">‹ ' + ci.home + '</a></nav>';
-    h += '<section class="profile-head reveal-up"><p class="kicker">' + ci.kicker + ' profile</p><h1 class="display chrome">' + nw(v.name) + '</h1>' +
+    h += '<section class="profile-head reveal-up"><p class="kicker">' + kickerFor(v) + ' profile</p><h1 class="display chrome">' + nw(v.name) + '</h1>' +
       '<p class="lede">' + (v.subtitle ? '<strong class="subtitle">' + esc(v.subtitle) + '</strong>' + (ymm(v) && v.subtitle.indexOf(ymm(v)) < 0 ? ' · ' : '') : '') + (v.subtitle && (!ymm(v) || v.subtitle.indexOf(ymm(v)) >= 0) ? '' : esc(ymm(v) || 'Year / make / model: add')) + (v.color ? ' · <span class="swatch" style="--c:' + esc(v.colorHex || '#aaa') + '"></span>' + esc(v.color) : '') + (v.engine ? ' · ' + esc(v.engine) : '') + '</p></section>';
     h += isPhoto(v)
       ? '<figure class="hero-photo" id="showroom"><img src="' + esc(srcFor(v)) + '"' + (v.photoSm && !Store.cachedImage(v.photo) ? ' srcset="' + esc(v.photoSm) + ' 640w, ' + esc(v.photo) + ' 1280w" sizes="(min-width: 1000px) 900px, 100vw"' : '') + ' alt="' + esc(photoAlt(v)) + '" fetchpriority="high"' + fallbackAttr(v) + '><span class="hp-sweep" aria-hidden="true"></span></figure>'
@@ -256,7 +260,7 @@
     h += '<div class="photo-tools"><button class="btn small" id="changePhoto">📷 Change photo</button><button class="btn small" id="editUnit">✎ Edit details</button></div>';
 
     h += '<section class="grid2">';
-    h += '<div class="panel meter-panel reveal-up"><p class="kicker">' + (air ? 'Total time / tach' : trac ? 'Hour meter' : 'Odometer') + '</p>';
+    h += '<div class="panel meter-panel reveal-up"><p class="kicker">' + (isPowered(v) ? 'Hobbs / total time · tach' : air ? 'Total time / tach' : trac ? 'Hour meter' : 'Odometer') + '</p>';
     if (trac) {
       h += '<p class="meter-big">' + (v.hours != null && v.hours !== '' ? num(v.hours) + '<small> hrs</small>' : '<span class="add-slot">add</span><small> hours</small>') + '</p>' +
         '<p class="small">' + (v.meterDate ? 'as of ' + fdate(v.meterDate) : 'Read the hour meter on the dash and tap Update hours.') + '</p>';
@@ -299,7 +303,7 @@
     h += '<section class="panel vault reveal-up" id="vault" aria-label="Encrypted vault"></section>';
 
     // schedule chart
-    h += '<section class="panel reveal-up" id="schedule"><div class="panel-head"><h2>' + (air ? 'Annual inspection &amp; ADs' : trac ? 'Maintenance schedule (hours)' : 'Maintenance schedule') + '</h2>' +
+    h += '<section class="panel reveal-up" id="schedule"><div class="panel-head"><h2>' + (isPowered(v) ? 'Inspections, oil &amp; ADs' : air ? 'Annual inspection &amp; ADs' : trac ? 'Maintenance schedule (hours)' : 'Maintenance schedule') + '</h2>' +
       (!air && !trac ? '<div class="seg" role="group" aria-label="Schedule type"><button data-mode="normal" class="' + (v.scheduleMode !== 'severe' ? 'on' : '') + '">Normal</button><button data-mode="severe" class="' + (v.scheduleMode === 'severe' ? 'on' : '') + '">Severe</button></div>' : '') + '</div>';
     if (!air && !trac && v.inServiceAssumed) h += '<p class="small">Items with no record are counted from an <em>assumed</em> in-service date of ' + fdate(v.inServiceDate) + '. Change it under Edit details.</p>';
     h += '<div class="sched">';
@@ -342,7 +346,7 @@
       var q = p.buy || ((p.numbers && p.numbers[0] ? (p.numbers[0].brand + ' ' + p.numbers[0].number) : p.name));
       h += '<div class="buy"><a class="btn small amazon" target="_blank" rel="noopener" href="https://www.amazon.com/s?k=' + encodeURIComponent(q) + '">Amazon search ↗</a><a class="btn small" target="_blank" rel="noopener" href="https://www.google.com/search?tbm=shop&amp;q=' + encodeURIComponent(q) + '">Compare prices ↗</a></div></div>';
     });
-    h += '</div><p class="footnote">Tap a part number to copy it. Buy links are store <em>searches</em>, so check fitment before you order. Labels: <span class="pst verified">verified</span> = confirmed in a cited source · <span class="pst cross-ref">cross-ref</span> = interchange list only · <span class="pst unverified">unverified</span> · <span class="pst not-a-match">not a match</span> · <span class="pst user">added</span> = you typed it.' + (trac ? ' · <span class="pst parts-site">parts site</span> = a parts seller’s fitment list only · <span class="pst unverified">part # needed</span> = placeholder, no part number yet.' : '') + '</p></section>';
+    h += '</div><p class="footnote">Tap a part number to copy it. Buy links are store <em>searches</em>, so check fitment before you order. Labels: <span class="pst verified">verified</span> = confirmed in a cited source · <span class="pst cross-ref">cross-ref</span> = interchange list only · <span class="pst unverified">unverified</span> · <span class="pst not-a-match">not a match</span> · <span class="pst user">added</span> = you typed it.' + (trac ? ' · <span class="pst parts-site">parts site</span> = a parts seller’s fitment list only' : '') + (trac || v.parts.some(function (p) { return p.flag; }) ? ' · <span class="pst unverified">part # needed</span> = placeholder, no part number yet.' : '') + '</p></section>';
 
     // log
     var log = v.log.slice().sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; });
@@ -446,7 +450,7 @@
     var preTask = preTag && !entry ? (v.schedule.filter(function (s) { return s.id === preTag; })[0] || {}).task : '';
     openModal('<h2>' + (entry ? 'Edit entry' : (air ? 'Log entry' : 'Log service')) + '</h2><form id="lf" class="form">' +
       field('Date', 'date', e.date, { type: 'date', required: true }) +
-      (air ? '<div class="two">' + field('Total time (hrs)', 'totalTime', e.totalTime, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + field('Tach (hrs)', 'tach', e.tach, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + '</div>'
+      (air ? '<div class="two">' + field(ttLabel(v), 'totalTime', e.totalTime, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + field('Tach (hrs)', 'tach', e.tach, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + '</div>'
            : trac ? field('Hours', 'hours', e.hours, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0, hint: 'hour-meter reading, leave blank if unknown' })
            : field('Odometer (mi)', 'mileage', e.mileage, { type: 'number', inputmode: 'numeric', min: 0, hint: 'leave blank if unknown' })) +
       (chips ? '<div class="field"><span class="flabel">What got done? <span class="hint">updates the chart</span></span><div class="chips">' + chips + '</div></div>' : '') +
@@ -525,7 +529,7 @@
   function meterForm(v) {
     var air = isAir(v), trac = isTractor(v);
     openModal('<h2>' + (air ? 'Update times' : trac ? 'Update hours' : 'Update mileage') + '</h2><form id="mf" class="form">' +
-      (air ? '<div class="two">' + field('Total time (hrs)', 'totalTime', v.totalTime, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + field('Tach (hrs)', 'tach', v.tach, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + '</div>'
+      (air ? '<div class="two">' + field(ttLabel(v), 'totalTime', v.totalTime, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + field('Tach (hrs)', 'tach', v.tach, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + '</div>'
            : trac ? field('Hour meter (hrs)', 'hours', '', { type: 'number', step: '0.1', inputmode: 'decimal', min: 0, required: true, ph: v.hours != null ? 'Last: ' + num(v.hours) : 'e.g., 2,345.6' })
            : field('Odometer (mi)', 'mileage', '', { type: 'number', inputmode: 'numeric', min: 0, required: true, ph: 'Last: ' + num(v.mileage) })) +
       field('As of', 'date', todayIso(), { type: 'date', required: true }) +
@@ -596,8 +600,8 @@
       (trac ? field('Subtitle', 'subtitle', u.subtitle, { ph: 'e.g., Tractor loader / backhoe' }) : '') +
       '<div class="two">' + field('Year', 'year', u.year, { type: 'number', inputmode: 'numeric', min: 1900 }) + field('Make', 'make', u.make, { ph: air ? 'Schweizer' : trac ? 'Ford' : 'Buick' }) + '</div>' +
       field('Model', 'model', u.model, { ph: air ? 'SGS 1-26' : trac ? '445C' : 'Enclave' }) +
-      '<div class="two">' + field('Color', 'color', u.color) + field(air ? 'Type' : 'Engine', 'engine', u.engine, { ph: air ? 'Glider' : trac ? '3-cyl diesel' : '3.6L V6' }) + '</div>' +
-      (trac ? field('Hours', 'hours', u.hours, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0, hint: 'engine hour meter' }) : air ? '<div class="two">' + field('Total time (hrs)', 'totalTime', u.totalTime, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + field('Tach (hrs)', 'tach', u.tach, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + '</div>'
+      '<div class="two">' + field('Color', 'color', u.color) + field(air && !u.powered ? 'Type' : 'Engine', 'engine', u.engine, { ph: air ? 'Glider' : trac ? '3-cyl diesel' : '3.6L V6' }) + '</div>' +
+      (trac ? field('Hours', 'hours', u.hours, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0, hint: 'engine hour meter' }) : air ? '<div class="two">' + field(ttLabel(u), 'totalTime', u.totalTime, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + field('Tach (hrs)', 'tach', u.tach, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + '</div>'
            : field('Mileage (mi)', 'mileage', u.mileage, { type: 'number', inputmode: 'numeric', min: 0 }) + field('In service since', 'inServiceDate', u.inServiceDate, { type: 'date', hint: 'for time-based items with no record' })) +
       (!v ? '<div class="field"><span class="flabel">Photo <span class="hint">optional, resized on your phone</span></span><input type="file" name="photo" accept="image/*"></div>' : '') +
       PUBLIC_NOTE + '<div class="form-actions"><button class="btn primary big">Save</button></div></form>', function (b) {
@@ -673,7 +677,7 @@
     var air = isAir(v), trac = isTractor(v);
     // Tractors: "Make Model" once the model is known, otherwise the nickname (e.g. Keith's Tractor).
     var title = v.requestTitle || (trac ? (v.model ? [v.make, v.model].filter(Boolean).join(' ') : v.name) : (ymm(v) || v.name));
-    var subject = (air ? 'Sky Sailing request: ' : 'Garage request: ') + title;
+    var subject = v.requestSubject || ((air ? 'Sky Sailing request: ' : 'Garage request: ') + title);
     var next = new URL('thanks.html?v=' + encodeURIComponent(v.id), location.href.split('#')[0]).href;
     var h = '<nav class="crumbs"><a href="#/v/' + encodeURIComponent(v.id) + '">‹ ' + esc(v.name) + '</a></nav>' +
       '<section class="request-head reveal-up"><img class="req-thumb' + (isPhoto(v) ? ' is-photo' : '') + '" src="' + esc(isPhoto(v) && v.photoSm && !Store.cachedImage(v.photo) ? v.photoSm : srcFor(v)) + '" alt=""' + fallbackAttr(v) + '><div><p class="kicker">Request service</p><h1 class="display chrome">' + nw(title) + '</h1><p class="lede">Tell Blue what you need. It goes straight to his inbox.</p></div></section>' +

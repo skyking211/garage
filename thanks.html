@@ -25,7 +25,7 @@
   (function () {
     var id = new URLSearchParams(location.search).get('v');
     if (id && /^[a-z0-9-]+$/i.test(id)) document.getElementById('back').href = './#/v/' + encodeURIComponent(id);
-    if (id && /sgs|glider|aircraft/i.test(id)) document.body.dataset.theme = 'sky';
+    if (id && /sgs|glider|aircraft|eagle/i.test(id)) document.body.dataset.theme = 'sky';
     else if (id && /tractor|445c|ford-4|backhoe|lil-red/i.test(id)) document.body.dataset.theme = 'tractor';
   })();
 </script>
