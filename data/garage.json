@@ -1,835 +1,835 @@
 {
- "version": 2,
- "shop": {
-  "name": "Skysailing work vehicles",
-  "owner": "Blue"
- },
- "updated": "2026-10-06",
- "vehicles": [
-  {
-   "id": "enclave-2022",
-   "category": "vehicle",
-   "name": "The Enclave",
-   "year": 2022,
-   "make": "Buick",
-   "model": "Enclave",
-   "color": "Quicksilver Metallic (silver)",
-   "colorHex": "#b8bcc0",
-   "engine": "3.6L V6 (LFY)",
-   "mileage": 75307,
-   "mileageDate": "2025-09-20",
-   "mileageNeedsUpdate": true,
-   "inServiceDate": "2022-01-01",
-   "inServiceAssumed": true,
-   "scheduleMode": "normal",
-   "photo": "images/enclave-2022/fl.webp",
-   "turntable": {
-    "views": [
-     {
-      "src": "images/enclave-2022/fl.webp",
-      "label": "Front L"
-     },
-     {
-      "src": "images/enclave-2022/rr.webp",
-      "label": "Rear L",
-      "mirror": true
-     },
-     {
-      "src": "images/enclave-2022/rr.webp",
-      "label": "Rear R"
-     },
-     {
-      "src": "images/enclave-2022/fl.webp",
-      "label": "Front R",
-      "mirror": true
-     }
-    ]
-   },
-   "photoCredit": "credit-enclave",
-   "specs": [
-    {
-     "label": "Engine",
-     "value": "3.6L V6, GM RPO LFY",
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "label": "Fuel",
-     "value": "Regular unleaded, 87 octane or higher",
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "label": "Engine oil",
-     "value": "SAE 5W-30 full synthetic meeting dexos1 (look for the dexos1 logo). Shop uses Valvoline 5W-30 Advanced Full Synthetic.",
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "label": "Oil capacity (with filter)",
-     "value": "6.0 qt (5.7 L). Owner notes say \"just over 6 qt\", so check the dipstick.",
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "label": "Oil filter",
-     "value": "ACDelco PF63 (GM 12707246) · WIX WL10255",
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "label": "Drain plug",
-     "value": "15 mm socket · 18 ft-lb (25 N·m) · seal GM 12616850",
-     "note": "15 mm and 18 ft-lb come from the owner's notes. 18 ft-lb matches GM's 3.6L V6 (LFX) spec; LFY not directly confirmed.",
-     "source": "lfxtorque",
-     "status": "partly verified"
-    },
-    {
-     "label": "Tires",
-     "value": "255/65R18 (18\" wheels) or 255/55R20 (20\" wheels). Check your sidewall.",
-     "source": "wheelsize",
-     "status": "verified"
-    },
-    {
-     "label": "Tire pressure (cold)",
-     "value": "35 psi front & rear · compact spare 60 psi. Confirm on the driver door-jamb label.",
-     "source": "tirepressure",
-     "status": "verified"
-    },
-    {
-     "label": "Wheel nut torque",
-     "value": "140 lb ft (190 N·m)",
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "label": "Transmission fluid",
-     "value": "DEXRON-VI",
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "label": "Coolant",
-     "value": "DEX-COOL, 50/50 with clean water · 15.4 qt (17.6 qt with V92 towing pkg)",
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "label": "Brake fluid",
-     "value": "DOT 4",
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "label": "Spark plugs",
-     "value": "ACDelco 41-109 (GM 12622561) ×6 · gap 0.037–0.043 in, preset, do not regap",
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "label": "Fuel tank",
-     "value": "19.4 gal FWD · 21.7 gal AWD",
-     "source": "manual",
-     "status": "verified"
-    }
-   ],
-   "schedule": [
-    {
-     "id": "oil",
-     "task": "Engine oil & filter",
-     "everyMiles": 7500,
-     "everyMonths": 12,
-     "basis": "Change when the Oil Life Monitor says CHANGE ENGINE OIL SOON (within 600 mi), and at least once a year. The 7,500 mi figure is only for planning; the OLM decides.",
-     "source": "manual",
-     "status": "verified",
-     "note": "7,500-mi planning figure: KBB + the manual's 7,500-mi Required Services."
-    },
-    {
-     "id": "rotation",
-     "task": "Tire rotation + Required Services inspection",
-     "everyMiles": 7500,
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "id": "engineAir",
-     "task": "Engine air filter",
-     "everyMonths": 48,
-     "basis": "Replace when the Air Filter Life display (DIC) says so, or every 4 years. Inspect at every oil change if dusty.",
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "id": "cabin",
-     "task": "Cabin (passenger compartment) air filter",
-     "everyMiles": 22500,
-     "everyMonths": 24,
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "id": "wipers",
-     "task": "Wiper blades (front & rear)",
-     "everyMiles": 15000,
-     "everyMonths": 12,
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "id": "plugs",
-     "task": "Spark plugs (inspect wires/boots)",
-     "everyMiles": 97500,
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "id": "brakeFluid",
-     "task": "Brake fluid (DOT 4)",
-     "everyMonths": 60,
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "id": "coolant",
-     "task": "Drain & fill cooling system (DEX-COOL)",
-     "everyMiles": 150000,
-     "everyMonths": 60,
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "id": "belts",
-     "task": "Inspect accessory drive belt",
-     "everyMiles": 150000,
-     "everyMonths": 120,
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "id": "struts",
-     "task": "Hood / liftgate gas struts",
-     "everyMiles": 75000,
-     "everyMonths": 120,
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "id": "rearAxle",
-     "task": "Rear axle fluid (AWD only)",
-     "everyMiles": 150000,
-     "severeMiles": 75000,
-     "source": "manual",
-     "status": "verified",
-     "note": "Skip if FWD."
-    },
-    {
-     "id": "atf",
-     "task": "Automatic transmission fluid (DEXRON-VI)",
-     "severeMiles": 45000,
-     "basis": "Normal schedule: no set interval. Severe schedule: every 45,000 mi.",
-     "source": "manual",
-     "status": "verified"
-    },
-    {
-     "id": "acDesiccant",
-     "task": "A/C desiccant",
-     "everyMonths": 84,
-     "source": "manual",
-     "status": "verified"
-    }
-   ],
-   "parts": [
-    {
-     "id": "p-oil",
-     "category": "Engine oil",
-     "name": "Valvoline 5W-30 Advanced Full Synthetic",
-     "qty": "6 qt (5-qt jug + 1 qt)",
-     "numbers": [
-      {
-       "brand": "Spec",
-       "number": "SAE 5W-30 dexos1 full synthetic",
-       "status": "verified",
-       "note": "Spec from the manual. The brand is the shop's choice.",
-       "source": "manual"
-      }
-     ],
-     "buy": "Valvoline Advanced Full Synthetic 5W-30 5 quart"
-    },
-    {
-     "id": "p-filter",
-     "category": "Oil filter",
-     "name": "Oil filter",
-     "qty": "1",
-     "numbers": [
-      {
-       "brand": "ACDelco",
-       "number": "PF63",
-       "status": "verified",
-       "note": "Listed in the owner's manual",
-       "source": "manual"
-      },
-      {
-       "brand": "GM",
-       "number": "12707246",
-       "status": "verified",
-       "source": "manual"
-      },
-      {
-       "brand": "ACDelco",
-       "number": "PF63E",
-       "status": "cross-ref",
-       "note": "Current ACDelco version (GM 19330000). Cross-ref only.",
-       "source": "finditparts"
-      },
-      {
-       "brand": "WIX",
-       "number": "WL10255",
-       "status": "verified",
-       "note": "WIX lists Enclave 3.6L 2011–2024",
-       "source": "wix"
-      },
-      {
-       "brand": "WIX",
-       "number": "57060",
-       "status": "not a match",
-       "note": "Not a cross-ref for this car. WIX moved 57060 to WL10290 for select GM apps. Use WL10255.",
-       "source": "wixbulletin"
-      }
-     ],
-     "buy": "ACDelco PF63E oil filter"
-    },
-    {
-     "id": "p-plug-seal",
-     "category": "Drain plug",
-     "name": "Oil drain plug seal / O-ring",
-     "qty": "1",
-     "numbers": [
-      {
-       "brand": "GM",
-       "number": "12616850",
-       "status": "verified",
-       "note": "GM catalog for 2022 Enclave 3.6L. Confirm at the parts counter.",
-       "source": "gmparts"
-      },
-      {
-       "brand": "Dorman",
-       "number": "097-119",
-       "status": "unverified",
-       "note": "M12 rubber gasket, listed for 2019 Enclave 3.6L",
-       "source": "dorman"
-      }
-     ],
-     "buy": "GM 12616850 drain plug seal"
-    },
-    {
-     "id": "p-air",
-     "category": "Engine air filter",
-     "name": "Engine air filter",
-     "qty": "1",
-     "numbers": [
-      {
-       "brand": "ACDelco",
-       "number": "A3212C",
-       "status": "verified",
-       "note": "Listed in the owner's manual",
-       "source": "manual"
-      },
-      {
-       "brand": "GM",
-       "number": "23321606",
-       "status": "verified",
-       "source": "manual"
-      },
-      {
-       "brand": "ACDelco",
-       "number": "A3218C",
-       "status": "not a match",
-       "note": "Not the manual's number for 2022",
-       "source": "manual"
-      }
-     ],
-     "buy": "ACDelco A3212C air filter"
-    },
-    {
-     "id": "p-cabin",
-     "category": "Cabin air filter",
-     "name": "Cabin air filter",
-     "qty": "1",
-     "numbers": [
-      {
-       "brand": "ACDelco",
-       "number": "CF179C",
-       "status": "verified",
-       "note": "Listed in the owner's manual",
-       "source": "manual"
-      },
-      {
-       "brand": "GM",
-       "number": "13508023",
-       "status": "verified",
-       "source": "manual"
-      },
-      {
-       "brand": "ACDelco",
-       "number": "CF188",
-       "status": "not a match",
-       "note": "Not the manual's number for 2022",
-       "source": "manual"
-      }
-     ],
-     "buy": "ACDelco CF179C cabin air filter"
-    },
-    {
-     "id": "p-wipers",
-     "category": "Wipers",
-     "name": "Wiper blades: driver 23.6\" · passenger 19.7\" · rear 10.8\"",
-     "qty": "3",
-     "numbers": [
-      {
-       "brand": "GM",
-       "number": "84580856",
-       "status": "verified",
-       "note": "Front driver, 60 cm (23.6\")",
-       "source": "manual"
-      },
-      {
-       "brand": "GM",
-       "number": "84580859",
-       "status": "verified",
-       "note": "Front passenger, 50 cm (19.7\")",
-       "source": "manual"
-      },
-      {
-       "brand": "GM",
-       "number": "84177374",
-       "status": "verified",
-       "note": "Rear, 27.5 cm (10.8\")",
-       "source": "manual"
-      },
-      {
-       "brand": "Aftermarket",
-       "number": "24\" / 20\" / 11\" rear",
-       "status": "unverified",
-       "note": "Common aftermarket fit-guide sizes",
-       "source": "garagedex"
-      }
-     ],
-     "buy": "2022 Buick Enclave wiper blades 24 20"
-    },
-    {
-     "id": "p-plugs",
-     "category": "Spark plugs",
-     "name": "Spark plugs (iridium, pre-gapped)",
-     "qty": "6",
-     "numbers": [
-      {
-       "brand": "ACDelco",
-       "number": "41-109",
-       "status": "verified",
-       "note": "Listed in the owner's manual",
-       "source": "manual"
-      },
-      {
-       "brand": "GM",
-       "number": "12622561",
-       "status": "verified",
-       "source": "manual"
-      },
-      {
-       "brand": "ACDelco",
-       "number": "41-114",
-       "status": "not a match",
-       "note": "Not the manual's number for 2022",
-       "source": "manual"
-      }
-     ],
-     "buy": "ACDelco 41-109 spark plug"
-    },
-    {
-     "id": "p-brake",
-     "category": "Fluids",
-     "name": "Brake fluid DOT 4",
-     "qty": "as needed",
-     "numbers": [
-      {
-       "brand": "Spec",
-       "number": "DOT 4",
-       "status": "verified",
-       "source": "manual"
-      }
-     ],
-     "buy": "DOT 4 brake fluid"
-    },
-    {
-     "id": "p-coolant",
-     "category": "Fluids",
-     "name": "DEX-COOL coolant (50/50)",
-     "qty": "as needed",
-     "numbers": [
-      {
-       "brand": "Spec",
-       "number": "DEX-COOL",
-       "status": "verified",
-       "source": "manual"
-      }
-     ],
-     "buy": "ACDelco DEX-COOL 50/50 coolant"
-    },
-    {
-     "id": "p-atf",
-     "category": "Fluids",
-     "name": "Transmission fluid DEXRON-VI",
-     "qty": "as needed",
-     "numbers": [
-      {
-       "brand": "Spec",
-       "number": "DEXRON-VI",
-       "status": "verified",
-       "source": "manual"
-      }
-     ],
-     "buy": "DEXRON-VI transmission fluid"
-    }
-   ],
-   "log": [
-    {
-     "id": "l01",
-     "date": "2022-11-20",
-     "mileage": null,
-     "service": "Oil change",
-     "tags": [
-      "oil"
-     ],
-     "parts": "",
-     "notes": "From paper log."
-    },
-    {
-     "id": "l02",
-     "date": "2023-02-16",
-     "mileage": 20055,
-     "mileageUncertain": true,
-     "service": "Oil & filter change",
-     "tags": [
-      "oil"
-     ],
-     "parts": "",
-     "notes": "Engine air filter NOT done. Paper log says '20055', probably the odometer (20,055 mi). Not confirmed."
-    },
-    {
-     "id": "l03",
-     "date": "2023-05-18",
-     "mileage": 25151,
-     "service": "Oil & filter change, cabin air filter",
-     "tags": [
-      "oil",
-      "cabin"
-     ],
-     "parts": "Valvoline 5W-30 Advanced Full Synthetic; ACDelco PF63 oil filter; cabin air filter",
-     "notes": ""
-    },
-    {
-     "id": "l04",
-     "date": "2024-03-13",
-     "mileage": null,
-     "service": "Oil & filter change, windshield wipers",
-     "tags": [
-      "oil",
-      "wipers"
-     ],
-     "parts": "Wiper blades",
-     "notes": ""
-    },
-    {
-     "id": "l05",
-     "date": "2024-06-08",
-     "mileage": null,
-     "service": "Oil & filter change, cabin air filter",
-     "tags": [
-      "oil",
-      "cabin"
-     ],
-     "parts": "Just over 6 qt Valvoline 5W-30 Advanced Full Synthetic; cabin air filter",
-     "notes": "Drain plug torqued to 18 ft-lb."
-    },
-    {
-     "id": "l06",
-     "date": "2024-08-04",
-     "mileage": null,
-     "service": "Tire rotation",
-     "tags": [
-      "rotation"
-     ],
-     "parts": "",
-     "notes": ""
-    },
-    {
-     "id": "l07",
-     "date": "2025-01-03",
-     "mileage": 59360,
-     "service": "Oil & filter change (only)",
-     "tags": [
-      "oil"
-     ],
-     "parts": "",
-     "notes": ""
-    },
-    {
-     "id": "l08",
-     "date": "2025-04-26",
-     "mileage": null,
-     "service": "Oil & filter change, cabin air filter",
-     "tags": [
-      "oil",
-      "cabin"
-     ],
-     "parts": "5W-30 full synthetic; cabin air filter",
-     "notes": "15 mm drain plug."
-    },
-    {
-     "id": "l09",
-     "date": "2025-09-20",
-     "dateUncertain": true,
-     "mileage": 75307,
-     "service": "Oil & filter change",
-     "tags": [
-      "oil"
-     ],
-     "parts": "",
-     "notes": "Paper log date could also be 9/26/25."
-    },
-    {
-     "id": "l10",
-     "date": "2026-03-14",
-     "mileage": null,
-     "service": "Oil change",
-     "tags": [
-      "oil"
-     ],
-     "parts": "Valvoline 5W-30",
-     "notes": ""
-    },
-    {
-     "id": "l11",
-     "date": "2026-06-11",
-     "mileage": null,
-     "service": "Windshield wipers",
-     "tags": [
-      "wipers"
-     ],
-     "parts": "Wiper blades",
-     "notes": ""
-    },
-    {
-     "id": "l12",
-     "date": "2026-09-07",
-     "mileage": null,
-     "service": "Oil & filter change",
-     "tags": [
-      "oil"
-     ],
-     "parts": "Valvoline 5W-30 Advanced Full Synthetic; WIX WL10255 oil filter",
-     "notes": "15 mm socket on drain plug."
-    }
-   ],
-   "todos": [
-    {
-     "id": "t1",
-     "text": "Replace engine air filter (ACDelco A3212C)",
-     "done": false
-    },
-    {
-     "id": "t2",
-     "text": "New oil drain plug O-ring / seal (GM 12616850)",
-     "done": false
-    },
-    {
-     "id": "t3",
-     "text": "Tires: check & rotate",
-     "done": false
-    },
-    {
-     "id": "t4",
-     "text": "Clean interior",
-     "done": false
-    },
-    {
-     "id": "t5",
-     "text": "Windshield",
-     "done": false
-    }
-   ]
+  "version": 2,
+  "shop": {
+    "name": "Skysailing work vehicles",
+    "owner": "Blue"
   },
-  {
-   "id": "sgs-1-26",
-   "category": "aircraft",
-   "name": "Schweizer SGS 1-26",
-   "year": null,
-   "make": "Schweizer",
-   "model": "SGS 1-26",
-   "color": "",
-   "engine": "Glider (no engine)",
-   "totalTime": null,
-   "tach": null,
-   "meterDate": null,
-   "meterNeedsUpdate": true,
-   "photo": "images/glider.svg",
-   "photoCredit": "credit-glider",
-   "specs": [
+  "updated": "2026-10-06",
+  "vehicles": [
     {
-     "label": "Model variant (1-26, A, B, C, D or E)",
-     "value": ""
+      "id": "enclave-2022",
+      "category": "vehicle",
+      "name": "The Enclave",
+      "year": 2022,
+      "make": "Buick",
+      "model": "Enclave",
+      "color": "Quicksilver Metallic (silver)",
+      "colorHex": "#b8bcc0",
+      "engine": "3.6L V6 (LFY)",
+      "mileage": 97688,
+      "mileageDate": "2026-10-06",
+      "mileageNeedsUpdate": false,
+      "inServiceDate": "2022-01-01",
+      "inServiceAssumed": true,
+      "scheduleMode": "normal",
+      "photo": "images/enclave-2022/fl.webp",
+      "turntable": {
+        "views": [
+          {
+            "src": "images/enclave-2022/fl.webp",
+            "label": "Front L"
+          },
+          {
+            "src": "images/enclave-2022/rr.webp",
+            "label": "Rear L",
+            "mirror": true
+          },
+          {
+            "src": "images/enclave-2022/rr.webp",
+            "label": "Rear R"
+          },
+          {
+            "src": "images/enclave-2022/fl.webp",
+            "label": "Front R",
+            "mirror": true
+          }
+        ]
+      },
+      "photoCredit": "credit-enclave",
+      "specs": [
+        {
+          "label": "Engine",
+          "value": "3.6L V6, GM RPO LFY",
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "label": "Fuel",
+          "value": "Regular unleaded, 87 octane or higher",
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "label": "Engine oil",
+          "value": "SAE 5W-30 full synthetic meeting dexos1 (look for the dexos1 logo). Shop uses Valvoline 5W-30 Advanced Full Synthetic.",
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "label": "Oil capacity (with filter)",
+          "value": "6.0 qt (5.7 L). Owner notes say \"just over 6 qt\", so check the dipstick.",
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "label": "Oil filter",
+          "value": "ACDelco PF63 (GM 12707246) · WIX WL10255",
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "label": "Drain plug",
+          "value": "15 mm socket · 18 ft-lb (25 N·m) · seal GM 12616850",
+          "note": "15 mm and 18 ft-lb come from the owner's notes. 18 ft-lb matches GM's 3.6L V6 (LFX) spec; LFY not directly confirmed.",
+          "source": "lfxtorque",
+          "status": "partly verified"
+        },
+        {
+          "label": "Tires",
+          "value": "255/65R18 (18\" wheels) or 255/55R20 (20\" wheels). Check your sidewall.",
+          "source": "wheelsize",
+          "status": "verified"
+        },
+        {
+          "label": "Tire pressure (cold)",
+          "value": "35 psi front & rear · compact spare 60 psi. Confirm on the driver door-jamb label.",
+          "source": "tirepressure",
+          "status": "verified"
+        },
+        {
+          "label": "Wheel nut torque",
+          "value": "140 lb ft (190 N·m)",
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "label": "Transmission fluid",
+          "value": "DEXRON-VI",
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "label": "Coolant",
+          "value": "DEX-COOL, 50/50 with clean water · 15.4 qt (17.6 qt with V92 towing pkg)",
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "label": "Brake fluid",
+          "value": "DOT 4",
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "label": "Spark plugs",
+          "value": "ACDelco 41-109 (GM 12622561) ×6 · gap 0.037–0.043 in, preset, do not regap",
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "label": "Fuel tank",
+          "value": "19.4 gal FWD · 21.7 gal AWD",
+          "source": "manual",
+          "status": "verified"
+        }
+      ],
+      "schedule": [
+        {
+          "id": "oil",
+          "task": "Engine oil & filter",
+          "everyMiles": 7500,
+          "everyMonths": 12,
+          "basis": "Change when the Oil Life Monitor says CHANGE ENGINE OIL SOON (within 600 mi), and at least once a year. The 7,500 mi figure is only for planning; the OLM decides.",
+          "source": "manual",
+          "status": "verified",
+          "note": "7,500-mi planning figure: KBB + the manual's 7,500-mi Required Services."
+        },
+        {
+          "id": "rotation",
+          "task": "Tire rotation + Required Services inspection",
+          "everyMiles": 7500,
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "id": "engineAir",
+          "task": "Engine air filter",
+          "everyMonths": 48,
+          "basis": "Replace when the Air Filter Life display (DIC) says so, or every 4 years. Inspect at every oil change if dusty.",
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "id": "cabin",
+          "task": "Cabin (passenger compartment) air filter",
+          "everyMiles": 22500,
+          "everyMonths": 24,
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "id": "wipers",
+          "task": "Wiper blades (front & rear)",
+          "everyMiles": 15000,
+          "everyMonths": 12,
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "id": "plugs",
+          "task": "Spark plugs (inspect wires/boots)",
+          "everyMiles": 97500,
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "id": "brakeFluid",
+          "task": "Brake fluid (DOT 4)",
+          "everyMonths": 60,
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "id": "coolant",
+          "task": "Drain & fill cooling system (DEX-COOL)",
+          "everyMiles": 150000,
+          "everyMonths": 60,
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "id": "belts",
+          "task": "Inspect accessory drive belt",
+          "everyMiles": 150000,
+          "everyMonths": 120,
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "id": "struts",
+          "task": "Hood / liftgate gas struts",
+          "everyMiles": 75000,
+          "everyMonths": 120,
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "id": "rearAxle",
+          "task": "Rear axle fluid (AWD only)",
+          "everyMiles": 150000,
+          "severeMiles": 75000,
+          "source": "manual",
+          "status": "verified",
+          "note": "Skip if FWD."
+        },
+        {
+          "id": "atf",
+          "task": "Automatic transmission fluid (DEXRON-VI)",
+          "severeMiles": 45000,
+          "basis": "Normal schedule: no set interval. Severe schedule: every 45,000 mi.",
+          "source": "manual",
+          "status": "verified"
+        },
+        {
+          "id": "acDesiccant",
+          "task": "A/C desiccant",
+          "everyMonths": 84,
+          "source": "manual",
+          "status": "verified"
+        }
+      ],
+      "parts": [
+        {
+          "id": "p-oil",
+          "category": "Engine oil",
+          "name": "Valvoline 5W-30 Advanced Full Synthetic",
+          "qty": "6 qt (5-qt jug + 1 qt)",
+          "numbers": [
+            {
+              "brand": "Spec",
+              "number": "SAE 5W-30 dexos1 full synthetic",
+              "status": "verified",
+              "note": "Spec from the manual. The brand is the shop's choice.",
+              "source": "manual"
+            }
+          ],
+          "buy": "Valvoline Advanced Full Synthetic 5W-30 5 quart"
+        },
+        {
+          "id": "p-filter",
+          "category": "Oil filter",
+          "name": "Oil filter",
+          "qty": "1",
+          "numbers": [
+            {
+              "brand": "ACDelco",
+              "number": "PF63",
+              "status": "verified",
+              "note": "Listed in the owner's manual",
+              "source": "manual"
+            },
+            {
+              "brand": "GM",
+              "number": "12707246",
+              "status": "verified",
+              "source": "manual"
+            },
+            {
+              "brand": "ACDelco",
+              "number": "PF63E",
+              "status": "cross-ref",
+              "note": "Current ACDelco version (GM 19330000). Cross-ref only.",
+              "source": "finditparts"
+            },
+            {
+              "brand": "WIX",
+              "number": "WL10255",
+              "status": "verified",
+              "note": "WIX lists Enclave 3.6L 2011–2024",
+              "source": "wix"
+            },
+            {
+              "brand": "WIX",
+              "number": "57060",
+              "status": "not a match",
+              "note": "Not a cross-ref for this car. WIX moved 57060 to WL10290 for select GM apps. Use WL10255.",
+              "source": "wixbulletin"
+            }
+          ],
+          "buy": "ACDelco PF63E oil filter"
+        },
+        {
+          "id": "p-plug-seal",
+          "category": "Drain plug",
+          "name": "Oil drain plug seal / O-ring",
+          "qty": "1",
+          "numbers": [
+            {
+              "brand": "GM",
+              "number": "12616850",
+              "status": "verified",
+              "note": "GM catalog for 2022 Enclave 3.6L. Confirm at the parts counter.",
+              "source": "gmparts"
+            },
+            {
+              "brand": "Dorman",
+              "number": "097-119",
+              "status": "unverified",
+              "note": "M12 rubber gasket, listed for 2019 Enclave 3.6L",
+              "source": "dorman"
+            }
+          ],
+          "buy": "GM 12616850 drain plug seal"
+        },
+        {
+          "id": "p-air",
+          "category": "Engine air filter",
+          "name": "Engine air filter",
+          "qty": "1",
+          "numbers": [
+            {
+              "brand": "ACDelco",
+              "number": "A3212C",
+              "status": "verified",
+              "note": "Listed in the owner's manual",
+              "source": "manual"
+            },
+            {
+              "brand": "GM",
+              "number": "23321606",
+              "status": "verified",
+              "source": "manual"
+            },
+            {
+              "brand": "ACDelco",
+              "number": "A3218C",
+              "status": "not a match",
+              "note": "Not the manual's number for 2022",
+              "source": "manual"
+            }
+          ],
+          "buy": "ACDelco A3212C air filter"
+        },
+        {
+          "id": "p-cabin",
+          "category": "Cabin air filter",
+          "name": "Cabin air filter",
+          "qty": "1",
+          "numbers": [
+            {
+              "brand": "ACDelco",
+              "number": "CF179C",
+              "status": "verified",
+              "note": "Listed in the owner's manual",
+              "source": "manual"
+            },
+            {
+              "brand": "GM",
+              "number": "13508023",
+              "status": "verified",
+              "source": "manual"
+            },
+            {
+              "brand": "ACDelco",
+              "number": "CF188",
+              "status": "not a match",
+              "note": "Not the manual's number for 2022",
+              "source": "manual"
+            }
+          ],
+          "buy": "ACDelco CF179C cabin air filter"
+        },
+        {
+          "id": "p-wipers",
+          "category": "Wipers",
+          "name": "Wiper blades: driver 23.6\" · passenger 19.7\" · rear 10.8\"",
+          "qty": "3",
+          "numbers": [
+            {
+              "brand": "GM",
+              "number": "84580856",
+              "status": "verified",
+              "note": "Front driver, 60 cm (23.6\")",
+              "source": "manual"
+            },
+            {
+              "brand": "GM",
+              "number": "84580859",
+              "status": "verified",
+              "note": "Front passenger, 50 cm (19.7\")",
+              "source": "manual"
+            },
+            {
+              "brand": "GM",
+              "number": "84177374",
+              "status": "verified",
+              "note": "Rear, 27.5 cm (10.8\")",
+              "source": "manual"
+            },
+            {
+              "brand": "Aftermarket",
+              "number": "24\" / 20\" / 11\" rear",
+              "status": "unverified",
+              "note": "Common aftermarket fit-guide sizes",
+              "source": "garagedex"
+            }
+          ],
+          "buy": "2022 Buick Enclave wiper blades 24 20"
+        },
+        {
+          "id": "p-plugs",
+          "category": "Spark plugs",
+          "name": "Spark plugs (iridium, pre-gapped)",
+          "qty": "6",
+          "numbers": [
+            {
+              "brand": "ACDelco",
+              "number": "41-109",
+              "status": "verified",
+              "note": "Listed in the owner's manual",
+              "source": "manual"
+            },
+            {
+              "brand": "GM",
+              "number": "12622561",
+              "status": "verified",
+              "source": "manual"
+            },
+            {
+              "brand": "ACDelco",
+              "number": "41-114",
+              "status": "not a match",
+              "note": "Not the manual's number for 2022",
+              "source": "manual"
+            }
+          ],
+          "buy": "ACDelco 41-109 spark plug"
+        },
+        {
+          "id": "p-brake",
+          "category": "Fluids",
+          "name": "Brake fluid DOT 4",
+          "qty": "as needed",
+          "numbers": [
+            {
+              "brand": "Spec",
+              "number": "DOT 4",
+              "status": "verified",
+              "source": "manual"
+            }
+          ],
+          "buy": "DOT 4 brake fluid"
+        },
+        {
+          "id": "p-coolant",
+          "category": "Fluids",
+          "name": "DEX-COOL coolant (50/50)",
+          "qty": "as needed",
+          "numbers": [
+            {
+              "brand": "Spec",
+              "number": "DEX-COOL",
+              "status": "verified",
+              "source": "manual"
+            }
+          ],
+          "buy": "ACDelco DEX-COOL 50/50 coolant"
+        },
+        {
+          "id": "p-atf",
+          "category": "Fluids",
+          "name": "Transmission fluid DEXRON-VI",
+          "qty": "as needed",
+          "numbers": [
+            {
+              "brand": "Spec",
+              "number": "DEXRON-VI",
+              "status": "verified",
+              "source": "manual"
+            }
+          ],
+          "buy": "DEXRON-VI transmission fluid"
+        }
+      ],
+      "log": [
+        {
+          "id": "l01",
+          "date": "2022-11-20",
+          "mileage": null,
+          "service": "Oil change",
+          "tags": [
+            "oil"
+          ],
+          "parts": "",
+          "notes": "From paper log."
+        },
+        {
+          "id": "l02",
+          "date": "2023-02-16",
+          "mileage": 20055,
+          "mileageUncertain": true,
+          "service": "Oil & filter change",
+          "tags": [
+            "oil"
+          ],
+          "parts": "",
+          "notes": "Engine air filter NOT done. Paper log says '20055', probably the odometer (20,055 mi). Not confirmed."
+        },
+        {
+          "id": "l03",
+          "date": "2023-05-18",
+          "mileage": 25151,
+          "service": "Oil & filter change, cabin air filter",
+          "tags": [
+            "oil",
+            "cabin"
+          ],
+          "parts": "Valvoline 5W-30 Advanced Full Synthetic; ACDelco PF63 oil filter; cabin air filter",
+          "notes": ""
+        },
+        {
+          "id": "l04",
+          "date": "2024-03-13",
+          "mileage": null,
+          "service": "Oil & filter change, windshield wipers",
+          "tags": [
+            "oil",
+            "wipers"
+          ],
+          "parts": "Wiper blades",
+          "notes": ""
+        },
+        {
+          "id": "l05",
+          "date": "2024-06-08",
+          "mileage": null,
+          "service": "Oil & filter change, cabin air filter",
+          "tags": [
+            "oil",
+            "cabin"
+          ],
+          "parts": "Just over 6 qt Valvoline 5W-30 Advanced Full Synthetic; cabin air filter",
+          "notes": "Drain plug torqued to 18 ft-lb."
+        },
+        {
+          "id": "l06",
+          "date": "2024-08-04",
+          "mileage": null,
+          "service": "Tire rotation",
+          "tags": [
+            "rotation"
+          ],
+          "parts": "",
+          "notes": ""
+        },
+        {
+          "id": "l07",
+          "date": "2025-01-03",
+          "mileage": 59360,
+          "service": "Oil & filter change (only)",
+          "tags": [
+            "oil"
+          ],
+          "parts": "",
+          "notes": ""
+        },
+        {
+          "id": "l08",
+          "date": "2025-04-26",
+          "mileage": null,
+          "service": "Oil & filter change, cabin air filter",
+          "tags": [
+            "oil",
+            "cabin"
+          ],
+          "parts": "5W-30 full synthetic; cabin air filter",
+          "notes": "15 mm drain plug."
+        },
+        {
+          "id": "l09",
+          "date": "2025-09-20",
+          "dateUncertain": true,
+          "mileage": 75307,
+          "service": "Oil & filter change",
+          "tags": [
+            "oil"
+          ],
+          "parts": "",
+          "notes": "Paper log date could also be 9/26/25."
+        },
+        {
+          "id": "l10",
+          "date": "2026-03-14",
+          "mileage": null,
+          "service": "Oil change",
+          "tags": [
+            "oil"
+          ],
+          "parts": "Valvoline 5W-30",
+          "notes": ""
+        },
+        {
+          "id": "l11",
+          "date": "2026-06-11",
+          "mileage": null,
+          "service": "Windshield wipers",
+          "tags": [
+            "wipers"
+          ],
+          "parts": "Wiper blades",
+          "notes": ""
+        },
+        {
+          "id": "l12",
+          "date": "2026-09-07",
+          "mileage": null,
+          "service": "Oil & filter change",
+          "tags": [
+            "oil"
+          ],
+          "parts": "Valvoline 5W-30 Advanced Full Synthetic; WIX WL10255 oil filter",
+          "notes": "15 mm socket on drain plug."
+        }
+      ],
+      "todos": [
+        {
+          "id": "t1",
+          "text": "Replace engine air filter (ACDelco A3212C)",
+          "done": false
+        },
+        {
+          "id": "t2",
+          "text": "New oil drain plug O-ring / seal (GM 12616850)",
+          "done": false
+        },
+        {
+          "id": "t3",
+          "text": "Tires: check & rotate",
+          "done": false
+        },
+        {
+          "id": "t4",
+          "text": "Clean interior",
+          "done": false
+        },
+        {
+          "id": "t5",
+          "text": "Windshield",
+          "done": false
+        }
+      ]
     },
     {
-     "label": "Year built",
-     "value": ""
-    },
-    {
-     "label": "Total time (hrs)",
-     "value": ""
-    },
-    {
-     "label": "Tach / meter (hrs)",
-     "value": ""
-    },
-    {
-     "label": "Total landings",
-     "value": ""
-    },
-    {
-     "label": "Empty weight",
-     "value": ""
-    },
-    {
-     "label": "Useful load",
-     "value": ""
-    },
-    {
-     "label": "Last weight & balance",
-     "value": ""
-    },
-    {
-     "label": "Tow release(s) installed",
-     "value": ""
-    },
-    {
-     "label": "Instruments / radio",
-     "value": ""
-    },
-    {
-     "label": "Trailer",
-     "value": ""
+      "id": "sgs-1-26",
+      "category": "aircraft",
+      "name": "Schweizer SGS 1-26",
+      "year": null,
+      "make": "Schweizer",
+      "model": "SGS 1-26",
+      "color": "",
+      "engine": "Glider (no engine)",
+      "totalTime": null,
+      "tach": null,
+      "meterDate": null,
+      "meterNeedsUpdate": true,
+      "photo": "images/glider.svg",
+      "photoCredit": "credit-glider",
+      "specs": [
+        {
+          "label": "Model variant (1-26, A, B, C, D or E)",
+          "value": ""
+        },
+        {
+          "label": "Year built",
+          "value": ""
+        },
+        {
+          "label": "Total time (hrs)",
+          "value": ""
+        },
+        {
+          "label": "Tach / meter (hrs)",
+          "value": ""
+        },
+        {
+          "label": "Total landings",
+          "value": ""
+        },
+        {
+          "label": "Empty weight",
+          "value": ""
+        },
+        {
+          "label": "Useful load",
+          "value": ""
+        },
+        {
+          "label": "Last weight & balance",
+          "value": ""
+        },
+        {
+          "label": "Tow release(s) installed",
+          "value": ""
+        },
+        {
+          "label": "Instruments / radio",
+          "value": ""
+        },
+        {
+          "label": "Trailer",
+          "value": ""
+        }
+      ],
+      "schedule": [
+        {
+          "id": "annual",
+          "task": "Annual inspection",
+          "everyMonths": 12,
+          "basis": "Required within the preceding 12 calendar months (14 CFR 91.409). Due at the end of the month.",
+          "source": "far91409",
+          "status": "verified"
+        },
+        {
+          "id": "ad8702",
+          "task": "AD 87-02-01: tow-release inspection & operational check",
+          "everyHours": 100,
+          "basis": "Inspect per Schweizer SB SA-001, then repeat every 100 hrs time-in-service.",
+          "source": "ad8702",
+          "status": "verified"
+        },
+        {
+          "id": "ad8717",
+          "task": "AD 87-17-01: tow-release arm P/N check / replacement",
+          "once": true,
+          "basis": "One-time: confirm no affected release arms (1D217-13, 1D222-15, 1D222-17, 34017D-15) are installed. Record the compliance method.",
+          "source": "ad8717",
+          "status": "verified"
+        }
+      ],
+      "parts": [],
+      "log": [],
+      "todos": []
     }
-   ],
-   "schedule": [
-    {
-     "id": "annual",
-     "task": "Annual inspection",
-     "everyMonths": 12,
-     "basis": "Required within the preceding 12 calendar months (14 CFR 91.409). Due at the end of the month.",
-     "source": "far91409",
-     "status": "verified"
+  ],
+  "sources": {
+    "manual": {
+      "title": "2022 Buick Enclave Owner's Manual (GM, 84742926B) — Service & Maintenance pp. 272–275, 302, 336–349",
+      "url": "https://cdn.dealereprocess.org/cdn/servicemanuals/buick/2022-enclave.pdf"
     },
-    {
-     "id": "ad8702",
-     "task": "AD 87-02-01: tow-release inspection & operational check",
-     "everyHours": 100,
-     "basis": "Inspect per Schweizer SB SA-001, then repeat every 100 hrs time-in-service.",
-     "source": "ad8702",
-     "status": "verified"
+    "kbb": {
+      "title": "Kelley Blue Book — 2022 Buick Enclave maintenance schedule (Oil Life System alerts within 600 mi of a 7,500-mi interval)",
+      "url": "https://www.kbb.com/buick/enclave/2022/maintenance-schedules/"
     },
-    {
-     "id": "ad8717",
-     "task": "AD 87-17-01: tow-release arm P/N check / replacement",
-     "once": true,
-     "basis": "One-time: confirm no affected release arms (1D217-13, 1D222-15, 1D222-17, 34017D-15) are installed. Record the compliance method.",
-     "source": "ad8717",
-     "status": "verified"
+    "wheelsize": {
+      "title": "Wheel-Size.com — 2022 Buick Enclave OE tire sizes & pressures",
+      "url": "https://www.wheel-size.com/size/buick/enclave/2022/"
+    },
+    "tirepressure": {
+      "title": "TirePressure.com — 2022 Buick Enclave tire pressure",
+      "url": "https://tirepressure.com/2022-buick-enclave-tire-pressure"
+    },
+    "wix": {
+      "title": "WIX Filters application lookup — WL10255(XP) lists Buick Enclave V6 3.6L 2011–2024",
+      "url": "https://www2.wixfilters.com/Lookup/PartApplications.aspx?Part=WL10255XP"
+    },
+    "wixbulletin": {
+      "title": "WIX bulletin — 57060 → WL10290 (select GM); 57045 → WL10255",
+      "url": "https://www.wixfilters.com/content/dam/website/wix/technical-bulletins/57060%2057045%20%20GM%20Update%20English.pdf"
+    },
+    "finditparts": {
+      "title": "FinditParts — WIX WL10255 cross references (ACDelco PF63 / PF63E; GM 12707246, 19330000)",
+      "url": "https://www.finditparts.com/products/9525265/wix-filters-wl10255"
+    },
+    "gmparts": {
+      "title": "GM Parts Giant — 2022 Buick Enclave oil pan drain plug seal (O-ring) 12616850",
+      "url": "https://www.gmpartsgiant.com/oem-2022-buick-enclave-oil_drain_plug_gasket.html"
+    },
+    "lfxtorque": {
+      "title": "GM service info — 3.6L V6 (LFX) fastener specs: oil drain plug 25 N·m (18 lb ft)",
+      "url": "https://lemon-manuals.la/Chevrolet/2013/Equinox%20LT%2C%203.6L%20Eng%20VIN%203%2C%20FWD%2C%20Gas/Repair%20and%20Diagnosis/Engine%20Mechanical/Mechanical/Engine%20Mechanical%20-%203.6L%20%28LFX%29%20-%20%20Specifications/Specifications/Fastener%20Tightening%20Specifications/"
+    },
+    "garagedex": {
+      "title": "GarageDex — 2022 Buick Enclave wiper sizes (24\" / 20\", 11\" rear)",
+      "url": "https://garagedex.com/wipers/buick/enclave/2022/"
+    },
+    "dorman": {
+      "title": "The Wrench Monkey — Dorman 097-119 M12 drain plug gasket listed for 2019 Enclave 3.6L",
+      "url": "https://www.thewrenchmonkey.ca/auto-parts/buick/enclave/2019/engine-oil-drain-plug-gasket"
+    },
+    "far91409": {
+      "title": "14 CFR 91.409 — Inspections (annual inspection within the preceding 12 calendar months)",
+      "url": "https://www.ecfr.gov/current/title-14/chapter-I/subchapter-F/part-91/subpart-E/section-91.409"
+    },
+    "ad8702": {
+      "title": "FAA AD 87-02-01 — Schweizer gliders: inspect tow-release installation (SB SA-001); repeat every 100 hrs time-in-service",
+      "url": "https://www.126association.org/wp-content/uploads/2021/08/Airworthiness-Directive-No.-87-02-01.pdf"
+    },
+    "ad8717": {
+      "title": "FAA AD 87-17-01 — Schweizer gliders: tow-release arm P/N check & replacement (SB SA-005.1 / SA-001.3)",
+      "url": "https://www.126association.org/wp-content/uploads/2021/08/Airworthiness-Directive-No.-87-17-01.pdf"
     }
-   ],
-   "parts": [],
-   "log": [],
-   "todos": []
+  },
+  "credits": {
+    "credit-enclave": {
+      "text": "Enclave photos: \"2022 Buick Enclave Premium AWD in Quicksilver Metallic\" (front left & rear right) by Elise240SX, CC BY-SA 4.0, via Wikimedia Commons. Background removed, resized and mirrored for the turntable; these edits are shared under CC BY-SA 4.0.",
+      "links": [
+        [
+          "Front left",
+          "https://commons.wikimedia.org/wiki/File:2022_Buick_Enclave_Premium_AWD_in_Quicksilver_Metallic,_Front_Left,_12-25-2021.jpg"
+        ],
+        [
+          "Rear right",
+          "https://commons.wikimedia.org/wiki/File:2022_Buick_Enclave_Premium_AWD_in_Quicksilver_Metallic,_Rear_Right,_12-25-2021.jpg"
+        ],
+        [
+          "CC BY-SA 4.0",
+          "https://creativecommons.org/licenses/by-sa/4.0/"
+        ]
+      ]
+    },
+    "credit-glider": {
+      "text": "Glider artwork: original stylized SVG silhouette made for this site (no third-party image).",
+      "links": []
+    }
   }
- ],
- "sources": {
-  "manual": {
-   "title": "2022 Buick Enclave Owner's Manual (GM, 84742926B) — Service & Maintenance pp. 272–275, 302, 336–349",
-   "url": "https://cdn.dealereprocess.org/cdn/servicemanuals/buick/2022-enclave.pdf"
-  },
-  "kbb": {
-   "title": "Kelley Blue Book — 2022 Buick Enclave maintenance schedule (Oil Life System alerts within 600 mi of a 7,500-mi interval)",
-   "url": "https://www.kbb.com/buick/enclave/2022/maintenance-schedules/"
-  },
-  "wheelsize": {
-   "title": "Wheel-Size.com — 2022 Buick Enclave OE tire sizes & pressures",
-   "url": "https://www.wheel-size.com/size/buick/enclave/2022/"
-  },
-  "tirepressure": {
-   "title": "TirePressure.com — 2022 Buick Enclave tire pressure",
-   "url": "https://tirepressure.com/2022-buick-enclave-tire-pressure"
-  },
-  "wix": {
-   "title": "WIX Filters application lookup — WL10255(XP) lists Buick Enclave V6 3.6L 2011–2024",
-   "url": "https://www2.wixfilters.com/Lookup/PartApplications.aspx?Part=WL10255XP"
-  },
-  "wixbulletin": {
-   "title": "WIX bulletin — 57060 → WL10290 (select GM); 57045 → WL10255",
-   "url": "https://www.wixfilters.com/content/dam/website/wix/technical-bulletins/57060%2057045%20%20GM%20Update%20English.pdf"
-  },
-  "finditparts": {
-   "title": "FinditParts — WIX WL10255 cross references (ACDelco PF63 / PF63E; GM 12707246, 19330000)",
-   "url": "https://www.finditparts.com/products/9525265/wix-filters-wl10255"
-  },
-  "gmparts": {
-   "title": "GM Parts Giant — 2022 Buick Enclave oil pan drain plug seal (O-ring) 12616850",
-   "url": "https://www.gmpartsgiant.com/oem-2022-buick-enclave-oil_drain_plug_gasket.html"
-  },
-  "lfxtorque": {
-   "title": "GM service info — 3.6L V6 (LFX) fastener specs: oil drain plug 25 N·m (18 lb ft)",
-   "url": "https://lemon-manuals.la/Chevrolet/2013/Equinox%20LT%2C%203.6L%20Eng%20VIN%203%2C%20FWD%2C%20Gas/Repair%20and%20Diagnosis/Engine%20Mechanical/Mechanical/Engine%20Mechanical%20-%203.6L%20%28LFX%29%20-%20%20Specifications/Specifications/Fastener%20Tightening%20Specifications/"
-  },
-  "garagedex": {
-   "title": "GarageDex — 2022 Buick Enclave wiper sizes (24\" / 20\", 11\" rear)",
-   "url": "https://garagedex.com/wipers/buick/enclave/2022/"
-  },
-  "dorman": {
-   "title": "The Wrench Monkey — Dorman 097-119 M12 drain plug gasket listed for 2019 Enclave 3.6L",
-   "url": "https://www.thewrenchmonkey.ca/auto-parts/buick/enclave/2019/engine-oil-drain-plug-gasket"
-  },
-  "far91409": {
-   "title": "14 CFR 91.409 — Inspections (annual inspection within the preceding 12 calendar months)",
-   "url": "https://www.ecfr.gov/current/title-14/chapter-I/subchapter-F/part-91/subpart-E/section-91.409"
-  },
-  "ad8702": {
-   "title": "FAA AD 87-02-01 — Schweizer gliders: inspect tow-release installation (SB SA-001); repeat every 100 hrs time-in-service",
-   "url": "https://www.126association.org/wp-content/uploads/2021/08/Airworthiness-Directive-No.-87-02-01.pdf"
-  },
-  "ad8717": {
-   "title": "FAA AD 87-17-01 — Schweizer gliders: tow-release arm P/N check & replacement (SB SA-005.1 / SA-001.3)",
-   "url": "https://www.126association.org/wp-content/uploads/2021/08/Airworthiness-Directive-No.-87-17-01.pdf"
-  }
- },
- "credits": {
-  "credit-enclave": {
-   "text": "Enclave photos: \"2022 Buick Enclave Premium AWD in Quicksilver Metallic\" (front left & rear right) by Elise240SX, CC BY-SA 4.0, via Wikimedia Commons. Background removed, resized and mirrored for the turntable; these edits are shared under CC BY-SA 4.0.",
-   "links": [
-    [
-     "Front left",
-     "https://commons.wikimedia.org/wiki/File:2022_Buick_Enclave_Premium_AWD_in_Quicksilver_Metallic,_Front_Left,_12-25-2021.jpg"
-    ],
-    [
-     "Rear right",
-     "https://commons.wikimedia.org/wiki/File:2022_Buick_Enclave_Premium_AWD_in_Quicksilver_Metallic,_Rear_Right,_12-25-2021.jpg"
-    ],
-    [
-     "CC BY-SA 4.0",
-     "https://creativecommons.org/licenses/by-sa/4.0/"
-    ]
-   ]
-  },
-  "credit-glider": {
-   "text": "Glider artwork: original stylized SVG silhouette made for this site (no third-party image).",
-   "links": []
-  }
- }
 }
