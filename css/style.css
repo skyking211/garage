@@ -550,3 +550,6 @@ body[data-theme="tractor"] .panel.tip { border-left: 6px solid #ffcd00; }
 .pst.parts-site, .pst.uncertain, .pst.conflict { color: var(--warn); }
 .pst.ID-plate { color: var(--good); }
 .part-head > .btn { align-self: flex-start; flex: none; }
+.pst.model-needed { color: var(--warn); }
+.pst.factory-manual { color: var(--good); }
+.pst.estimate, .pst.club-guide, .pst.from-photo { color: var(--accent); }

@@ -1324,6 +1324,474 @@
           "done": false
         }
       ]
+    },
+    {
+      "id": "keiths-tractor",
+      "category": "tractor",
+      "name": "Keith's Tractor",
+      "subtitle": "Satoh S-650G",
+      "requestTitle": "Keith's Tractor",
+      "year": null,
+      "make": "Satoh",
+      "model": "S-650G",
+      "color": "White & red",
+      "colorHex": "#e8e8e8",
+      "engine": "4-cyl gasoline",
+      "hours": null,
+      "meterDate": null,
+      "photo": "images/keiths-tractor/keiths-tractor-1280.webp",
+      "photoSm": "images/keiths-tractor/keiths-tractor-640.webp",
+      "photoFallback": "images/tractor.svg",
+      "photoStyle": "photo",
+      "photoCredit": "credit-keith",
+      "specs": [
+        {
+          "label": "Model (from plate)",
+          "value": "Satoh S-650G",
+          "note": "plate reads “SATOH TRACTOR S-650G” and “Satoh Agricultural Machine Mfg. Co. Ltd, Japan”",
+          "status": "ID plate"
+        },
+        {
+          "label": "Year built",
+          "value": "",
+          "note": "add it from the serial; keep the serial itself in the Vault"
+        },
+        {
+          "label": "US production run",
+          "value": "1973–1983",
+          "source": "tractordata-s650",
+          "status": "verified"
+        },
+        {
+          "label": "Engine",
+          "value": "Mazda PB 987 cc (60.2 ci) 4-cyl gasoline, overhead valve, liquid-cooled",
+          "note": "S-650G Instruction Book, Specifications. An owner site says some S-650Gs got a larger Mazda 1169 cc TA/TB engine, so confirm yours",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "label": "Bore × stroke",
+          "value": "2.677 × 2.677 in (68 × 68 mm)",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "label": "Power / torque",
+          "value": "25 PS max · 23 PS rated @ 2800 rpm · 46.9 ft-lb @ 2200 rpm",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "label": "Compression / firing order",
+          "value": "8.6:1 · 1-3-4-2",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "label": "Valve clearance",
+          "value": "Intake & exhaust 0.010 in (0.25 mm)",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "label": "Spark plug",
+          "value": "NGK B6E · gap 0.03 in (0.8 mm)",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "label": "Thermostat",
+          "value": "Starts to open at 180°F (82°C)",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "label": "Engine oil capacity",
+          "value": "5.28 pt (3 L), approximate initial fill",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "label": "Engine oil type",
+          "value": "API MS, grade by air temperature: 10W below 20°F · 10W, 20W, 20 or 30 at 20–90°F · 40 above 90°F",
+          "note": "read from a scanned lubricant chart; double-check the book",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "label": "Cooling system",
+          "value": "1.85 gal (7 L), approximate initial fill",
+          "note": "TractorData lists 5 qt; the factory book says 1.85 gal",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "label": "Air cleaner",
+          "value": "Oil bath with pre-cleaner · 0.44 pt (0.25 L) oil",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "label": "Transmission oil",
+          "value": "4.49 gal (17 L) · API GL-4/GL-5 gear oil, SAE 80 below 20°F, SAE 90 at 20–90°F",
+          "note": "grades read from a scanned chart; check the book for hot-weather grade",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "label": "Governor / steering box oil",
+          "value": "Governor 0.0704 pt (0.04 L) · steering box 0.704 pt (0.4 L)",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "label": "Hydraulic oil",
+          "value": "6.16 pt (3.5 L)",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "label": "Hydraulic oil type",
+          "value": "",
+          "note": "the factory chart is hard to read in the scan; an owner site suggests universal tractor fluid. Not verified"
+        },
+        {
+          "label": "Fuel tank",
+          "value": "9.5 gal (36 L), gasoline",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "label": "Transmission",
+          "value": "6 forward / 2 reverse",
+          "source": "satoh-ib",
+          "status": "factory manual",
+          "note": "TractorData describes it as an unsynchronized gear transmission"
+        },
+        {
+          "label": "PTO",
+          "value": "Two-speed, 540 / 1000 rpm",
+          "source": "tractordata-s650",
+          "status": "verified"
+        },
+        {
+          "label": "3-point hitch",
+          "value": "Category I · 1102 lb lift at the lower links",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "label": "Hydraulic pump",
+          "value": "Gear type · 1777 psi (125 kg/cm²) max · 5.2 gpm (19 L/min) @ 1500 engine rpm",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "label": "Tires & pressures",
+          "value": "Ag front 5.00-15 @ 37 psi · rear 11.2/10-24 @ 16 psi",
+          "note": "estate tires: 5.90-15 front @ 28 psi, 11.2/10-24 rear @ 17.8 psi",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "label": "Wheelbase / weight",
+          "value": "60.43 in · 2,105 lb with oil and fuel",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "label": "Electrical",
+          "value": "12 V negative ground · battery 12 V 40 Ah",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        }
+      ],
+      "schedule": [
+        {
+          "id": "oil",
+          "task": "Engine oil change",
+          "everyHours": 100,
+          "basis": "S-650G Instruction Book (factory), Section 2 Regular Maintenance: every 100 hours; first change at 50 hours on a new tractor. Change it warm.",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "id": "oilfilter",
+          "task": "Engine oil filter (cartridge)",
+          "everyHours": 300,
+          "basis": "S-650G Instruction Book (factory), Section 2 Regular Maintenance: every 300 hours.",
+          "note": "Oil the seal, then hand-tighten about 2/3 turn after it touches (7–11 ft-lb).",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "id": "aircleaner",
+          "task": "Air cleaner: clean oil bath & refill, check pre-cleaner",
+          "everyHours": 50,
+          "basis": "S-650G Instruction Book (factory), Section 2 Regular Maintenance: “A” service, every 50 hours.",
+          "note": "Check it daily in dusty conditions.",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "id": "checks50",
+          "task": "50-hour checks: trans/governor oil level, brakes, clutch free-play, coolant, battery, tires, belts",
+          "everyHours": 50,
+          "basis": "S-650G Instruction Book (factory), Section 2 Regular Maintenance: “A” service, every 50 hours.",
+          "note": "Clutch pedal free-play 1.57 in (40 mm). Belt slack is printed as 0.8–0.9 in (10–13 mm) under 22 lb; the inch and mm figures don’t match, so check the book.",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "id": "hydoil",
+          "task": "Hydraulic oil replacement",
+          "everyHours": 100,
+          "basis": "S-650G Instruction Book (factory), Section 2 Regular Maintenance: preferably every 100 hours, or when the oil shows deterioration.",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "id": "plugs",
+          "task": "Spark plugs: check & clean",
+          "everyHours": 300,
+          "basis": "S-650G Instruction Book (factory), Section 2 Regular Maintenance: every 300 hours.",
+          "note": "NGK B6E, gap 0.03 in (0.8 mm).",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "id": "fuelfilter",
+          "task": "Fuel strainer (filter) replacement",
+          "everyHours": 300,
+          "basis": "S-650G Instruction Book (factory), Section 2 Regular Maintenance: “D” service, every 300 hours.",
+          "note": "Install it facing the correct flow direction.",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "id": "trans",
+          "task": "Transmission & governor oil replacement",
+          "everyHours": 600,
+          "basis": "S-650G Instruction Book (factory), Section 2 Regular Maintenance: every 600 hours (level check every 50 hours).",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "id": "grease",
+          "task": "Grease king pins & front axle center pin",
+          "intervalUnverified": true,
+          "basis": "The book says to grease them frequently in dusty or humid conditions (daily inspection) and shows a greasing diagram, but gives no hour interval.",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "id": "fronthub",
+          "task": "Front hub bearings: grease & preload check",
+          "intervalUnverified": true,
+          "basis": "The book lists this in the 600-hour “E” service and also says every 500 hours, so the interval isn’t settled.",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        },
+        {
+          "id": "valves",
+          "task": "Valve clearance check",
+          "intervalUnverified": true,
+          "basis": "Listed among the regular maintenance items, but the book’s chart doesn’t give a clear hour interval. Clearance 0.010 in (0.25 mm).",
+          "source": "satoh-ib",
+          "status": "factory manual"
+        }
+      ],
+      "parts": [
+        {
+          "id": "p-air",
+          "category": "Air intake",
+          "name": "Air filter (paper element)",
+          "numbers": [
+            {
+              "brand": "WIX",
+              "number": "46270",
+              "status": "verified",
+              "note": "WIX’s own application lookup lists the Satoh S650G with gas engine.",
+              "source": "wix46270"
+            }
+          ],
+          "notes": "The factory air cleaner is an oil bath with a washable screen. This element applies if yours takes a paper filter.",
+          "buy": "WIX 46270 air filter"
+        },
+        {
+          "id": "p-plugs",
+          "category": "Ignition",
+          "name": "Spark plugs",
+          "qty": "4",
+          "numbers": [
+            {
+              "brand": "NGK",
+              "number": "B6E",
+              "status": "verified",
+              "note": "Recommended plug in the factory instruction book; gap 0.03 in (0.8 mm).",
+              "source": "satoh-ib"
+            }
+          ],
+          "buy": "NGK B6E spark plug"
+        },
+        {
+          "id": "p-oilfilter",
+          "category": "Engine",
+          "name": "Engine oil filter (cartridge)",
+          "flag": "part # needed",
+          "numbers": [],
+          "sources": [
+            "satoh-parts"
+          ],
+          "notes": "An owner site lists cross-reference numbers, but WIX’s own lookup doesn’t list the S-650G for them, so none are shown here yet.",
+          "buy": "Satoh S650G oil filter"
+        },
+        {
+          "id": "p-fuelfilter",
+          "category": "Fuel",
+          "name": "Fuel strainer / filter",
+          "flag": "part # needed",
+          "numbers": [],
+          "sources": [
+            "satoh-parts"
+          ],
+          "notes": "An owner site lists cross-reference numbers, but they aren’t confirmed by the filter maker, so none are shown here yet.",
+          "buy": "Satoh S650G fuel filter"
+        }
+      ],
+      "log": [],
+      "todos": []
+    },
+    {
+      "id": "lil-red",
+      "category": "tractor",
+      "name": "Lil Red",
+      "subtitle": "Vintage Ford tractor (model: add)",
+      "requestTitle": "Lil Red",
+      "year": null,
+      "make": "Ford",
+      "model": "",
+      "color": "Grey & red",
+      "colorHex": "#b9bcbd",
+      "engine": "",
+      "hours": null,
+      "meterDate": null,
+      "photo": "images/lil-red/lil-red-1280.webp",
+      "photoSm": "images/lil-red/lil-red-640.webp",
+      "photoFallback": "images/tractor.svg",
+      "photoStyle": "photo",
+      "photoCredit": "credit-lilred",
+      "specs": [
+        {
+          "label": "Likely model",
+          "value": "Likely: Ford NAA / Golden Jubilee (1953–54) or a 600/700-series Ford (1955–57) (from block casting EAE-6015-D)",
+          "note": "EAE marks the 134 ci “Red Tiger” block used on the Jubilee/NAA, 600, 700, 501, 601, 701 and early 4-cyl 2000. Engines can be swapped, so confirm with the serial (keep it in the Vault)",
+          "source": "ntc-blocks",
+          "status": "estimate"
+        },
+        {
+          "label": "Block casting",
+          "value": "EAE-6015-D",
+          "note": "cast part number on the block, not a serial. The date-like code under it is partly illegible",
+          "status": "from photo"
+        },
+        {
+          "label": "What EAE-6015 means",
+          "value": "134 ci 4-cyl block, cast 1953–1957",
+          "source": "ntc-quickid",
+          "status": "club guide"
+        },
+        {
+          "label": "Model",
+          "value": "",
+          "note": "add once confirmed"
+        },
+        {
+          "label": "Year built",
+          "value": "",
+          "note": "add once confirmed"
+        },
+        {
+          "label": "Engine (likely)",
+          "value": "Ford 134 ci (2.2 L) 4-cyl gasoline OHV · bore × stroke 3.4375 × 3.60 in (87 × 91 mm)",
+          "note": "figures for the 134 ci engine as listed for the NAA; they apply only if the likely engine is right",
+          "source": "tractordata-naa-engine",
+          "status": "estimate"
+        },
+        {
+          "label": "Engine oil type & capacity",
+          "value": ""
+        },
+        {
+          "label": "Coolant capacity",
+          "value": ""
+        },
+        {
+          "label": "Transmission",
+          "value": ""
+        },
+        {
+          "label": "Tires & pressures",
+          "value": ""
+        },
+        {
+          "label": "Electrical (6 V or 12 V)",
+          "value": ""
+        }
+      ],
+      "schedule": [
+        {
+          "id": "oil",
+          "task": "Engine oil & filter",
+          "intervalUnverified": true,
+          "basis": "Interval not verified. Confirm the exact model, then use its operator’s manual.",
+          "status": "unverified"
+        },
+        {
+          "id": "grease",
+          "task": "Grease all fittings",
+          "intervalUnverified": true,
+          "basis": "Interval not verified. Confirm the exact model, then use its operator’s manual.",
+          "status": "unverified"
+        },
+        {
+          "id": "aircleaner",
+          "task": "Air cleaner service",
+          "intervalUnverified": true,
+          "basis": "Interval not verified. Confirm the exact model, then use its operator’s manual.",
+          "status": "unverified"
+        },
+        {
+          "id": "fuel",
+          "task": "Fuel sediment bowl / filter",
+          "intervalUnverified": true,
+          "basis": "Interval not verified. Confirm the exact model, then use its operator’s manual.",
+          "status": "unverified"
+        },
+        {
+          "id": "trans",
+          "task": "Transmission / hydraulic oil",
+          "intervalUnverified": true,
+          "basis": "Interval not verified. Confirm the exact model, then use its operator’s manual.",
+          "status": "unverified"
+        },
+        {
+          "id": "coolant",
+          "task": "Coolant check & replace",
+          "intervalUnverified": true,
+          "basis": "Interval not verified. Confirm the exact model, then use its operator’s manual.",
+          "status": "unverified"
+        }
+      ],
+      "parts": [],
+      "log": [],
+      "todos": [
+        {
+          "id": "t-frontaxle",
+          "text": "Front axle work (on jack stands)",
+          "done": false
+        }
+      ]
     }
   ],
   "sources": {
@@ -1438,6 +1906,34 @@
     "bf825": {
       "title": "Tractor Parts ASAP — Baldwin BF825 (replaces NH 83937061)",
       "url": "https://www.tractorpartsasap.com/baldwin-fuel-filter-can-style-john-deere-2030-2520.html"
+    },
+    "tractordata-s650": {
+      "title": "TractorData — Satoh Bison S650 (cites the S-650G Instruction Book)",
+      "url": "https://www.tractordata.com/farm-tractors/003/1/7/3179-satoh-s650.html"
+    },
+    "satoh-ib": {
+      "title": "Satoh S-650G Instruction Book (factory; scanned copy hosted by satoh-s650g.com)",
+      "url": "http://satoh-s650g.com/Satoh_S650G_Instruction_Book.pdf"
+    },
+    "satoh-parts": {
+      "title": "satoh-s650g.com — part numbers (owner site, unverified cross-references)",
+      "url": "https://satoh-s650g.com/part-numbers/9-part-numbers/"
+    },
+    "wix46270": {
+      "title": "WIX application lookup — 46270 lists Satoh S650G (gas engine)",
+      "url": "https://www2.wixfilters.com/Lookup/PartApplications.aspx?Part=46270"
+    },
+    "ntc-quickid": {
+      "title": "N Tractor Club — Quick ID Ford Tractors ’39–’64 (block casting codes)",
+      "url": "https://www.ntractorclub.com/howtos/pdfs/Quick-ID-Ford-Tractors.pdf"
+    },
+    "ntc-blocks": {
+      "title": "N Tractor Club forum — “134ci vs 172ci blocks” (EAE = 134 ci; models that used it)",
+      "url": "https://www.ntractorclub.com/forums/nboard/messages9/195592.html"
+    },
+    "tractordata-naa-engine": {
+      "title": "TractorData — Ford Golden Jubilee NAA engine (134 ci)",
+      "url": "https://www.tractordata.com/farm-tractors/000/2/1/219-ford-naa-engine.html"
     }
   },
   "credits": {
@@ -1472,6 +1968,14 @@
     },
     "credit-ford445c": {
       "text": "Ford 445C photo: the owner's own photo.",
+      "links": []
+    },
+    "credit-keith": {
+      "text": "Keith's Tractor photo: the owner's own photo.",
+      "links": []
+    },
+    "credit-lilred": {
+      "text": "Lil Red photo: the owner's own photo.",
       "links": []
     }
   }

@@ -249,7 +249,7 @@
     var sum = S.summary(v), next = S.nextService(v);
     var h = '<nav class="crumbs"><a href="' + ci.route + '">‹ ' + ci.home + '</a></nav>';
     h += '<section class="profile-head reveal-up"><p class="kicker">' + ci.kicker + ' profile</p><h1 class="display chrome">' + nw(v.name) + '</h1>' +
-      '<p class="lede">' + (v.subtitle ? '<strong class="subtitle">' + esc(v.subtitle) + '</strong> · ' : '') + esc(ymm(v) || 'Year / make / model: add') + (v.color ? ' · <span class="swatch" style="--c:' + esc(v.colorHex || '#aaa') + '"></span>' + esc(v.color) : '') + (v.engine ? ' · ' + esc(v.engine) : '') + '</p></section>';
+      '<p class="lede">' + (v.subtitle ? '<strong class="subtitle">' + esc(v.subtitle) + '</strong>' + (ymm(v) && v.subtitle.indexOf(ymm(v)) < 0 ? ' · ' : '') : '') + (v.subtitle && (!ymm(v) || v.subtitle.indexOf(ymm(v)) >= 0) ? '' : esc(ymm(v) || 'Year / make / model: add')) + (v.color ? ' · <span class="swatch" style="--c:' + esc(v.colorHex || '#aaa') + '"></span>' + esc(v.color) : '') + (v.engine ? ' · ' + esc(v.engine) : '') + '</p></section>';
     h += isPhoto(v)
       ? '<figure class="hero-photo" id="showroom"><img src="' + esc(srcFor(v)) + '"' + (v.photoSm && !Store.cachedImage(v.photo) ? ' srcset="' + esc(v.photoSm) + ' 640w, ' + esc(v.photo) + ' 1280w" sizes="(min-width: 1000px) 900px, 100vw"' : '') + ' alt="' + esc(photoAlt(v)) + '" fetchpriority="high"' + fallbackAttr(v) + '><span class="hp-sweep" aria-hidden="true"></span></figure>'
       : '<section class="showroom" id="showroom"></section>';
@@ -309,7 +309,7 @@
       if (s.every) interval.push('every ' + num(s.every) + ' ' + u);
       if (s.months) interval.push(s.months % 12 === 0 ? 'every ' + (s.months === 12 ? '12 months' : (s.months / 12) + ' years') : 'every ' + s.months + ' months');
       if (it.once) interval.push('one-time');
-      if (it.intervalUnverified) interval.push('interval not verified');
+      if (it.intervalUnverified) interval.push(it.modelNeeded ? 'model needed' : 'interval not verified');
       if (!air && !trac && it.severeMiles && v.scheduleMode !== 'severe' && !it.everyMiles) interval.push('severe: every ' + num(it.severeMiles) + ' mi');
       var lastTxt = s.last ? fdate(s.last.date) + (s.lastMeter != null ? ' · ' + (s.lastEst ? '≈' : '') + num(s.lastMeter) + ' ' + u : '') : (s.assumedStart ? 'No record (counted from in-service)' : 'Not yet logged');
       var dueTxt = [];
@@ -325,7 +325,7 @@
     });
     if (!v.schedule.length) h += '<p class="empty">No schedule items yet.</p>';
     h += '</div><div class="row-btns"><button class="btn small" id="addSched">＋ Schedule item</button></div>';
-    h += '<p class="footnote">' + (air ? 'Every item stays “not yet logged” until you log it. Nothing here is made up.' : trac ? 'Hours-based. Every item stays “not yet logged” until you log it. Only intervals found in a citable source are filled in; the rest say “interval not verified”. Check the operator’s manual (Ford 42034530, Section D) and fill them in with ＋ Schedule item or by editing.' : 'Intervals come from the 2022 Buick Enclave Owner’s Manual, pp. 336–341 (Normal and Severe charts). “≈” means the mileage was estimated from nearby odometer readings.') + ' Sources are listed at the bottom.</p></section>';
+    h += '<p class="footnote">' + (v.scheduleNote ? esc(v.scheduleNote) : air ? 'Every item stays “not yet logged” until you log it. Nothing here is made up.' : trac ? 'Hours-based. Every item stays “not yet logged” until you log it. Only intervals found in a citable source are filled in; the rest say “interval not verified”. Check the operator’s manual (Ford 42034530, Section D) and fill them in with ＋ Schedule item or by editing.' : 'Intervals come from the 2022 Buick Enclave Owner’s Manual, pp. 336–341 (Normal and Severe charts). “≈” means the mileage was estimated from nearby odometer readings.') + (sourcesBlock(v) ? ' Sources are listed at the bottom.' : '') + '</p></section>';
 
     // parts
     h += '<section class="panel reveal-up" id="parts"><div class="panel-head"><h2>Parts</h2><button class="btn small" id="addPart2">＋ Add part</button></div>';
@@ -636,7 +636,7 @@
       };
     });
   }
-  function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || uid('v'); }
+  function slug(s) { return String(s).toLowerCase().replace(/['’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || uid('v'); }
 
   /* ---------------- PHOTO (resized client-side; committed to images/ on sync) ---------------- */
   function resizeImage(file, max) {
@@ -671,7 +671,8 @@
   /* ---------------- REQUEST (FormSubmit) ---------------- */
   function renderRequest(v) {
     var air = isAir(v), trac = isTractor(v);
-    var title = trac ? ([v.make, v.model].filter(Boolean).join(' ') || v.name) : (ymm(v) || v.name);
+    // Tractors: "Make Model" once the model is known, otherwise the nickname (e.g. Keith's Tractor).
+    var title = v.requestTitle || (trac ? (v.model ? [v.make, v.model].filter(Boolean).join(' ') : v.name) : (ymm(v) || v.name));
     var subject = (air ? 'Sky Sailing request: ' : 'Garage request: ') + title;
     var next = new URL('thanks.html?v=' + encodeURIComponent(v.id), location.href.split('#')[0]).href;
     var h = '<nav class="crumbs"><a href="#/v/' + encodeURIComponent(v.id) + '">‹ ' + esc(v.name) + '</a></nav>' +
@@ -681,7 +682,7 @@
       '<input type="hidden" name="_template" value="table">' +
       '<input type="hidden" name="_next" value="' + esc(next) + '">' +
       '<input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">' +
-      '<input type="hidden" name="' + (air ? 'aircraft' : trac ? 'tractor' : 'vehicle') + '" value="' + esc(title + ' (' + v.name + ')') + '">' +
+      '<input type="hidden" name="' + (air ? 'aircraft' : trac ? 'tractor' : 'vehicle') + '" value="' + esc(title === v.name ? title : title + ' (' + v.name + ')') + '">' +
       field('Your name', 'name', '', { required: true, ph: 'First & last' }) +
       '<div class="two">' + field('Phone', 'phone', '', { type: 'tel', inputmode: 'tel', ph: '(555) 555-5555' }) + field('Email', 'email', '', { type: 'email', ph: 'you@example.com' }) + '</div>' +
       '<p class="small hint-line" id="contactHint">Give a phone <em>or</em> an email so Blue can reach you.</p>' +

@@ -30,7 +30,9 @@ If two devices edit at once, the site detects the conflict and asks you to **Mer
 ## Tractors
 The **Tractors** tab (`#/tractors`, Ford-yellow theme) holds machines that run on an engine **hour meter**, so the schedule, log and meter forms use **Hours** instead of miles.
 - Ford 445C tractor loader / backhoe. The year (1990) is decoded from the ID plate's unit code. The specs, schedule and parts each list a source. Anything that couldn't be confirmed is labelled *unverified*, *uncertain* or *part # needed*, or left blank as "add".
-- Most maintenance intervals are marked "interval not verified". Check operator's manual 42034530 (Section D, Lubrication & Maintenance) and fill them in.
+- Keith's Tractor: a Satoh S-650G (from its plate). Specs and most intervals come from the factory S-650G Instruction Book (scanned copy) and TractorData.
+- Lil Red: a vintage Ford. The model shown is an estimate from the engine block casting (EAE-6015-D, a part number, not a serial). Model and year stay "add" until confirmed.
+- For the 445C, most maintenance intervals are marked "interval not verified". Check operator's manual 42034530 (Section D, Lubrication & Maintenance) and fill them in.
 - The tractor number, engine serial and PIN go only in the tractor's **Vault**, never in normal fields.
 
 ## Vault (encrypted details)
@@ -69,6 +71,7 @@ Note: the destination email is visible in the page source. FormSubmit can swap i
 - Owl (the SGS 1-26E) photo, `images/sgs-126/`: the owner's own photo. Resized, with all EXIF/GPS metadata removed.
 - Ford 445C photo, `images/ford-445c/`: the owner's own photo. Cropped and resized, with all EXIF/GPS metadata removed.
 - Glider fallback artwork (`images/glider.svg`): original stylized SVG made for this site.
+- Keith's Tractor photo (`images/keiths-tractor/`) and Lil Red photo (`images/lil-red/`): the owner's own photos. Cropped and resized, with all EXIF/GPS metadata removed.
 - Tractor fallback artwork (`images/tractor.svg`): original SVG made for this site.
 - Fonts: Big Shoulders Display, Inter, JetBrains Mono (SIL Open Font License) via Google Fonts.
-- Maintenance intervals come from the 2022 Buick Enclave Owner's Manual. Aircraft items come from 14 CFR 91.409 and FAA ADs 87-02-01 / 87-17-01. Ford 445C items come from TractorData, quotes from operator's manual 42034530, WIX application lookups and parts-seller fitment lists. Each profile lists its sources.
+- Maintenance intervals come from the 2022 Buick Enclave Owner's Manual. Aircraft items come from 14 CFR 91.409 and FAA ADs 87-02-01 / 87-17-01. Satoh S-650G items come from the factory Instruction Book and TractorData. Ford 445C items come from TractorData, quotes from operator's manual 42034530, WIX application lookups and parts-seller fitment lists. Each profile lists its sources.
