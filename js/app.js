@@ -23,6 +23,9 @@
   function img(src) { return (src && Store.cachedImage(src)) || src || null; }
   function placeholderFor(v) { return isAir(v) ? 'images/glider.svg' : 'images/car-placeholder.svg'; }
   function srcFor(v) { return img(v.photo) || placeholderFor(v); }
+  function isPhoto(v) { return v.photoStyle === 'photo'; }  // a real photo (not a cut-out): show full-bleed, no turntable
+  function fallbackAttr(v) { return ' onerror="this.onerror=null;this.removeAttribute(\'srcset\');this.src=\'' + esc(v.photoFallback || placeholderFor(v)) + '\'"'; }
+  function photoAlt(v) { return v.name + (ymm(v) ? ', ' + ymm(v) : ''); }
   function unitWord(v) { return isAir(v) ? 'hrs' : 'mi'; }
 
   var toastEl = document.getElementById('toast'), toastT;
@@ -207,7 +210,8 @@
     list.forEach(function (v, i) {
       var b = cardBadge(v);
       html += '<article class="card" style="--i:' + i + '">' +
-        '<a class="card-photo" href="#/v/' + encodeURIComponent(v.id) + '" aria-label="Open ' + esc(v.name) + ' profile"><span class="card-spot"></span><img src="' + esc(srcFor(v)) + '" alt="' + esc(v.name) + '" loading="lazy"></a>' +
+        '<a class="card-photo' + (isPhoto(v) ? ' is-photo' : '') + '" href="#/v/' + encodeURIComponent(v.id) + '" aria-label="Open ' + esc(v.name) + ' profile"><span class="card-spot"></span><img src="' + esc(srcFor(v)) + '"' +
+          (isPhoto(v) && v.photoSm && !Store.cachedImage(v.photo) ? ' srcset="' + esc(v.photoSm) + ' 640w, ' + esc(v.photo) + ' 1280w" sizes="(min-width: 700px) 420px, 100vw"' : '') + ' alt="' + esc(photoAlt(v)) + '" loading="lazy"' + fallbackAttr(v) + '></a>' +
         '<div class="card-body"><div class="card-top"><h2 class="card-name">' + nw(v.name) + '</h2>' + (isAir(v) ? '<span class="cat-chip">Glider</span>' : '') + '</div>' +
         '<p class="card-ymm">' + esc(ymm(v) || 'Year / make / model: add') + '</p>' +
         '<p class="card-meter">' + meterLine(v) + '</p>' +
@@ -226,7 +230,9 @@
     var h = '<nav class="crumbs"><a href="' + (air ? '#/sky' : '#/') + '">‹ ' + (air ? 'Sky Sailing' : 'Garage') + '</a></nav>';
     h += '<section class="profile-head reveal-up"><p class="kicker">' + (air ? 'Glider' : 'Vehicle') + ' profile</p><h1 class="display chrome">' + nw(v.name) + '</h1>' +
       '<p class="lede">' + esc(ymm(v) || 'Year / make / model: add') + (v.color ? ' · <span class="swatch" style="--c:' + esc(v.colorHex || '#aaa') + '"></span>' + esc(v.color) : '') + (v.engine ? ' · ' + esc(v.engine) : '') + '</p></section>';
-    h += '<section class="showroom" id="showroom"></section>';
+    h += isPhoto(v)
+      ? '<figure class="hero-photo" id="showroom"><img src="' + esc(srcFor(v)) + '"' + (v.photoSm && !Store.cachedImage(v.photo) ? ' srcset="' + esc(v.photoSm) + ' 640w, ' + esc(v.photo) + ' 1280w" sizes="(min-width: 1000px) 900px, 100vw"' : '') + ' alt="' + esc(photoAlt(v)) + '" fetchpriority="high"' + fallbackAttr(v) + '><span class="hp-sweep" aria-hidden="true"></span></figure>'
+      : '<section class="showroom" id="showroom"></section>';
     h += '<div class="photo-tools"><button class="btn small" id="changePhoto">📷 Change photo</button><button class="btn small" id="editUnit">✎ Edit details</button></div>';
 
     h += '<section class="grid2">';
@@ -265,7 +271,8 @@
         (s.note ? '<span class="spec-note">' + esc(s.note) + '</span>' : '') + srcTag(s.source, s.status) + '</dd></div>';
     });
     if (!v.specs.length) h += '<p class="empty">No specs yet. Tap Edit to add some.</p>';
-    h += '</dl>' + (air ? '<p class="small public-note">Keep the N-number and serial in the paper logbook. This site is public.</p>' : '') + '</section>';
+    h += '</dl>' + (air ? '<p class="small public-note">Put the N-number and serial in the encrypted Vault below, never in these public fields.</p>' : '') + '</section>';
+    h += '<section class="panel vault reveal-up" id="vault" aria-label="Encrypted vault"></section>';
 
     // schedule chart
     h += '<section class="panel reveal-up" id="schedule"><div class="panel-head"><h2>' + (air ? 'Annual inspection &amp; ADs' : 'Maintenance schedule') + '</h2>' +
@@ -343,7 +350,8 @@
 
     // showroom / turntable
     var views = (v.turntable && v.turntable.views && v.turntable.views.length) ? v.turntable.views.map(function (x) { return { src: img(x.src), label: x.label, mirror: x.mirror }; }) : [{ src: srcFor(v), label: 'Photo' }];
-    Turntable($('#showroom'), views, { alt: v.name + (views.length > 1 ? ' showroom turntable' : ''), auto: views.length > 1 });
+    if (!isPhoto(v)) Turntable($('#showroom'), views, { alt: v.name + (views.length > 1 ? ' showroom turntable' : ''), auto: views.length > 1 });
+    if (window.Vault) Vault.mount($('#vault'), v, { save: save, toast: toast });
 
     // wire up
     $('#editMeter').onclick = function () { meterForm(v); };
@@ -550,7 +558,7 @@
   function unitForm(cat, v) {
     var air = cat === 'aircraft', u = v || {};
     openModal('<h2>' + (v ? 'Edit details' : (air ? 'Add aircraft' : 'Add vehicle')) + '</h2><form id="uf" class="form">' +
-      field('Nickname', 'name', u.name, { required: true, ph: air ? 'e.g., The 1-26' : 'e.g., Work truck' }) +
+      field('Nickname', 'name', u.name, { required: true, ph: air ? 'e.g., Owl' : 'e.g., Work truck', hint: 'shown as the big title' }) +
       '<div class="two">' + field('Year', 'year', u.year, { type: 'number', inputmode: 'numeric', min: 1900 }) + field('Make', 'make', u.make, { ph: air ? 'Schweizer' : 'Buick' }) + '</div>' +
       field('Model', 'model', u.model, { ph: air ? 'SGS 1-26' : 'Enclave' }) +
       '<div class="two">' + field('Color', 'color', u.color) + field(air ? 'Type' : 'Engine', 'engine', u.engine, { ph: air ? 'Glider' : '3.6L V6' }) + '</div>' +
@@ -580,7 +588,7 @@
         }
         var finish = function (dataUrl) {
           closeModal();
-          save(function (d) { if (dataUrl) { rec.photo = dataUrl; delete rec.turntable; } if (!v) d.vehicles.push(rec); }, (v ? 'Edit ' : 'Add ') + rec.name, v ? 'Details saved' : (air ? 'Aircraft added' : 'Vehicle added'));
+          save(function (d) { if (dataUrl) { rec.photo = dataUrl; rec.photoStyle = 'photo'; delete rec.turntable; delete rec.photoSm; } if (!v) d.vehicles.push(rec); }, (v ? 'Edit ' : 'Add ') + rec.name, v ? 'Details saved' : (air ? 'Aircraft added' : 'Vehicle added'));
           if (!v) location.hash = '#/v/' + encodeURIComponent(rec.id);
         };
         if (file) resizeImage(file).then(finish, function (e) { alert('Could not read that photo: ' + e.message); });
@@ -616,7 +624,7 @@
         var f = e.target.files[0]; if (!f) return;
         resizeImage(f).then(function (d) { data = d; $('#ppPrev', b).innerHTML = '<img alt="Preview" src="' + d + '">'; $('#ppSave', b).disabled = false; }, function (er) { alert(er.message); });
       };
-      $('#ppSave', b).onclick = function () { if (!data) return; closeModal(); save(function () { v.photo = data; delete v.turntable; }, 'New photo for ' + v.name, 'Photo saved'); };
+      $('#ppSave', b).onclick = function () { if (!data) return; closeModal(); save(function () { v.photo = data; v.photoStyle = 'photo'; delete v.turntable; delete v.photoSm; }, 'New photo for ' + v.name, 'Photo saved'); };
     });
   }
 
@@ -626,7 +634,7 @@
     var subject = (air ? 'Sky Sailing request: ' : 'Garage request: ') + title;
     var next = new URL('thanks.html?v=' + encodeURIComponent(v.id), location.href.split('#')[0]).href;
     var h = '<nav class="crumbs"><a href="#/v/' + encodeURIComponent(v.id) + '">‹ ' + esc(v.name) + '</a></nav>' +
-      '<section class="request-head reveal-up"><img class="req-thumb" src="' + esc(srcFor(v)) + '" alt=""><div><p class="kicker">Request service</p><h1 class="display chrome">' + nw(title) + '</h1><p class="lede">Tell Blue what you need. It goes straight to his inbox.</p></div></section>' +
+      '<section class="request-head reveal-up"><img class="req-thumb' + (isPhoto(v) ? ' is-photo' : '') + '" src="' + esc(isPhoto(v) && v.photoSm && !Store.cachedImage(v.photo) ? v.photoSm : srcFor(v)) + '" alt=""' + fallbackAttr(v) + '><div><p class="kicker">Request service</p><h1 class="display chrome">' + nw(title) + '</h1><p class="lede">Tell Blue what you need. It goes straight to his inbox.</p></div></section>' +
       '<form class="panel form request-form reveal-up" id="reqForm" action="https://formsubmit.co/' + FORM_EMAIL + '" method="POST">' +
       '<input type="hidden" name="_subject" value="' + esc(subject) + '">' +
       '<input type="hidden" name="_template" value="table">' +
@@ -670,6 +678,7 @@
       '<details><summary>Advanced (repo)</summary><div class="two">' + field('Owner', 'owner', s.owner) + field('Repo', 'repo', s.repo) + '</div>' + field('Branch', 'branch', s.branch) + '</details>' +
       '<div class="form-actions"><button type="button" class="btn ghost" id="clearTok">Remove token</button><button type="button" class="btn" id="testTok">Test</button><button class="btn primary">Save</button></div><p id="testOut" class="small" role="status"></p></form></section>' +
       '<section class="panel reveal-up"><h2>Backup</h2><p>Download everything as one file, or restore a backup. Do this before big changes.</p><div class="row-btns"><button class="btn primary" id="exportBtn">⬇ Export JSON</button><label class="btn" for="importFile" tabindex="0">⬆ Import JSON</label><input type="file" id="importFile" accept="application/json,.json" class="visually-hidden"></div></section>' +
+      (window.Vault ? Vault.settingsHtml() : '') +
       '<section class="panel reveal-up"><h2>Request form email</h2><p class="small">Requests reach the shop inbox through <a href="https://formsubmit.co" target="_blank" rel="noopener">FormSubmit</a> (free, no account). The <b>first</b> request triggers a one-time <b>activation email</b>. Open it and click “Activate Form”. Until then, no requests come through.</p></section>';
     app.innerHTML = h;
     function readSet() { var f = formVals($('#setForm')); return { token: (f.token || '').trim(), owner: (f.owner || 'skyking211').trim(), repo: (f.repo || 'garage').trim(), branch: (f.branch || 'main').trim() }; }
@@ -690,6 +699,7 @@
     var sn = $('#syncNow'); if (sn) sn.onclick = function () { sn.disabled = true; sn.textContent = 'Syncing…'; Store.sync().then(function () { toast('Synced ✓', 'ok'); renderSettings(); }, function (e) { if (!e.cancelled) toast('Sync failed: ' + e.message, 'bad'); renderSettings(); }); };
     var dc = $('#discard'); if (dc) dc.onclick = function () { if (!confirm('Throw away edits that only exist on this device?')) return; Store.discardLocal().then(function () { toast('Reloaded'); renderSettings(); }); };
     $('#exportBtn').onclick = exportJson;
+    if (window.Vault) Vault.bindSettings(app, { save: save, toast: toast });
     $('#importFile').onchange = function (e) { var f = e.target.files[0]; if (f) importJson(f); e.target.value = ''; };
   }
   function exportJson() {

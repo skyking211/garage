@@ -81,6 +81,7 @@
       v.category = v.category === 'aircraft' ? 'aircraft' : 'vehicle';
       ['specs', 'schedule', 'parts', 'log', 'todos'].forEach(function (k) { if (!Array.isArray(v[k])) v[k] = []; });
     });
+    d.vehicles.forEach(function (v) { if (v.vault !== undefined && v.vault !== null && (typeof v.vault !== 'object' || typeof v.vault.ct !== 'string')) delete v.vault; });
     d.sources = d.sources || {}; d.credits = d.credits || {};
     return d;
   }
@@ -149,6 +150,7 @@
       if (!mv) { m.vehicles.push(tv); return; }
       mv.log = mergeArr(mv.log, tv.log); mv.parts = mergeArr(mv.parts, tv.parts); mv.todos = mergeArr(mv.todos, tv.todos);
       mv.schedule = mergeArr(mv.schedule, tv.schedule); mv.specs = mergeArr(mv.specs, tv.specs, 'label');
+      if (mv.vault === undefined && tv.vault) mv.vault = tv.vault; // encrypted blob: mine wins, else take theirs (null = erased on purpose)
       if (mv.category === 'vehicle' && (tv.mileage || 0) > (mv.mileage || 0)) { mv.mileage = tv.mileage; mv.mileageDate = tv.mileageDate; mv.mileageNeedsUpdate = tv.mileageNeedsUpdate; }
       if (mv.category === 'aircraft' && (tv.totalTime || 0) > (mv.totalTime || 0)) { mv.totalTime = tv.totalTime; mv.tach = tv.tach; mv.meterDate = tv.meterDate; }
     });
@@ -174,7 +176,7 @@
         var path = 'images/' + v.id + '-' + Date.now() + '.' + ext;
         return ghPut(path, dataUrl.split(',')[1], 'Add photo for ' + (v.name || v.id)).then(function () {
           cacheImage(path, dataUrl);
-          v.photo = path; if (v.turntable) delete v.turntable;
+          v.photo = path; if (v.turntable) delete v.turntable; delete v.photoSm;
           persistLocal(true);
         });
       });

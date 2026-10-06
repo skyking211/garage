@@ -662,22 +662,23 @@
     {
       "id": "sgs-1-26",
       "category": "aircraft",
-      "name": "Schweizer SGS 1-26",
+      "name": "Owl",
       "year": null,
       "make": "Schweizer",
-      "model": "SGS 1-26",
+      "model": "SGS 1-26E",
       "color": "",
       "engine": "Glider (no engine)",
       "totalTime": null,
       "tach": null,
       "meterDate": null,
       "meterNeedsUpdate": true,
-      "photo": "images/glider.svg",
-      "photoCredit": "credit-glider",
+      "photo": "images/sgs-126/owl-1280.webp",
+      "photoCredit": "credit-owl",
       "specs": [
         {
           "label": "Model variant (1-26, A, B, C, D or E)",
-          "value": ""
+          "value": "SGS 1-26E",
+          "note": "per owner"
         },
         {
           "label": "Year built",
@@ -748,7 +749,10 @@
       ],
       "parts": [],
       "log": [],
-      "todos": []
+      "todos": [],
+      "photoSm": "images/sgs-126/owl-640.webp",
+      "photoFallback": "images/glider.svg",
+      "photoStyle": "photo"
     }
   ],
   "sources": {
@@ -828,7 +832,11 @@
       ]
     },
     "credit-glider": {
-      "text": "Glider artwork: original stylized SVG silhouette made for this site (no third-party image).",
+      "text": "Glider fallback artwork: original stylized SVG silhouette made for this site (no third-party image).",
+      "links": []
+    },
+    "credit-owl": {
+      "text": "Owl photo: the owner's own photo.",
       "links": []
     }
   }
