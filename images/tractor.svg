@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 427" role="img" aria-label="Tractor placeholder">
+  <defs>
+    <pattern id="hz" width="28" height="28" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="14" height="28" fill="#ffcd00"/><rect x="14" width="14" height="28" fill="#151000"/></pattern>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a230c"/><stop offset="1" stop-color="#0b0a06"/></linearGradient>
+  </defs>
+  <rect width="640" height="427" fill="url(#bg)"/>
+  <rect y="395" width="640" height="32" fill="url(#hz)"/>
+  <g fill="none" stroke="#ffcd00" stroke-width="14" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M150 250V170h150l40 80h150v80"/>
+    <path d="M300 170V100h90v150"/>
+    <path d="M150 210 80 260v60h50"/>
+    <circle cx="215" cy="300" r="70"/>
+    <circle cx="470" cy="330" r="40"/>
+  </g>
+  <circle cx="215" cy="300" r="18" fill="#ffcd00"/>
+  <circle cx="470" cy="330" r="10" fill="#ffcd00"/>
+</svg>

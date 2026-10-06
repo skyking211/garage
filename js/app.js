@@ -19,14 +19,24 @@
   function $$(sel, root) { return [].slice.call((root || document).querySelectorAll(sel)); }
   function vehicle(id) { return (Store.data.vehicles || []).filter(function (v) { return v.id === id; })[0]; }
   function isAir(v) { return v && v.category === 'aircraft'; }
+  function isTractor(v) { return v && v.category === 'tractor'; }
+  function catOf(v) { return v && (v.category === 'aircraft' || v.category === 'tractor') ? v.category : 'vehicle'; }
+  function usesHours(v) { return isAir(v) || isTractor(v); }  // hour meter instead of odometer
+  /* Per-section wording and routes. vehicle = Garage, aircraft = Sky Sailing, tractor = Tractors. */
+  var CAT = {
+    vehicle: { route: '#/', home: 'Garage', noun: 'vehicle', kicker: 'Vehicle', theme: 'garage', chip: '', add: 'Add vehicle', color: '#07090c' },
+    aircraft: { route: '#/sky', home: 'Sky Sailing', noun: 'aircraft', kicker: 'Glider', theme: 'sky', chip: 'Glider', add: 'Add aircraft', color: '#0a2340' },
+    tractor: { route: '#/tractors', home: 'Tractors', noun: 'machine', kicker: 'Tractor', theme: 'tractor', chip: 'Tractor', add: 'Add tractor', color: '#0d0b05' }
+  };
+  function catInfo(v) { return CAT[catOf(v)]; }
   function ymm(v) { return [v.year, v.make, v.model].filter(Boolean).join(' '); }
   function img(src) { return (src && Store.cachedImage(src)) || src || null; }
-  function placeholderFor(v) { return isAir(v) ? 'images/glider.svg' : 'images/car-placeholder.svg'; }
+  function placeholderFor(v) { return isAir(v) ? 'images/glider.svg' : isTractor(v) ? 'images/tractor.svg' : 'images/car-placeholder.svg'; }
   function srcFor(v) { return img(v.photo) || placeholderFor(v); }
   function isPhoto(v) { return v.photoStyle === 'photo'; }  // a real photo (not a cut-out): show full-bleed, no turntable
   function fallbackAttr(v) { return ' onerror="this.onerror=null;this.removeAttribute(\'srcset\');this.src=\'' + esc(v.photoFallback || placeholderFor(v)) + '\'"'; }
   function photoAlt(v) { return v.name + (ymm(v) ? ', ' + ymm(v) : ''); }
-  function unitWord(v) { return isAir(v) ? 'hrs' : 'mi'; }
+  function unitWord(v) { return usesHours(v) ? 'hrs' : 'mi'; }
 
   var toastEl = document.getElementById('toast'), toastT;
   function toast(msg, kind) {
@@ -145,6 +155,12 @@
       if (ann) return { cls: pillClass(ann.status), text: 'Annual ' + statusLabel(ann, v).toLowerCase() };
       return { cls: 'muted', text: 'Nothing logged yet' };
     }
+    if (isTractor(v)) {
+      if (sum.counts.overdue) return { cls: 'bad', text: sum.counts.overdue + ' item' + (sum.counts.overdue > 1 ? 's' : '') + ' overdue' };
+      if (sum.counts.soon) return { cls: 'warn', text: sum.counts.soon + ' due soon' };
+      var anyLogged = sum.statuses.some(function (s) { return s.status !== 'notlogged' && s.status !== 'na'; });
+      return anyLogged ? { cls: 'good', text: 'Service up to date' } : { cls: 'muted', text: 'Service: not yet logged' };
+    }
     var oil = sum.statuses.filter(function (s) { return s.item.id === 'oil'; })[0];
     var n = S.nextService(v);
     var main;
@@ -164,6 +180,7 @@
       var tach = v.tach != null && v.tach !== '' ? ' · tach ' + num(v.tach) : '';
       return tt + tach;
     }
+    if (isTractor(v)) return v.hours != null && v.hours !== '' ? num(v.hours) + ' hrs' + (v.meterDate ? ' <span class="small">as of ' + fdate(v.meterDate) + '</span>' : '') : 'Hour meter: <span class="add-slot sm">add</span>';
     return num(v.mileage) + ' mi' + (v.mileageNeedsUpdate ? ' <span class="flag">needs update</span>' : '');
   }
 
@@ -172,10 +189,11 @@
     var h = (location.hash || '#/').replace(/^#\/?/, '');
     return h.split('/').map(function (x) { try { return decodeURIComponent(x); } catch (e) { return x; } });
   }
-  function setTheme(sky) {
-    document.body.dataset.theme = sky ? 'sky' : 'garage';
-    $$('.tab').forEach(function (t) { var on = (t.dataset.tab === 'sky') === sky; t.classList.toggle('on', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); });
-    document.querySelector('meta[name=theme-color]').setAttribute('content', sky ? '#0a2340' : '#07090c');
+  function setTheme(cat) {
+    var c = CAT[cat] || CAT.vehicle;
+    document.body.dataset.theme = c.theme;
+    $$('.tab').forEach(function (t) { var on = t.dataset.tab === c.theme; t.classList.toggle('on', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); });
+    document.querySelector('meta[name=theme-color]').setAttribute('content', c.color);
   }
   var lastRouteKey = '';
   function route() {
@@ -185,10 +203,11 @@
     lastRouteKey = key;
     var view = p[0] || '';
     try {
-      if (view === '' || view === 'garage') { setTheme(false); renderHome('vehicle'); }
-      else if (view === 'sky') { setTheme(true); renderHome('aircraft'); }
-      else if (view === 'v') { var v = vehicle(p[1]); if (!v) return notFound(); setTheme(isAir(v)); renderProfile(v, p[2]); scrollTop = scrollTop && !p[2]; }
-      else if (view === 'request') { var rv = vehicle(p[1]); if (!rv) return notFound(); setTheme(isAir(rv)); renderRequest(rv); }
+      if (view === '' || view === 'garage') { setTheme('vehicle'); renderHome('vehicle'); }
+      else if (view === 'sky') { setTheme('aircraft'); renderHome('aircraft'); }
+      else if (view === 'tractors') { setTheme('tractor'); renderHome('tractor'); }
+      else if (view === 'v') { var v = vehicle(p[1]); if (!v) return notFound(); setTheme(catOf(v)); renderProfile(v, p[2]); scrollTop = scrollTop && !p[2]; }
+      else if (view === 'request') { var rv = vehicle(p[1]); if (!rv) return notFound(); setTheme(catOf(rv)); renderRequest(rv); }
       else if (view === 'settings') { renderSettings(); }
       else if (view === 'search') { renderSearch(p.slice(1).join('/')); scrollTop = false; }
       else notFound();
@@ -205,6 +224,7 @@
     var list = Store.data.vehicles.filter(function (v) { return v.category === cat; });
     var html = '<section class="intro reveal-up">' +
       (air ? '<p class="kicker">Sky Sailing · gliders</p><h1 class="display chrome">Ridge lift &amp; logbooks</h1><p class="lede">Annuals, ADs and squawks for the fleet. Tap a glider for its profile.</p>'
+           : cat === 'tractor' ? '<p class="kicker">Tractors · ' + list.length + ' machine' + (list.length === 1 ? '' : 's') + '</p><h1 class="display chrome">Hours, grease &amp; hydraulics</h1><p class="lede">Hour-meter service, filters and grease points. Tap a machine.</p>'
            : '<p class="kicker">The Garage · ' + list.length + ' vehicle' + (list.length === 1 ? '' : 's') + '</p><h1 class="display chrome">Oil, iron &amp; elbow grease</h1><p class="lede">What’s due, what’s done, and the part numbers. Tap a card.</p>') +
       '</section><section class="cards">';
     list.forEach(function (v, i) {
@@ -212,32 +232,35 @@
       html += '<article class="card" style="--i:' + i + '">' +
         '<a class="card-photo' + (isPhoto(v) ? ' is-photo' : '') + '" href="#/v/' + encodeURIComponent(v.id) + '" aria-label="Open ' + esc(v.name) + ' profile"><span class="card-spot"></span><img src="' + esc(srcFor(v)) + '"' +
           (isPhoto(v) && v.photoSm && !Store.cachedImage(v.photo) ? ' srcset="' + esc(v.photoSm) + ' 640w, ' + esc(v.photo) + ' 1280w" sizes="(min-width: 700px) 420px, 100vw"' : '') + ' alt="' + esc(photoAlt(v)) + '" loading="lazy"' + fallbackAttr(v) + '></a>' +
-        '<div class="card-body"><div class="card-top"><h2 class="card-name">' + nw(v.name) + '</h2>' + (isAir(v) ? '<span class="cat-chip">Glider</span>' : '') + '</div>' +
-        '<p class="card-ymm">' + esc(ymm(v) || 'Year / make / model: add') + '</p>' +
+        '<div class="card-body"><div class="card-top"><h2 class="card-name">' + nw(v.name) + '</h2>' + (catInfo(v).chip ? '<span class="cat-chip">' + catInfo(v).chip + '</span>' : '') + '</div>' +
+        '<p class="card-ymm">' + esc(v.subtitle || ymm(v) || 'Year / make / model: add') + '</p>' +
         '<p class="card-meter">' + meterLine(v) + '</p>' +
         '<p class="badges"><span class="badge ' + b.cls + '">' + esc(b.text) + '</span>' + (b.extra ? '<span class="badge ghost">' + esc(b.extra) + '</span>' : '') + '</p>' +
         '<div class="card-actions"><a class="btn primary big" href="#/v/' + encodeURIComponent(v.id) + '">Profile</a><a class="btn big" href="#/request/' + encodeURIComponent(v.id) + '">Request</a></div></div></article>';
     });
-    html += '<button class="card add-card" type="button" id="addUnit" style="--i:' + list.length + '"><span class="plus">+</span><span>' + (air ? 'Add aircraft' : 'Add vehicle') + '</span></button></section>';
+    html += '<button class="card add-card" type="button" id="addUnit" style="--i:' + list.length + '"><span class="plus">+</span><span>' + CAT[cat].add + '</span></button></section>';
     app.innerHTML = html;
     $('#addUnit').onclick = function () { unitForm(cat); };
   }
 
   /* ---------------- PROFILE ---------------- */
   function renderProfile(v, section) {
-    var air = isAir(v), u = unitWord(v);
+    var air = isAir(v), trac = isTractor(v), ci = catInfo(v), u = unitWord(v);
     var sum = S.summary(v), next = S.nextService(v);
-    var h = '<nav class="crumbs"><a href="' + (air ? '#/sky' : '#/') + '">‹ ' + (air ? 'Sky Sailing' : 'Garage') + '</a></nav>';
-    h += '<section class="profile-head reveal-up"><p class="kicker">' + (air ? 'Glider' : 'Vehicle') + ' profile</p><h1 class="display chrome">' + nw(v.name) + '</h1>' +
-      '<p class="lede">' + esc(ymm(v) || 'Year / make / model: add') + (v.color ? ' · <span class="swatch" style="--c:' + esc(v.colorHex || '#aaa') + '"></span>' + esc(v.color) : '') + (v.engine ? ' · ' + esc(v.engine) : '') + '</p></section>';
+    var h = '<nav class="crumbs"><a href="' + ci.route + '">‹ ' + ci.home + '</a></nav>';
+    h += '<section class="profile-head reveal-up"><p class="kicker">' + ci.kicker + ' profile</p><h1 class="display chrome">' + nw(v.name) + '</h1>' +
+      '<p class="lede">' + (v.subtitle ? '<strong class="subtitle">' + esc(v.subtitle) + '</strong> · ' : '') + esc(ymm(v) || 'Year / make / model: add') + (v.color ? ' · <span class="swatch" style="--c:' + esc(v.colorHex || '#aaa') + '"></span>' + esc(v.color) : '') + (v.engine ? ' · ' + esc(v.engine) : '') + '</p></section>';
     h += isPhoto(v)
       ? '<figure class="hero-photo" id="showroom"><img src="' + esc(srcFor(v)) + '"' + (v.photoSm && !Store.cachedImage(v.photo) ? ' srcset="' + esc(v.photoSm) + ' 640w, ' + esc(v.photo) + ' 1280w" sizes="(min-width: 1000px) 900px, 100vw"' : '') + ' alt="' + esc(photoAlt(v)) + '" fetchpriority="high"' + fallbackAttr(v) + '><span class="hp-sweep" aria-hidden="true"></span></figure>'
       : '<section class="showroom" id="showroom"></section>';
     h += '<div class="photo-tools"><button class="btn small" id="changePhoto">📷 Change photo</button><button class="btn small" id="editUnit">✎ Edit details</button></div>';
 
     h += '<section class="grid2">';
-    h += '<div class="panel meter-panel reveal-up"><p class="kicker">' + (air ? 'Total time / tach' : 'Odometer') + '</p>';
-    if (air) {
+    h += '<div class="panel meter-panel reveal-up"><p class="kicker">' + (air ? 'Total time / tach' : trac ? 'Hour meter' : 'Odometer') + '</p>';
+    if (trac) {
+      h += '<p class="meter-big">' + (v.hours != null && v.hours !== '' ? num(v.hours) + '<small> hrs</small>' : '<span class="add-slot">add</span><small> hours</small>') + '</p>' +
+        '<p class="small">' + (v.meterDate ? 'as of ' + fdate(v.meterDate) : 'Read the hour meter on the dash and tap Update hours.') + '</p>';
+    } else if (air) {
       h += '<p class="meter-big">' + (v.totalTime != null && v.totalTime !== '' ? num(v.totalTime) + '<small> hrs TT</small>' : '<span class="add-slot">add</span><small> total time</small>') + '</p>' +
         '<p class="small">Tach: ' + (v.tach != null && v.tach !== '' ? num(v.tach) + ' hrs' : '<span class="add-slot sm">add</span>') + (v.meterDate ? ' · as of ' + fdate(v.meterDate) : '') + '</p>';
     } else {
@@ -247,7 +270,7 @@
         h += '<p class="callout warn"><strong>Mileage needs an update.</strong> ' + (pc ? 'At the recent pace (~' + num(Math.round(pc.perMonth / 10) * 10) + ' mi/month) it could be around <strong>' + num(Math.round(pc.estimateNow(new Date()) / 100) * 100) + ' mi</strong> by now. The statuses below use the last recorded reading.' : '') + '</p>';
       }
     }
-    h += '<button class="btn primary big wide" id="editMeter">' + (air ? 'Update times' : 'Update mileage') + '</button></div>';
+    h += '<button class="btn primary big wide" id="editMeter">' + (air ? 'Update times' : trac ? 'Update hours' : 'Update mileage') + '</button></div>';
 
     h += '<div class="panel countdown reveal-up"><p class="kicker">Next service</p>';
     if (next) {
@@ -258,7 +281,7 @@
         '<p class="next-task">' + esc(next.item.task) + '</p><p><span class="badge ' + pillClass(next.status) + '">' + esc(statusLabel(next, v)) + '</span></p>';
       if (sum.counts.overdue > 1 || (sum.counts.overdue && next.status !== 'overdue')) h += '<p class="small">' + sum.counts.overdue + ' items overdue. See the chart below.</p>';
     } else {
-      h += '<p class="empty">' + (air ? 'Nothing logged yet. Log the last annual to start the countdown.' : 'No schedule yet.') + '</p>';
+      h += '<p class="empty">' + (air ? 'Nothing logged yet. Log the last annual to start the countdown.' : trac ? 'Nothing logged yet. Add the hour meter reading and log the last service to start the countdown.' : 'No schedule yet.') + '</p>';
     }
     h += '</div></section>';
 
@@ -271,13 +294,14 @@
         (s.note ? '<span class="spec-note">' + esc(s.note) + '</span>' : '') + srcTag(s.source, s.status) + '</dd></div>';
     });
     if (!v.specs.length) h += '<p class="empty">No specs yet. Tap Edit to add some.</p>';
-    h += '</dl>' + (air ? '<p class="small public-note">Put the N-number and serial in the encrypted Vault below, never in these public fields.</p>' : '') + '</section>';
+    h += '</dl>' + (air ? '<p class="small public-note">Put the N-number and serial in the encrypted Vault below, never in these public fields.</p>' : trac ? '<p class="small public-note">Put the tractor serial, engine serial and PIN in the encrypted Vault below, never in these public fields.</p>' : '') + '</section>';
+    if (v.tips && v.tips.length) h += v.tips.map(function (t) { return '<section class="panel tip reveal-up"><h2>' + esc(t.title) + '</h2><p>' + esc(t.text) + '</p>' + (t.note ? '<p class="small">' + esc(t.note) + '</p>' : '') + (t.source || t.status ? '<p class="small">' + srcTag(t.source, t.status) + '</p>' : '') + '</section>'; }).join('');
     h += '<section class="panel vault reveal-up" id="vault" aria-label="Encrypted vault"></section>';
 
     // schedule chart
-    h += '<section class="panel reveal-up" id="schedule"><div class="panel-head"><h2>' + (air ? 'Annual inspection &amp; ADs' : 'Maintenance schedule') + '</h2>' +
-      (!air ? '<div class="seg" role="group" aria-label="Schedule type"><button data-mode="normal" class="' + (v.scheduleMode !== 'severe' ? 'on' : '') + '">Normal</button><button data-mode="severe" class="' + (v.scheduleMode === 'severe' ? 'on' : '') + '">Severe</button></div>' : '') + '</div>';
-    if (!air && v.inServiceAssumed) h += '<p class="small">Items with no record are counted from an <em>assumed</em> in-service date of ' + fdate(v.inServiceDate) + '. Change it under Edit details.</p>';
+    h += '<section class="panel reveal-up" id="schedule"><div class="panel-head"><h2>' + (air ? 'Annual inspection &amp; ADs' : trac ? 'Maintenance schedule (hours)' : 'Maintenance schedule') + '</h2>' +
+      (!air && !trac ? '<div class="seg" role="group" aria-label="Schedule type"><button data-mode="normal" class="' + (v.scheduleMode !== 'severe' ? 'on' : '') + '">Normal</button><button data-mode="severe" class="' + (v.scheduleMode === 'severe' ? 'on' : '') + '">Severe</button></div>' : '') + '</div>';
+    if (!air && !trac && v.inServiceAssumed) h += '<p class="small">Items with no record are counted from an <em>assumed</em> in-service date of ' + fdate(v.inServiceDate) + '. Change it under Edit details.</p>';
     h += '<div class="sched">';
     var order = sum.statuses.slice().sort(function (a, b) { return (S.RANK[a.status] - S.RANK[b.status]); });
     order.forEach(function (s) {
@@ -285,7 +309,8 @@
       if (s.every) interval.push('every ' + num(s.every) + ' ' + u);
       if (s.months) interval.push(s.months % 12 === 0 ? 'every ' + (s.months === 12 ? '12 months' : (s.months / 12) + ' years') : 'every ' + s.months + ' months');
       if (it.once) interval.push('one-time');
-      if (!air && it.severeMiles && v.scheduleMode !== 'severe' && !it.everyMiles) interval.push('severe: every ' + num(it.severeMiles) + ' mi');
+      if (it.intervalUnverified) interval.push('interval not verified');
+      if (!air && !trac && it.severeMiles && v.scheduleMode !== 'severe' && !it.everyMiles) interval.push('severe: every ' + num(it.severeMiles) + ' mi');
       var lastTxt = s.last ? fdate(s.last.date) + (s.lastMeter != null ? ' · ' + (s.lastEst ? '≈' : '') + num(s.lastMeter) + ' ' + u : '') : (s.assumedStart ? 'No record (counted from in-service)' : 'Not yet logged');
       var dueTxt = [];
       if (s.dueMeter != null) dueTxt.push(num(s.dueMeter) + ' ' + u);
@@ -300,14 +325,14 @@
     });
     if (!v.schedule.length) h += '<p class="empty">No schedule items yet.</p>';
     h += '</div><div class="row-btns"><button class="btn small" id="addSched">＋ Schedule item</button></div>';
-    h += '<p class="footnote">' + (air ? 'Every item stays “not yet logged” until you log it. Nothing here is made up.' : 'Intervals come from the 2022 Buick Enclave Owner’s Manual, pp. 336–341 (Normal and Severe charts). “≈” means the mileage was estimated from nearby odometer readings.') + ' Sources are listed at the bottom.</p></section>';
+    h += '<p class="footnote">' + (air ? 'Every item stays “not yet logged” until you log it. Nothing here is made up.' : trac ? 'Hours-based. Every item stays “not yet logged” until you log it. Only intervals found in a citable source are filled in; the rest say “interval not verified”. Check the operator’s manual (Ford 42034530, Section D) and fill them in with ＋ Schedule item or by editing.' : 'Intervals come from the 2022 Buick Enclave Owner’s Manual, pp. 336–341 (Normal and Severe charts). “≈” means the mileage was estimated from nearby odometer readings.') + ' Sources are listed at the bottom.</p></section>';
 
     // parts
     h += '<section class="panel reveal-up" id="parts"><div class="panel-head"><h2>Parts</h2><button class="btn small" id="addPart2">＋ Add part</button></div>';
     if (!v.parts.length) h += '<p class="empty">No parts yet.</p>';
     h += '<div class="parts">';
     v.parts.forEach(function (p) {
-      h += '<div class="part"><div class="part-head"><div><p class="kicker">' + esc(p.category || 'Part') + '</p><h3>' + esc(p.name) + '</h3>' + (p.qty ? '<p class="small">Qty: ' + esc(p.qty) + '</p>' : '') + '</div><button class="btn tiny ghost" data-editpart="' + esc(p.id) + '" aria-label="Edit part">✎</button></div><div class="pnums">';
+      h += '<div class="part"><div class="part-head"><div><p class="kicker">' + esc(p.category || 'Part') + '</p><h3>' + esc(p.name) + '</h3>' + (p.flag ? '<p><span class="pst unverified">' + esc(p.flag) + '</span></p>' : '') + (p.qty ? '<p class="small">Qty: ' + esc(p.qty) + '</p>' : '') + '</div><button class="btn tiny ghost" data-editpart="' + esc(p.id) + '" aria-label="Edit part">✎</button></div><div class="pnums">';
       (p.numbers || []).forEach(function (n) {
         var st = n.status || 'user';
         h += '<div class="pnum-wrap"><button class="pnum ' + esc(st.replace(/\s+/g, '-')) + '" data-copy="' + esc(n.number) + '" title="Tap to copy"><span class="pbrand">' + esc(n.brand || '') + '</span><span class="pval">' + esc(n.number) + '</span><span class="pst">' + esc(stLabel(st)) + '</span></button>' +
@@ -317,12 +342,12 @@
       var q = p.buy || ((p.numbers && p.numbers[0] ? (p.numbers[0].brand + ' ' + p.numbers[0].number) : p.name));
       h += '<div class="buy"><a class="btn small amazon" target="_blank" rel="noopener" href="https://www.amazon.com/s?k=' + encodeURIComponent(q) + '">Amazon search ↗</a><a class="btn small" target="_blank" rel="noopener" href="https://www.google.com/search?tbm=shop&amp;q=' + encodeURIComponent(q) + '">Compare prices ↗</a></div></div>';
     });
-    h += '</div><p class="footnote">Tap a part number to copy it. Buy links are store <em>searches</em>, so check fitment before you order. Labels: <span class="pst verified">verified</span> = confirmed in a cited source · <span class="pst cross-ref">cross-ref</span> = interchange list only · <span class="pst unverified">unverified</span> · <span class="pst not-a-match">not a match</span> · <span class="pst user">added</span> = you typed it.</p></section>';
+    h += '</div><p class="footnote">Tap a part number to copy it. Buy links are store <em>searches</em>, so check fitment before you order. Labels: <span class="pst verified">verified</span> = confirmed in a cited source · <span class="pst cross-ref">cross-ref</span> = interchange list only · <span class="pst unverified">unverified</span> · <span class="pst not-a-match">not a match</span> · <span class="pst user">added</span> = you typed it.' + (trac ? ' · <span class="pst parts-site">parts site</span> = a parts seller’s fitment list only · <span class="pst unverified">part # needed</span> = placeholder, no part number yet.' : '') + '</p></section>';
 
     // log
     var log = v.log.slice().sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; });
     h += '<section class="panel reveal-up" id="log"><div class="panel-head"><h2>' + (air ? 'Aircraft logbook' : 'Maintenance log') + '</h2><button class="btn small" id="addLog2">＋ Log</button></div>';
-    if (!log.length) h += '<p class="empty">' + (air ? 'The logbook is empty. Add entries from the paper logbook: date, total time, work done, who signed it off.' : 'No entries yet.') + '</p>';
+    if (!log.length) h += '<p class="empty">' + (air ? 'The logbook is empty. Add entries from the paper logbook: date, total time, work done, who signed it off.' : trac ? 'No entries yet. Log each service with the hour-meter reading.' : 'No entries yet.') + '</p>';
     h += '<ol class="log">';
     log.forEach(function (e) {
       var m = S.meterOf(e, v), est = null;
@@ -345,7 +370,7 @@
     h += '</ul></section>';
 
     h += sourcesBlock(v);
-    h += '<div class="danger-zone"><button class="btn ghost small" id="delUnit">Delete this ' + (air ? 'aircraft' : 'vehicle') + '</button></div>';
+    h += '<div class="danger-zone"><button class="btn ghost small" id="delUnit">Delete this ' + ci.noun + '</button></div>';
     app.innerHTML = h;
 
     // showroom / turntable
@@ -377,7 +402,7 @@
     $$('[data-deltodo]').forEach(function (b) { b.onclick = function () { if (!confirm('Delete this item?')) return; var id = b.dataset.deltodo; save(function () { v.todos = v.todos.filter(function (t) { return t.id !== id; }); }, 'Delete to-do (' + v.name + ')', 'Deleted'); }; });
     $('#delUnit').onclick = function () {
       if (!confirm('Delete ' + v.name + ' and all its records? (Export a backup first if unsure.)')) return;
-      var back = air ? '#/sky' : '#/';
+      var back = ci.route;
       Store.commit(function (d) { d.vehicles = d.vehicles.filter(function (x) { return x.id !== v.id; }); }, 'Delete ' + v.name);
       location.hash = back;
     };
@@ -394,7 +419,8 @@
     var keys = {};
     function add(k) { if (k && Store.data.sources[k]) keys[k] = 1; }
     v.specs.forEach(function (s) { add(s.source); }); v.schedule.forEach(function (s) { add(s.source); });
-    v.parts.forEach(function (p) { (p.numbers || []).forEach(function (n) { add(n.source); }); });
+    v.parts.forEach(function (p) { (p.numbers || []).forEach(function (n) { add(n.source); }); (p.sources || []).forEach(add); });
+    (v.tips || []).forEach(function (t) { add(t.source); });
     var ks = Object.keys(keys); if (!ks.length) return '';
     return '<section class="panel sources reveal-up" id="sources"><h2>Sources</h2><ol>' + ks.map(function (k) { var s = Store.data.sources[k]; return '<li><a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.title) + '</a></li>'; }).join('') + '</ol>' +
       (!isAir(v) ? '<p class="small">Anything not verified is labelled. Always double-check fitment at the parts counter.</p>' : '') + '</section>';
@@ -415,16 +441,17 @@
 
   /* ---------------- LOG FORM (vehicles: odometer · aircraft: total time + tach) ---------------- */
   function logForm(v, entry, preTag) {
-    var air = isAir(v), e = entry || { date: todayIso(), tags: preTag ? [preTag] : [] };
+    var air = isAir(v), trac = isTractor(v), e = entry || { date: todayIso(), tags: preTag ? [preTag] : [] };
     var chips = v.schedule.map(function (s) { return '<label class="chip"><input type="checkbox" name="tags" value="' + esc(s.id) + '"' + ((e.tags || []).indexOf(s.id) >= 0 ? ' checked' : '') + ' data-task="' + esc(s.task) + '"><span>' + esc(s.task) + '</span></label>'; }).join('');
     var preTask = preTag && !entry ? (v.schedule.filter(function (s) { return s.id === preTag; })[0] || {}).task : '';
     openModal('<h2>' + (entry ? 'Edit entry' : (air ? 'Log entry' : 'Log service')) + '</h2><form id="lf" class="form">' +
       field('Date', 'date', e.date, { type: 'date', required: true }) +
       (air ? '<div class="two">' + field('Total time (hrs)', 'totalTime', e.totalTime, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + field('Tach (hrs)', 'tach', e.tach, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + '</div>'
+           : trac ? field('Hours', 'hours', e.hours, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0, hint: 'hour-meter reading, leave blank if unknown' })
            : field('Odometer (mi)', 'mileage', e.mileage, { type: 'number', inputmode: 'numeric', min: 0, hint: 'leave blank if unknown' })) +
       (chips ? '<div class="field"><span class="flabel">What got done? <span class="hint">updates the chart</span></span><div class="chips">' + chips + '</div></div>' : '') +
-      field(air ? 'Work performed' : 'Service', 'service', e.service || preTask, { required: true, ph: air ? 'e.g., Annual inspection completed' : 'e.g., Oil & filter change' }) +
-      field('Parts used', 'parts', e.parts, { ph: air ? 'e.g., tow release parts' : 'e.g., WIX WL10255, 6 qt 5W-30' }) +
+      field(air ? 'Work performed' : 'Service', 'service', e.service || preTask, { required: true, ph: air ? 'e.g., Annual inspection completed' : trac ? 'e.g., Engine oil & filter, greased all points' : 'e.g., Oil & filter change' }) +
+      field('Parts used', 'parts', e.parts, { ph: air ? 'e.g., tow release parts' : trac ? 'e.g., oil filter, 7 qt oil' : 'e.g., WIX WL10255, 6 qt 5W-30' }) +
       field('Notes', 'notes', e.notes, { type: 'textarea', rows: 2 }) +
       (air ? field('Signed off by', 'signedBy', e.signedBy, { ph: 'Mechanic / IA (optional)' }) : '') +
       PUBLIC_NOTE +
@@ -445,11 +472,13 @@
         var rec = entry ? entry : { id: uid('l') };
         rec.date = f.date; rec.service = f.service.trim(); rec.parts = (f.parts || '').trim(); rec.notes = (f.notes || '').trim(); rec.tags = tags;
         if (air) { rec.totalTime = numOrNull(f.totalTime); rec.tach = numOrNull(f.tach); rec.signedBy = (f.signedBy || '').trim(); }
+        else if (trac) { rec.hours = numOrNull(f.hours); }
         else { var nm = numOrNull(f.mileage); if (entry && nm !== entry.mileage) delete rec.mileageUncertain; rec.mileage = nm; }
         closeModal();
         save(function () {
           if (!entry) v.log.push(rec);
-          if (!air && rec.mileage != null && (v.mileage == null || rec.mileage >= v.mileage)) { v.mileage = rec.mileage; v.mileageDate = rec.date; v.mileageNeedsUpdate = false; }
+          if (trac && rec.hours != null && (v.hours == null || rec.hours >= v.hours)) { v.hours = rec.hours; v.meterDate = rec.date; }
+          if (!air && !trac && rec.mileage != null && (v.mileage == null || rec.mileage >= v.mileage)) { v.mileage = rec.mileage; v.mileageDate = rec.date; v.mileageNeedsUpdate = false; }
           if (air && rec.totalTime != null && (v.totalTime == null || rec.totalTime >= v.totalTime)) { v.totalTime = rec.totalTime; if (rec.tach != null) v.tach = rec.tach; v.meterDate = rec.date; v.meterNeedsUpdate = false; }
         }, (entry ? 'Edit' : 'Log') + ': ' + rec.service + ' (' + v.name + ')', entry ? 'Entry updated' : 'Logged');
       };
@@ -494,15 +523,20 @@
 
   /* ---------------- METER FORM ---------------- */
   function meterForm(v) {
-    var air = isAir(v);
-    openModal('<h2>' + (air ? 'Update times' : 'Update mileage') + '</h2><form id="mf" class="form">' +
+    var air = isAir(v), trac = isTractor(v);
+    openModal('<h2>' + (air ? 'Update times' : trac ? 'Update hours' : 'Update mileage') + '</h2><form id="mf" class="form">' +
       (air ? '<div class="two">' + field('Total time (hrs)', 'totalTime', v.totalTime, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + field('Tach (hrs)', 'tach', v.tach, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + '</div>'
+           : trac ? field('Hour meter (hrs)', 'hours', '', { type: 'number', step: '0.1', inputmode: 'decimal', min: 0, required: true, ph: v.hours != null ? 'Last: ' + num(v.hours) : 'e.g., 2,345.6' })
            : field('Odometer (mi)', 'mileage', '', { type: 'number', inputmode: 'numeric', min: 0, required: true, ph: 'Last: ' + num(v.mileage) })) +
       field('As of', 'date', todayIso(), { type: 'date', required: true }) +
       '<div class="form-actions"><button class="btn primary big">Save</button></div></form>', function (b) {
       $('#mf', b).onsubmit = function (ev) {
         ev.preventDefault(); var f = formVals(ev.target);
-        if (!air) {
+        if (trac) {
+          var hv = numOrNull(f.hours); if (hv == null) return;
+          if (v.hours != null && hv < v.hours && !confirm('That is lower than the last reading (' + num(v.hours) + ' hrs). Save anyway?')) return;
+          closeModal(); save(function () { v.hours = hv; v.meterDate = f.date; }, 'Hours ' + hv + ' (' + v.name + ')', 'Hours updated');
+        } else if (!air) {
           var m = numOrNull(f.mileage); if (m == null) return;
           if (v.mileage != null && m < v.mileage && !confirm('That is lower than the last reading (' + num(v.mileage) + '). Save anyway?')) return;
           closeModal(); save(function () { v.mileage = m; v.mileageDate = f.date; v.mileageNeedsUpdate = false; }, 'Mileage ' + m + ' (' + v.name + ')', 'Mileage updated');
@@ -538,15 +572,15 @@
 
   /* ---------------- SCHEDULE ITEM FORM ---------------- */
   function schedForm(v) {
-    var air = isAir(v);
-    openModal('<h2>Schedule item</h2><form id="schf" class="form">' + field('Task', 'task', '', { required: true, ph: air ? 'e.g., Tow release inspection' : 'e.g., Tire rotation' }) +
-      '<div class="two">' + field(air ? 'Every (hrs)' : 'Every (mi)', 'every', '', { type: 'number', inputmode: 'numeric', min: 0 }) + field('Every (months)', 'months', '', { type: 'number', inputmode: 'numeric', min: 0 }) + '</div>' +
+    var air = isAir(v), hrs = usesHours(v);
+    openModal('<h2>Schedule item</h2><form id="schf" class="form">' + field('Task', 'task', '', { required: true, ph: air ? 'e.g., Tow release inspection' : isTractor(v) ? 'e.g., Grease loader pivots' : 'e.g., Tire rotation' }) +
+      '<div class="two">' + field(hrs ? 'Every (hrs)' : 'Every (mi)', 'every', '', { type: 'number', inputmode: 'numeric', min: 0 }) + field('Every (months)', 'months', '', { type: 'number', inputmode: 'numeric', min: 0 }) + '</div>' +
       field('Notes / basis', 'basis', '', { type: 'textarea', rows: 2, ph: 'Where does this interval come from?' }) +
       '<p class="small">Leave both intervals blank for a one-time item.</p><div class="form-actions"><button class="btn primary big">Save</button></div></form>', function (b) {
       $('#schf', b).onsubmit = function (ev) {
         ev.preventDefault(); var f = formVals(ev.target);
         var rec = { id: uid('s'), task: f.task.trim(), basis: (f.basis || '').trim(), status: 'user-added' };
-        if (air) rec.everyHours = numOrNull(f.every); else rec.everyMiles = numOrNull(f.every);
+        if (hrs) rec.everyHours = numOrNull(f.every); else rec.everyMiles = numOrNull(f.every);
         rec.everyMonths = numOrNull(f.months);
         if (!rec.everyHours && !rec.everyMiles && !rec.everyMonths) rec.once = true;
         closeModal(); save(function () { v.schedule.push(rec); }, 'Schedule item: ' + rec.task + ' (' + v.name + ')', 'Schedule item saved');
@@ -556,24 +590,30 @@
 
   /* ---------------- UNIT (vehicle / aircraft) FORM ---------------- */
   function unitForm(cat, v) {
-    var air = cat === 'aircraft', u = v || {};
-    openModal('<h2>' + (v ? 'Edit details' : (air ? 'Add aircraft' : 'Add vehicle')) + '</h2><form id="uf" class="form">' +
-      field('Nickname', 'name', u.name, { required: true, ph: air ? 'e.g., Owl' : 'e.g., Work truck', hint: 'shown as the big title' }) +
-      '<div class="two">' + field('Year', 'year', u.year, { type: 'number', inputmode: 'numeric', min: 1900 }) + field('Make', 'make', u.make, { ph: air ? 'Schweizer' : 'Buick' }) + '</div>' +
-      field('Model', 'model', u.model, { ph: air ? 'SGS 1-26' : 'Enclave' }) +
-      '<div class="two">' + field('Color', 'color', u.color) + field(air ? 'Type' : 'Engine', 'engine', u.engine, { ph: air ? 'Glider' : '3.6L V6' }) + '</div>' +
-      (air ? '<div class="two">' + field('Total time (hrs)', 'totalTime', u.totalTime, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + field('Tach (hrs)', 'tach', u.tach, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + '</div>'
+    var air = cat === 'aircraft', trac = cat === 'tractor', u = v || {};
+    openModal('<h2>' + (v ? 'Edit details' : CAT[trac ? 'tractor' : air ? 'aircraft' : 'vehicle'].add) + '</h2><form id="uf" class="form">' +
+      field('Nickname', 'name', u.name, { required: true, ph: air ? 'e.g., Owl' : trac ? 'e.g., FORD 445C' : 'e.g., Work truck', hint: 'shown as the big title' }) +
+      (trac ? field('Subtitle', 'subtitle', u.subtitle, { ph: 'e.g., Tractor loader / backhoe' }) : '') +
+      '<div class="two">' + field('Year', 'year', u.year, { type: 'number', inputmode: 'numeric', min: 1900 }) + field('Make', 'make', u.make, { ph: air ? 'Schweizer' : trac ? 'Ford' : 'Buick' }) + '</div>' +
+      field('Model', 'model', u.model, { ph: air ? 'SGS 1-26' : trac ? '445C' : 'Enclave' }) +
+      '<div class="two">' + field('Color', 'color', u.color) + field(air ? 'Type' : 'Engine', 'engine', u.engine, { ph: air ? 'Glider' : trac ? '3-cyl diesel' : '3.6L V6' }) + '</div>' +
+      (trac ? field('Hours', 'hours', u.hours, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0, hint: 'engine hour meter' }) : air ? '<div class="two">' + field('Total time (hrs)', 'totalTime', u.totalTime, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + field('Tach (hrs)', 'tach', u.tach, { type: 'number', step: '0.1', inputmode: 'decimal', min: 0 }) + '</div>'
            : field('Mileage (mi)', 'mileage', u.mileage, { type: 'number', inputmode: 'numeric', min: 0 }) + field('In service since', 'inServiceDate', u.inServiceDate, { type: 'date', hint: 'for time-based items with no record' })) +
       (!v ? '<div class="field"><span class="flabel">Photo <span class="hint">optional, resized on your phone</span></span><input type="file" name="photo" accept="image/*"></div>' : '') +
       PUBLIC_NOTE + '<div class="form-actions"><button class="btn primary big">Save</button></div></form>', function (b) {
       $('#uf', b).onsubmit = function (ev) {
         ev.preventDefault(); var f = formVals(ev.target);
-        if (!publicGuard([f.name, f.make, f.model, f.color, f.engine], air)) return;
+        if (!publicGuard([f.name, f.make, f.model, f.color, f.engine, f.subtitle || ''], air)) return;
         var file = ev.target.photo && ev.target.photo.files && ev.target.photo.files[0];
         var rec = v || { id: slug([f.year, f.make, f.model || f.name].filter(Boolean).join('-')), category: cat, specs: [], schedule: [], parts: [], log: [], todos: [] };
         if (!v && vehicle(rec.id)) rec.id += '-' + Math.random().toString(36).slice(2, 5);
         rec.name = f.name.trim(); rec.year = numOrNull(f.year); rec.make = (f.make || '').trim(); rec.model = (f.model || '').trim(); rec.color = (f.color || '').trim(); rec.engine = (f.engine || '').trim();
-        if (air) {
+        if (trac) {
+          rec.subtitle = (f.subtitle || '').trim();
+          var hv = numOrNull(f.hours);
+          if (hv !== (rec.hours == null ? null : rec.hours)) { rec.hours = hv; rec.meterDate = hv != null ? todayIso() : null; }
+          if (!v) rec.specs = ['Engine', 'Engine oil capacity', 'Coolant capacity', 'Hydraulic system', 'Fuel tank', 'Tires'].map(function (l) { return { label: l, value: '' }; });
+        } else if (air) {
           var tt = numOrNull(f.totalTime), tc = numOrNull(f.tach);
           if (tt !== (rec.totalTime == null ? null : rec.totalTime) || tc !== (rec.tach == null ? null : rec.tach)) { rec.totalTime = tt; rec.tach = tc; rec.meterDate = (tt != null || tc != null) ? todayIso() : null; }
           if (!v) {
@@ -588,7 +628,7 @@
         }
         var finish = function (dataUrl) {
           closeModal();
-          save(function (d) { if (dataUrl) { rec.photo = dataUrl; rec.photoStyle = 'photo'; delete rec.turntable; delete rec.photoSm; } if (!v) d.vehicles.push(rec); }, (v ? 'Edit ' : 'Add ') + rec.name, v ? 'Details saved' : (air ? 'Aircraft added' : 'Vehicle added'));
+          save(function (d) { if (dataUrl) { rec.photo = dataUrl; rec.photoStyle = 'photo'; delete rec.turntable; delete rec.photoSm; } if (!v) d.vehicles.push(rec); }, (v ? 'Edit ' : 'Add ') + rec.name, v ? 'Details saved' : (air ? 'Aircraft added' : trac ? 'Tractor added' : 'Vehicle added'));
           if (!v) location.hash = '#/v/' + encodeURIComponent(rec.id);
         };
         if (file) resizeImage(file).then(finish, function (e) { alert('Could not read that photo: ' + e.message); });
@@ -630,7 +670,8 @@
 
   /* ---------------- REQUEST (FormSubmit) ---------------- */
   function renderRequest(v) {
-    var air = isAir(v), title = (ymm(v) || v.name);
+    var air = isAir(v), trac = isTractor(v);
+    var title = trac ? ([v.make, v.model].filter(Boolean).join(' ') || v.name) : (ymm(v) || v.name);
     var subject = (air ? 'Sky Sailing request: ' : 'Garage request: ') + title;
     var next = new URL('thanks.html?v=' + encodeURIComponent(v.id), location.href.split('#')[0]).href;
     var h = '<nav class="crumbs"><a href="#/v/' + encodeURIComponent(v.id) + '">‹ ' + esc(v.name) + '</a></nav>' +
@@ -640,11 +681,11 @@
       '<input type="hidden" name="_template" value="table">' +
       '<input type="hidden" name="_next" value="' + esc(next) + '">' +
       '<input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">' +
-      '<input type="hidden" name="' + (air ? 'aircraft' : 'vehicle') + '" value="' + esc(title + ' (' + v.name + ')') + '">' +
+      '<input type="hidden" name="' + (air ? 'aircraft' : trac ? 'tractor' : 'vehicle') + '" value="' + esc(title + ' (' + v.name + ')') + '">' +
       field('Your name', 'name', '', { required: true, ph: 'First & last' }) +
       '<div class="two">' + field('Phone', 'phone', '', { type: 'tel', inputmode: 'tel', ph: '(555) 555-5555' }) + field('Email', 'email', '', { type: 'email', ph: 'you@example.com' }) + '</div>' +
       '<p class="small hint-line" id="contactHint">Give a phone <em>or</em> an email so Blue can reach you.</p>' +
-      field('What do you need?', 'need', '', { type: 'textarea', required: true, rows: 4, ph: air ? 'e.g., Annual inspection, tow release check' : 'e.g., Oil change + tire rotation, squeak from front left' }) +
+      field('What do you need?', 'need', '', { type: 'textarea', required: true, rows: 4, ph: air ? 'e.g., Annual inspection, tow release check' : trac ? 'e.g., 300-hour service, look at the backhoe stabilizer leg' : 'e.g., Oil change + tire rotation, squeak from front left' }) +
       field('Preferred date', 'preferred_date', '', { type: 'date' }) +
       field('Notes', 'notes', '', { type: 'textarea', rows: 2, ph: 'Best time to call, drop-off details…' }) +
       '<p class="callout">Your request is emailed privately through FormSubmit. It is <strong>not</strong> saved on this public site.</p>' +

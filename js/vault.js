@@ -66,7 +66,8 @@
   /* ---------- in-memory session ---------- */
   var SUGGEST = {
     vehicle: ['License plate', 'VIN', 'Registration exp.', 'Insurance policy #', 'Insurance company', 'Key/fob code', 'Notes'],
-    aircraft: ['N-number', 'Serial #', 'Registration exp.', 'Insurance policy #', 'ELT/Transponder codes', 'Notes']
+    aircraft: ['N-number', 'Serial #', 'Registration exp.', 'Insurance policy #', 'ELT/Transponder codes', 'Notes'],
+    tractor: ['Serial # (engine/tractor)', 'PIN', 'Insurance policy #', 'Key code', 'Notes']
   };
   var sessions = {};     // vehicle id -> { key, salt, iter, fields: [{label, value, custom}], saved, show: {} }
   var sitePw = null;     // shared mode only: kept in memory while unlocked so other vaults can open; cleared on lock
@@ -75,7 +76,7 @@
 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function find(d, id) { return ((d && d.vehicles) || []).filter(function (x) { return x.id === id; })[0]; }
-  function cat(v) { return v && v.category === 'aircraft' ? 'aircraft' : 'vehicle'; }
+  function cat(v) { return v && (v.category === 'aircraft' || v.category === 'tractor') ? v.category : 'vehicle'; }
   function shared() { return !window.Store || !Store.data || Store.data.vaultShared !== false; }
   function hasVault(v) { return !!(v && v.vault && typeof v.vault === 'object'); }
   function anyUnlocked() { return Object.keys(sessions).length > 0 || !!sitePw; }
@@ -221,9 +222,9 @@
   }
 
   function renderLocked(el, v) {
-    var air = cat(v) === 'aircraft';
+    var air = cat(v) === 'aircraft', trac = cat(v) === 'tractor';
     el.innerHTML = head('locked', 'Locked · AES-256') +
-      '<p class="small">' + (air ? 'N-number, serial, registration, insurance, ELT/transponder codes.' : 'Plate, VIN, registration, insurance, key code.') + ' Encrypted on your phone before it’s saved. The public repo only holds scrambled text.</p>' +
+      '<p class="small">' + (air ? 'N-number, serial, registration, insurance, ELT/transponder codes.' : trac ? 'Tractor and engine serials, PIN, insurance, key code.' : 'Plate, VIN, registration, insurance, key code.') + ' Encrypted on your phone before it’s saved. The public repo only holds scrambled text.</p>' +
       '<form class="form vault-form" data-vunlock>' + USER +
       '<div class="field"><label for="vpw-' + esc(v.id) + '">' + (shared() ? 'Vault password' : 'Vault password for ' + esc(v.name)) + '</label><input id="vpw-' + esc(v.id) + '" type="password" name="pw" autocomplete="current-password" autocapitalize="off" spellcheck="false" required></div>' +
       '<button class="btn primary big vault-go" type="submit">' + ICO_OPEN + 'Unlock</button></form>' +
@@ -255,7 +256,7 @@
   function renderSetup(el, v) {
     var others = Store.data.vehicles.filter(function (o) { return o.id !== v.id && hasVault(o); });
     var useSite = shared() && others.length > 0;
-    var h = head('empty', 'Not set up') + '<p class="small">Keep the ' + (cat(v) === 'aircraft' ? 'N-number, serial, registration and insurance' : 'plate, VIN, registration and insurance') + ' here. It’s encrypted with your password before it’s saved, so the public repo only sees scrambled text.</p>';
+    var h = head('empty', 'Not set up') + '<p class="small">Keep the ' + (cat(v) === 'aircraft' ? 'N-number, serial, registration and insurance' : cat(v) === 'tractor' ? 'tractor serial, engine serial, PIN and insurance' : 'plate, VIN, registration and insurance') + ' here. It’s encrypted with your password before it’s saved, so the public repo only sees scrambled text.</p>';
     if (!setupOpen[v.id]) {
       el.innerHTML = h + '<button class="btn primary big vault-go" type="button" data-vstart>' + ICO_LOCK + (useSite ? 'Set up vault' : 'Set vault password') + '</button>';
       el.querySelector('[data-vstart]').onclick = function () { setupOpen[v.id] = true; render(); var i = el.querySelector('input[type=password]'); if (i) i.focus(); };
@@ -384,7 +385,7 @@
     return '<section class="panel reveal-up" id="vaultSettings"><div class="panel-head"><h2 class="vault-title"><span class="vault-ico">' + ICO_LOCK + '</span>Vault</h2><span class="badge ghost">' + n + ' vault' + (n === 1 ? '' : 's') + '</span></div>' +
       '<p class="small">Each profile has an encrypted Vault for the plate, VIN, N-number, serial and insurance. Encryption happens on your phone (AES-256, key made from your password with PBKDF2 600,000 rounds). The password is never saved. Lose it and the vault has to be erased and re-entered.</p>' +
       '<label class="vchk"><input type="checkbox" id="vaultShared"' + (shared() ? ' checked' : '') + '> One password for every vault (recommended)</label>' +
-      '<p class="small">Turn this off to give each vehicle or aircraft its own password. Existing vaults keep the password they were made with. Use “Change password” inside a vault to switch it.</p>' +
+      '<p class="small">Turn this off to give each vehicle, aircraft or tractor its own password. Existing vaults keep the password they were made with. Use “Change password” inside a vault to switch it.</p>' +
       '<div class="row-btns"><button type="button" class="btn" id="vaultLockAll">' + ICO_LOCK + 'Lock all vaults now</button></div></section>';
   }
   function bindSettings(root, helpers) {

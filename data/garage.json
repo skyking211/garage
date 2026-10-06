@@ -753,6 +753,577 @@
       "photoSm": "images/sgs-126/owl-640.webp",
       "photoFallback": "images/glider.svg",
       "photoStyle": "photo"
+    },
+    {
+      "id": "ford-445c",
+      "category": "tractor",
+      "name": "FORD 445C",
+      "subtitle": "Tractor loader / backhoe",
+      "year": 1990,
+      "yearNote": "from ID plate unit code 0C22B (decoded)",
+      "make": "Ford",
+      "model": "445C",
+      "color": "Yellow",
+      "colorHex": "#e3bf3c",
+      "engine": "3-cyl diesel",
+      "hours": null,
+      "meterDate": null,
+      "photo": "images/ford-445c/ford-445c-1280.webp",
+      "photoSm": "images/ford-445c/ford-445c-640.webp",
+      "photoFallback": "images/tractor.svg",
+      "photoStyle": "photo",
+      "photoCredit": "credit-ford445c",
+      "specs": [
+        {
+          "label": "Year built",
+          "value": "1990",
+          "note": "from ID plate unit code 0C22B (decoded): 22 March 1990",
+          "status": "decoded"
+        },
+        {
+          "label": "Built by",
+          "value": "Ford New Holland · Made in Belgium",
+          "note": "from the ID plate",
+          "status": "ID plate"
+        },
+        {
+          "label": "Production run",
+          "value": "1988–1992",
+          "source": "tractordata",
+          "status": "verified"
+        },
+        {
+          "label": "Model code",
+          "value": "KD5PW2 (partly obscured)",
+          "note": "from the ID plate; partly obscured, so not confirmed",
+          "status": "uncertain"
+        },
+        {
+          "label": "Transmission code",
+          "value": "9K31",
+          "note": "component code from the ID plate (not a serial)",
+          "status": "ID plate"
+        },
+        {
+          "label": "Rear axle code",
+          "value": "0C20B",
+          "note": "component code from the ID plate (not a serial)",
+          "status": "ID plate"
+        },
+        {
+          "label": "Hydraulic pump code",
+          "value": "9M09",
+          "note": "component code from the ID plate (not a serial)",
+          "status": "ID plate"
+        },
+        {
+          "label": "Hydraulic lift code",
+          "value": "9B26A",
+          "note": "component code from the ID plate; first character hard to read",
+          "status": "uncertain"
+        },
+        {
+          "label": "Engine",
+          "value": "Ford 3.1 L (192 ci) 3-cyl diesel, liquid-cooled",
+          "source": "tractordata-engine",
+          "status": "verified"
+        },
+        {
+          "label": "Bore × stroke",
+          "value": "4.40 × 4.20 in (112 × 107 mm)",
+          "source": "tractordata-engine",
+          "status": "verified"
+        },
+        {
+          "label": "Compression",
+          "value": "16.3:1",
+          "source": "tractordata-engine",
+          "status": "verified"
+        },
+        {
+          "label": "Power",
+          "value": "56 hp gross / 52 hp net · 46.7 hp PTO (claimed)",
+          "source": "tractordata",
+          "status": "verified"
+        },
+        {
+          "label": "Torque",
+          "value": "150 lb-ft (203 Nm) @ 1400 rpm",
+          "source": "tractordata-engine",
+          "status": "verified"
+        },
+        {
+          "label": "Rated speed",
+          "value": "2200 rpm",
+          "source": "tractordata-engine",
+          "status": "verified"
+        },
+        {
+          "label": "Idle speed",
+          "value": "600–850 rpm",
+          "note": "operator’s manual 42034530 p. 102",
+          "source": "manual445c",
+          "status": "manual quote"
+        },
+        {
+          "label": "Valve clearance (cold)",
+          "value": "Intake 0.014–0.016 in (0.36–0.41 mm) · Exhaust 0.017–0.019 in (0.43–0.48 mm)",
+          "note": "manual p. 83; set with the engine cold",
+          "source": "manual445c",
+          "status": "manual quote"
+        },
+        {
+          "label": "Fan / alternator belt",
+          "value": "0.50–0.75 in (13–19 mm) deflection",
+          "note": "hand pressure midway between alternator and crank pulley, manual p. 80",
+          "source": "manual445c",
+          "status": "manual quote"
+        },
+        {
+          "label": "Engine oil capacity",
+          "value": "7 qt (6.6 L)",
+          "note": "source doesn’t say whether this includes the filter",
+          "source": "tractordata-engine",
+          "status": "verified"
+        },
+        {
+          "label": "Engine oil type",
+          "value": ""
+        },
+        {
+          "label": "Coolant capacity",
+          "value": "11 qt (10.4 L)",
+          "source": "tractordata-engine",
+          "status": "verified"
+        },
+        {
+          "label": "Fuel tank",
+          "value": "16 gal (60.6 L)",
+          "source": "tractordata",
+          "status": "verified"
+        },
+        {
+          "label": "Hydraulic system",
+          "value": "Open center · 2450 psi (169 bar) · 8.7 gal (32.9 L) with loader",
+          "source": "tractordata",
+          "status": "verified"
+        },
+        {
+          "label": "Hydraulic / transmission oil type",
+          "value": "",
+          "note": "Forums commonly name Ford M2C-134D; not verified against the manual"
+        },
+        {
+          "label": "Pump flow",
+          "value": "Loader 26 gpm · hitch 5.6 gpm (8.5 optional) · steering 5.9 gpm",
+          "source": "tractordata",
+          "status": "verified"
+        },
+        {
+          "label": "Power steering capacity",
+          "value": "4 qt (3.8 L)",
+          "source": "tractordata",
+          "status": "verified"
+        },
+        {
+          "label": "Transmission options",
+          "value": "6-speed manual reversing · 4-speed torque converter · 8-speed torque converter",
+          "source": "tractordata",
+          "status": "verified"
+        },
+        {
+          "label": "Transmission (this machine)",
+          "value": ""
+        },
+        {
+          "label": "Drive / brakes / steering",
+          "value": "Two-wheel drive (4WD figures also listed) · wet disc brakes · power steering",
+          "source": "tractordata",
+          "status": "verified"
+        },
+        {
+          "label": "PTO",
+          "value": "Independent, 540 rpm @ 1800 engine rpm (1-3/8 in)",
+          "source": "tractordata",
+          "status": "verified"
+        },
+        {
+          "label": "3-point hitch",
+          "value": "Category I · 3080 lb rear lift",
+          "source": "tractordata",
+          "status": "verified"
+        },
+        {
+          "label": "Tires",
+          "value": "Front 2WD 7.50-16 or 11L-16 · 4WD 12.0x16.5 · Rear 16.9-24",
+          "source": "tractordata-dims",
+          "status": "verified"
+        },
+        {
+          "label": "Tire pressures",
+          "value": ""
+        },
+        {
+          "label": "Wheel nut torque",
+          "value": "Rear disc-to-hub 250 lbf·ft · rear disc-to-rim 129 lbf·ft (176 Nm) · 2WD front disc-to-hub 130 lbf·ft (176 Nm)",
+          "note": "manual pp. 35 & 75. The rear disc-to-hub metric figure is printed as 475 Nm, which doesn’t match 250 lbf·ft (≈339 Nm), so check the manual before torquing",
+          "source": "manual445c",
+          "status": "manual quote"
+        },
+        {
+          "label": "Wheelbase",
+          "value": "81 in (205 cm)",
+          "source": "tractordata-dims",
+          "status": "verified"
+        },
+        {
+          "label": "Weight",
+          "value": "8610 lb 2WD / 8830 lb 4WD",
+          "source": "tractordata-dims",
+          "status": "verified"
+        },
+        {
+          "label": "Electrical",
+          "value": "12 V negative ground · 55 A alternator · battery 750 CCA / 128 Ah",
+          "source": "tractordata",
+          "status": "verified"
+        },
+        {
+          "label": "Backhoe model",
+          "value": "",
+          "note": "unknown; add it when you find it"
+        }
+      ],
+      "tips": [
+        {
+          "title": "Where’s the serial?",
+          "text": "On this machine the ID plate (tractor number, model, unit, engine and component codes) is on the operator platform / ROPS area: a yellow panel near the seat and fuel cap. A parts site also says the engine serial is stamped on the left side of the block above the oil filter, and that the model ID plate may be under the hood near the battery or on the dash cowl.",
+          "note": "The general locations come from a parts site (brokentractor.com), not the factory manual. Keep the tractor number, engine serial and PIN in the Vault, not in public fields.",
+          "source": "brokentractor",
+          "status": "parts site"
+        }
+      ],
+      "schedule": [
+        {
+          "id": "oil",
+          "task": "Engine oil & filter",
+          "everyHours": 300,
+          "basis": "Every 300 hours, normal conditions (manual p. 79).",
+          "note": "Every 150 hours when operating below 10°F (−12°C).",
+          "source": "manual445c",
+          "status": "manual quote"
+        },
+        {
+          "id": "wheelnuts",
+          "task": "Check wheel nut torque",
+          "everyHours": 50,
+          "basis": "After the first 200 yd, 1 hr and 8 hr of operation, then at every 50-hour service (manual p. 35).",
+          "note": "Torques are in Quick specs.",
+          "source": "manual445c",
+          "status": "manual quote"
+        },
+        {
+          "id": "grease",
+          "task": "Grease all fittings (loader, backhoe & steering pivots)",
+          "intervalUnverified": true,
+          "basis": "Interval not verified. See operator’s manual 42034530, Section D (Lubrication & Maintenance), pp. 67–100.",
+          "source": "manual445c",
+          "status": "unverified"
+        },
+        {
+          "id": "fuelfilter",
+          "task": "Fuel filter / sediment separator",
+          "intervalUnverified": true,
+          "basis": "Interval not verified. See operator’s manual 42034530, Section D (Lubrication & Maintenance), pp. 67–100.",
+          "note": "Bleed the fuel system after changing it (procedure on manual p. 86).",
+          "source": "manual445c",
+          "status": "unverified"
+        },
+        {
+          "id": "aircleaner",
+          "task": "Air cleaner: service / replace elements",
+          "intervalUnverified": true,
+          "basis": "Interval not verified. See operator’s manual 42034530, Section D (Lubrication & Maintenance), pp. 67–100. The manual has a “Servicing the Dry Air Cleaner” section.",
+          "source": "manual445c",
+          "status": "unverified"
+        },
+        {
+          "id": "hydoil",
+          "task": "Hydraulic / transmission oil & filters",
+          "intervalUnverified": true,
+          "basis": "Interval not verified. See operator’s manual 42034530, Section D (Lubrication & Maintenance), pp. 67–100.",
+          "source": "manual445c",
+          "status": "unverified"
+        },
+        {
+          "id": "psfilter",
+          "task": "Power steering filter",
+          "intervalUnverified": true,
+          "basis": "Interval not verified. See operator’s manual 42034530, Section D (Lubrication & Maintenance), pp. 67–100.",
+          "source": "manual445c",
+          "status": "unverified"
+        },
+        {
+          "id": "fronthubs",
+          "task": "Front axle & wheel hub grease",
+          "intervalUnverified": true,
+          "basis": "Interval not verified. See operator’s manual 42034530, Section D (Lubrication & Maintenance), pp. 67–100.",
+          "source": "manual445c",
+          "status": "unverified"
+        },
+        {
+          "id": "coolant",
+          "task": "Coolant: check, replace & coolant filter",
+          "intervalUnverified": true,
+          "basis": "Interval not verified. See operator’s manual 42034530, Section D (Lubrication & Maintenance), pp. 67–100.",
+          "source": "manual445c",
+          "status": "unverified"
+        },
+        {
+          "id": "belt",
+          "task": "Fan / alternator belt tension",
+          "intervalUnverified": true,
+          "basis": "Interval not verified. See operator’s manual 42034530, Section D (Lubrication & Maintenance), pp. 67–100. Deflection spec 0.50–0.75 in (manual p. 80).",
+          "source": "manual445c",
+          "status": "unverified"
+        },
+        {
+          "id": "valves",
+          "task": "Valve clearance check",
+          "intervalUnverified": true,
+          "basis": "Interval not verified. See operator’s manual 42034530, Section D (Lubrication & Maintenance), pp. 67–100. Clearances are in Quick specs (manual p. 83).",
+          "source": "manual445c",
+          "status": "unverified"
+        }
+      ],
+      "parts": [
+        {
+          "id": "p-oilfilter",
+          "category": "Engine",
+          "name": "Engine oil filter (spin-on)",
+          "numbers": [
+            {
+              "brand": "Ford / NH",
+              "number": "E8NN6714AA",
+              "status": "verified",
+              "note": "Listed for the 445C by Jensales, Farm Parts Store and Reliable Aftermarket Parts (3/4-16 thread per RAP).",
+              "source": "jensales-e8nn"
+            },
+            {
+              "brand": "NH",
+              "number": "86546614",
+              "status": "parts site",
+              "note": "Listed as the lube spin-on in Inline Filters’ 445C kit only.",
+              "source": "inlinefilters445c"
+            }
+          ],
+          "buy": "Ford E8NN6714AA oil filter",
+          "sources": [
+            "farmparts445c",
+            "rap-e8nn"
+          ]
+        },
+        {
+          "id": "p-fuelfilter",
+          "category": "Fuel",
+          "name": "Fuel filter (can type)",
+          "numbers": [
+            {
+              "brand": "NH",
+              "number": "83937061",
+              "status": "verified",
+              "note": "Listed for the 445C by Farm Parts Store and Inline Filters.",
+              "source": "farmparts445c"
+            },
+            {
+              "brand": "WIX",
+              "number": "33166",
+              "status": "verified",
+              "note": "WIX’s own application lookup lists the 445C.",
+              "source": "wix33166"
+            },
+            {
+              "brand": "Baldwin",
+              "number": "BF825",
+              "status": "cross-ref",
+              "note": "Interchange for NH 83937061.",
+              "source": "bf825"
+            }
+          ],
+          "notes": "Bleed the fuel system after changing (manual p. 86).",
+          "buy": "Ford 83937061 fuel filter",
+          "sources": [
+            "inlinefilters445c"
+          ]
+        },
+        {
+          "id": "p-airouter",
+          "category": "Air intake",
+          "name": "Air filter, outer element",
+          "numbers": [
+            {
+              "brand": "Ford",
+              "number": "E9NN-9601-BA",
+              "status": "parts site",
+              "note": "Inline Filters’ 445C kit only.",
+              "source": "inlinefilters445c"
+            }
+          ],
+          "buy": "Ford E9NN9601BA air filter"
+        },
+        {
+          "id": "p-airinner",
+          "category": "Air intake",
+          "name": "Air filter, inner (safety) element",
+          "numbers": [
+            {
+              "brand": "Ford",
+              "number": "D6NN-9R500-A",
+              "status": "parts site",
+              "note": "Inline Filters’ 445C kit only.",
+              "source": "inlinefilters445c"
+            }
+          ],
+          "buy": "Ford D6NN9R500A inner air filter"
+        },
+        {
+          "id": "p-hydspin",
+          "category": "Hydraulics",
+          "name": "Hydraulic filters (spin-on)",
+          "numbers": [
+            {
+              "brand": "Ford",
+              "number": "D8NN-B486-EA",
+              "status": "parts site",
+              "note": "Engine-mounted spin-on, per Inline Filters’ 445C kit.",
+              "source": "inlinefilters445c"
+            },
+            {
+              "brand": "Ford",
+              "number": "D8NN-B486-CA",
+              "status": "parts site",
+              "note": "Transmission-mounted spin-on, per Inline Filters’ 445C kit.",
+              "source": "inlinefilters445c"
+            },
+            {
+              "brand": "WIX",
+              "number": "51712",
+              "status": "verified",
+              "note": "WIX lists the 445C, but not which position it fits. Match it to the filter on the machine.",
+              "source": "wix51712"
+            }
+          ],
+          "buy": "Ford 445C hydraulic filter D8NN-B486"
+        },
+        {
+          "id": "p-transfilter",
+          "category": "Transmission",
+          "name": "Transmission filter",
+          "numbers": [
+            {
+              "brand": "Ford",
+              "number": "E7NN-6714-FA",
+              "status": "parts site",
+              "note": "Inline Filters’ 445C kit only.",
+              "source": "inlinefilters445c"
+            }
+          ],
+          "buy": "Ford E7NN6714FA transmission filter"
+        },
+        {
+          "id": "p-psfilter",
+          "category": "Steering",
+          "name": "Power steering filter (cartridge)",
+          "numbers": [
+            {
+              "brand": "WIX",
+              "number": "51323",
+              "status": "verified",
+              "note": "WIX’s own application lookup lists the 445C.",
+              "source": "wix51323"
+            },
+            {
+              "brand": "Ford",
+              "number": "EDPN-3K758-A",
+              "status": "parts site",
+              "note": "In Inline Filters’ 445C kit, and in WIX 51323’s cross-reference list.",
+              "source": "inlinefilters445c"
+            },
+            {
+              "brand": "Baldwin",
+              "number": "PT548",
+              "status": "cross-ref",
+              "note": "Interchange for WIX 51323.",
+              "source": "finditparts51323"
+            },
+            {
+              "brand": "FRAM",
+              "number": "C4662",
+              "status": "cross-ref",
+              "note": "Interchange for WIX 51323.",
+              "source": "finditparts51323"
+            },
+            {
+              "brand": "NH",
+              "number": "84536381",
+              "status": "cross-ref",
+              "note": "Interchange for WIX 51323.",
+              "source": "finditparts51323"
+            }
+          ],
+          "buy": "WIX 51323 power steering filter"
+        },
+        {
+          "id": "p-coolantfilter",
+          "category": "Cooling",
+          "name": "Coolant filter",
+          "numbers": [
+            {
+              "brand": "Ford",
+              "number": "E8NN-8A424-BB",
+              "status": "parts site",
+              "note": "Inline Filters’ 445C kit only.",
+              "source": "inlinefilters445c"
+            }
+          ],
+          "buy": "Ford E8NN8A424BB coolant filter"
+        },
+        {
+          "id": "p-stab-seals",
+          "category": "Backhoe stabilizer",
+          "name": "Stabilizer cylinder seal kit",
+          "flag": "part # needed",
+          "numbers": [],
+          "notes": "Backhoe model unknown. Add it under Quick specs, then match the kit to that backhoe.",
+          "buy": "Ford 445C backhoe stabilizer cylinder seal kit"
+        },
+        {
+          "id": "p-stab-pins",
+          "category": "Backhoe stabilizer",
+          "name": "Stabilizer pivot pins / bushings",
+          "flag": "part # needed",
+          "numbers": [],
+          "notes": "Backhoe model unknown. Measure the pins and add the backhoe model first.",
+          "buy": "Ford 445C backhoe stabilizer pivot pin bushing"
+        },
+        {
+          "id": "p-stab-pad",
+          "category": "Backhoe stabilizer",
+          "name": "Stabilizer pad",
+          "flag": "part # needed",
+          "numbers": [],
+          "notes": "Backhoe model unknown. Pads come in several styles.",
+          "buy": "Ford 445C backhoe stabilizer pad"
+        }
+      ],
+      "log": [],
+      "todos": [
+        {
+          "id": "t-stabilizer",
+          "text": "Repair backhoe stabilizer (outrigger) leg: diagnose (cylinder seals / rod / pins / pad)",
+          "done": false
+        }
+      ]
     }
   ],
   "sources": {
@@ -811,6 +1382,62 @@
     "ad8717": {
       "title": "FAA AD 87-17-01 — Schweizer gliders: tow-release arm P/N check & replacement (SB SA-005.1 / SA-001.3)",
       "url": "https://www.126association.org/wp-content/uploads/2021/08/Airworthiness-Directive-No.-87-17-01.pdf"
+    },
+    "tractordata": {
+      "title": "TractorData — Ford 445C overview (cites Ford’s 1989 “Tractor Loader 445C Specifications”)",
+      "url": "https://www.tractordata.com/industrial-tractors/000/0/8/80-ford-445c.html"
+    },
+    "tractordata-engine": {
+      "title": "TractorData — Ford 445C engine",
+      "url": "https://www.tractordata.com/industrial-tractors/000/0/8/80-ford-445c-engine.html"
+    },
+    "tractordata-dims": {
+      "title": "TractorData — Ford 445C dimensions & tires",
+      "url": "https://www.tractordata.com/industrial-tractors/000/0/8/80-ford-445c-dimensions.html"
+    },
+    "manual445c": {
+      "title": "Ford 345C/445C/545C Operator’s Manual 42034530 — quoted specs, intervals and contents (youfixthis.com listing)",
+      "url": "https://youfixthis.com/d/ford-345c-445c-545c-operator-manual"
+    },
+    "brokentractor": {
+      "title": "Broken Tractor — Ford 445C parts & specs (parts site; serial/ID plate locations)",
+      "url": "https://www.brokentractor.com/p/ford-445c-loader-tractor-parts-specs/"
+    },
+    "inlinefilters445c": {
+      "title": "Inline Filters — Ford 445C (Ford engine) filter kit",
+      "url": "https://inlinefilters.co.uk/FilterKit/FIN-FK133491C/Ford-445C-w-Ford-Eng/"
+    },
+    "farmparts445c": {
+      "title": "Farm Parts Store — Ford/New Holland 445C filters",
+      "url": "https://farmpartsstore.com/ford-new-holland/industrial-construcion/445c/filters/"
+    },
+    "jensales-e8nn": {
+      "title": "Jensales — Ford/New Holland 445C oil filter E8NN6714AA",
+      "url": "https://www.jensales.com/products/ford-new-holland-445c-industrial-construction-filter-oil-e8nn6714aa.html"
+    },
+    "rap-e8nn": {
+      "title": "Reliable Aftermarket Parts — E8NN6714AA oil filter (fitment list includes 445C)",
+      "url": "https://www.reliableaftermarketparts.com/products/oil-filter-e8nn6714aa-fits-ford-230-3300-3310-333-3330-334-335-3400-3430"
+    },
+    "wix33166": {
+      "title": "WIX application lookup — 33166 lists Ford 445C",
+      "url": "https://www2.wixfilters.com/Lookup/PartApplications.aspx?Part=33166"
+    },
+    "wix51323": {
+      "title": "WIX application lookup — 51323 lists Ford 445C",
+      "url": "https://www2.wixfilters.com/Lookup/PartApplications.aspx?Part=51323"
+    },
+    "wix51712": {
+      "title": "WIX application lookup — 51712 lists Ford 445C",
+      "url": "https://www2.wixfilters.com/Lookup/PartApplications.aspx?Part=51712"
+    },
+    "finditparts51323": {
+      "title": "FinditParts — WIX 51323 cross references",
+      "url": "https://www.finditparts.com/products/20399373/wix-filters-51323"
+    },
+    "bf825": {
+      "title": "Tractor Parts ASAP — Baldwin BF825 (replaces NH 83937061)",
+      "url": "https://www.tractorpartsasap.com/baldwin-fuel-filter-can-style-john-deere-2030-2520.html"
     }
   },
   "credits": {
@@ -835,8 +1462,16 @@
       "text": "Glider fallback artwork: original stylized SVG silhouette made for this site (no third-party image).",
       "links": []
     },
+    "credit-tractor": {
+      "text": "Tractor fallback artwork: original SVG made for this site (no third-party image).",
+      "links": []
+    },
     "credit-owl": {
       "text": "Owl photo: the owner's own photo.",
+      "links": []
+    },
+    "credit-ford445c": {
+      "text": "Ford 445C photo: the owner's own photo.",
       "links": []
     }
   }

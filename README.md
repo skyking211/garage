@@ -1,6 +1,6 @@
-# Skysailing work vehicles: garage + Sky Sailing
+# Skysailing work vehicles: Garage + Sky Sailing + Tractors
 
-A free, phone-first maintenance site for Blue's vehicles and gliders.
+A free, phone-first maintenance site for Blue's vehicles, gliders and tractors.
 Plain HTML/CSS/JS with no build step, no paid services and no API keys. GitHub Pages hosts it for free.
 
 > **Everything in this repo is PUBLIC.** Never put a VIN, license plate, N-number, serial number, address or customer info in normal fields.
@@ -27,8 +27,14 @@ The token lives **only in that browser's localStorage**. It is never committed. 
 
 If two devices edit at once, the site detects the conflict and asks you to **Merge both** (recommended), **Keep mine**, **Use GitHub's**, or **Not now**.
 
+## Tractors
+The **Tractors** tab (`#/tractors`, Ford-yellow theme) holds machines that run on an engine **hour meter**, so the schedule, log and meter forms use **Hours** instead of miles.
+- Ford 445C tractor loader / backhoe. The year (1990) is decoded from the ID plate's unit code. The specs, schedule and parts each list a source. Anything that couldn't be confirmed is labelled *unverified*, *uncertain* or *part # needed*, or left blank as "add".
+- Most maintenance intervals are marked "interval not verified". Check operator's manual 42034530 (Section D, Lubrication & Maintenance) and fill them in.
+- The tractor number, engine serial and PIN go only in the tractor's **Vault**, never in normal fields.
+
 ## Vault (encrypted details)
-Each vehicle and aircraft profile has a **Vault** card for the plate, VIN, N-number, serial, registration, insurance and similar details.
+Each vehicle, aircraft and tractor profile has a **Vault** card for the plate, VIN, N-number, serial numbers, PIN, registration, insurance and similar details.
 
 **How it works**
 - The first time, you set a vault password. By default one password covers the whole site; you can switch to one password per vault in Settings.
@@ -52,8 +58,8 @@ Requests go through FormSubmit (free, no account) to the shop Gmail.
 Note: the destination email is visible in the page source. FormSubmit can swap it for a random alias string after activation if you prefer.
 
 ## Files
-- `index.html`: the whole app (hash routes: `#/`, `#/sky`, `#/v/<id>`, `#/request/<id>`, `#/settings`, `#/search/<q>`)
-- `data/garage.json`: all data. Each item has `category: "vehicle"` or `"aircraft"`.
+- `index.html`: the whole app (hash routes: `#/`, `#/sky`, `#/tractors`, `#/v/<id>`, `#/request/<id>`, `#/settings`, `#/search/<q>`)
+- `data/garage.json`: all data. Each item has `category: "vehicle"`, `"aircraft"` or `"tractor"`. Tractors use `hours` + `meterDate`.
 - `js/store.js`: load/save and GitHub sync · `js/vault.js`: encrypted Vault · `js/schedule.js`: due/overdue math · `js/turntable.js`: drag-to-spin viewer · `js/app.js`: UI
 - `thanks.html`: page shown after a request is sent
 
@@ -61,6 +67,8 @@ Note: the destination email is visible in the page source. FormSubmit can swap i
 - Enclave photos: "2022 Buick Enclave Premium AWD in Quicksilver Metallic" (front left and rear right) by **Elise240SX**, **CC BY-SA 4.0**, via Wikimedia Commons.
   Background removed, resized and mirrored for the turntable; those derivatives are shared under CC BY-SA 4.0.
 - Owl (the SGS 1-26E) photo, `images/sgs-126/`: the owner's own photo. Resized, with all EXIF/GPS metadata removed.
+- Ford 445C photo, `images/ford-445c/`: the owner's own photo. Cropped and resized, with all EXIF/GPS metadata removed.
 - Glider fallback artwork (`images/glider.svg`): original stylized SVG made for this site.
+- Tractor fallback artwork (`images/tractor.svg`): original SVG made for this site.
 - Fonts: Big Shoulders Display, Inter, JetBrains Mono (SIL Open Font License) via Google Fonts.
-- Maintenance intervals come from the 2022 Buick Enclave Owner's Manual. Aircraft items come from 14 CFR 91.409 and FAA ADs 87-02-01 / 87-17-01. Each profile lists its sources.
+- Maintenance intervals come from the 2022 Buick Enclave Owner's Manual. Aircraft items come from 14 CFR 91.409 and FAA ADs 87-02-01 / 87-17-01. Ford 445C items come from TractorData, quotes from operator's manual 42034530, WIX application lookups and parts-seller fitment lists. Each profile lists its sources.

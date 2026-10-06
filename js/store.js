@@ -78,7 +78,7 @@
     if (!d || typeof d !== 'object') throw new Error('Not a garage file');
     if (!Array.isArray(d.vehicles)) throw new Error('Missing "vehicles" list');
     d.vehicles.forEach(function (v) {
-      v.category = v.category === 'aircraft' ? 'aircraft' : 'vehicle';
+      v.category = v.category === 'aircraft' || v.category === 'tractor' ? v.category : 'vehicle';
       ['specs', 'schedule', 'parts', 'log', 'todos'].forEach(function (k) { if (!Array.isArray(v[k])) v[k] = []; });
     });
     d.vehicles.forEach(function (v) { if (v.vault !== undefined && v.vault !== null && (typeof v.vault !== 'object' || typeof v.vault.ct !== 'string')) delete v.vault; });
@@ -152,6 +152,7 @@
       mv.schedule = mergeArr(mv.schedule, tv.schedule); mv.specs = mergeArr(mv.specs, tv.specs, 'label');
       if (mv.vault === undefined && tv.vault) mv.vault = tv.vault; // encrypted blob: mine wins, else take theirs (null = erased on purpose)
       if (mv.category === 'vehicle' && (tv.mileage || 0) > (mv.mileage || 0)) { mv.mileage = tv.mileage; mv.mileageDate = tv.mileageDate; mv.mileageNeedsUpdate = tv.mileageNeedsUpdate; }
+      if (mv.category === 'tractor' && (tv.hours || 0) > (mv.hours || 0)) { mv.hours = tv.hours; mv.meterDate = tv.meterDate; }
       if (mv.category === 'aircraft' && (tv.totalTime || 0) > (mv.totalTime || 0)) { mv.totalTime = tv.totalTime; mv.tach = tv.tach; mv.meterDate = tv.meterDate; }
     });
     m.sources = Object.assign({}, theirs.sources || {}, m.sources || {});

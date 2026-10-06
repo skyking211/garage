@@ -12,10 +12,13 @@
   }
   function daysBetween(a, b) { return Math.round((b - a) / DAY); }
   function isAir(v) { return v.category === 'aircraft'; }
-  function meterOf(entry, v) { var x = isAir(v) ? entry.totalTime : entry.mileage; return (x === '' || x == null || isNaN(+x)) ? null : +x; }
-  function currentMeter(v) { var x = isAir(v) ? v.totalTime : v.mileage; return (x === '' || x == null || isNaN(+x)) ? null : +x; }
-  function currentDate(v) { return isAir(v) ? v.meterDate : v.mileageDate; }
-  function unit(v) { return isAir(v) ? 'hrs' : 'mi'; }
+  function isTractor(v) { return v.category === 'tractor'; }
+  // Aircraft and tractors run on an hour meter; vehicles on an odometer.
+  function hrsBased(v) { return isAir(v) || isTractor(v); }
+  function meterOf(entry, v) { var x = isAir(v) ? entry.totalTime : isTractor(v) ? entry.hours : entry.mileage; return (x === '' || x == null || isNaN(+x)) ? null : +x; }
+  function currentMeter(v) { var x = isAir(v) ? v.totalTime : isTractor(v) ? v.hours : v.mileage; return (x === '' || x == null || isNaN(+x)) ? null : +x; }
+  function currentDate(v) { return hrsBased(v) ? v.meterDate : v.mileageDate; }
+  function unit(v) { return hrsBased(v) ? 'hrs' : 'mi'; }
 
   /* Known readings (date, value) sorted by date. */
   function readings(v) {
@@ -30,7 +33,7 @@
   function estimateAt(v, dateStr) {
     var d = parseDate(dateStr), pts = readings(v);
     if (!pts.length) return { m: null, est: true };
-    if (!isAir(v) && v.inServiceDate) pts = [{ d: parseDate(v.inServiceDate), m: 0 }].concat(pts);
+    if (!hrsBased(v) && v.inServiceDate) pts = [{ d: parseDate(v.inServiceDate), m: 0 }].concat(pts);
     if (d <= pts[0].d) return { m: pts[0].m, est: true };
     for (var i = 1; i < pts.length; i++) {
       if (d <= pts[i].d) {
@@ -59,12 +62,14 @@
 
   function itemStatus(v, item, today) {
     today = today || new Date(); today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    var air = isAir(v), severe = v.scheduleMode === 'severe';
+    var air = hrsBased(v), severe = v.scheduleMode === 'severe';
     var every = air ? (item.everyHours || null) : (severe && item.severeMiles ? item.severeMiles : (item.everyMiles || null));
     var months = item.everyMonths || null;
     var r = { item: item, every: every, months: months, unit: unit(v), status: 'ok', last: null, lastMeter: null, lastEst: false, dueMeter: null, dueDate: null, remMeter: null, remDays: null, noRecord: false, assumedStart: false };
     var last = lastFor(v, item.id);
     r.last = last;
+    // Known task whose interval hasn't been verified yet (hour-meter units): track whether it was ever logged.
+    if (!every && !months && !item.once && item.intervalUnverified && air) { r.status = last ? 'done' : 'notlogged'; if (last) { r.lastMeter = meterOf(last, v); } return r; }
     if (!every && !months && !item.once) { r.status = 'na'; return r; }
     var cur = currentMeter(v);
     var baseDate, baseMeter = null;
