@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Request sent · Skysailing Garage</title>
+<meta name="theme-color" content="#07090c">
+<link rel="icon" href="images/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-theme="garage">
+<div class="bg" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="grain"></span></div>
+<main id="app" class="thanks">
+  <section class="panel thanks-panel reveal-up">
+    <div class="check" aria-hidden="true"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M14 27l8 8 16-17"/></svg></div>
+    <p class="kicker">Request sent</p>
+    <h1 class="display chrome">Thanks! Got it.</h1>
+    <p class="lede">Blue will get back to you by phone or email. You can close this page.</p>
+    <p><a class="btn primary big" id="back" href="./#/">Back to the garage</a></p>
+  </section>
+</main>
+<script>
+  (function () {
+    var id = new URLSearchParams(location.search).get('v');
+    if (id && /^[a-z0-9-]+$/i.test(id)) document.getElementById('back').href = './#/v/' + encodeURIComponent(id);
+    if (id && /sgs|glider|aircraft/i.test(id)) document.body.dataset.theme = 'sky';
+  })();
+</script>
+</body>
+</html>

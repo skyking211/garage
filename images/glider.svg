@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Stylized glider silhouette">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#dfe9f3"/><stop offset="1" stop-color="#9fb4c8"/>
+    </linearGradient>
+    <linearGradient id="wing" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7fbff"/><stop offset="1" stop-color="#b9cadb"/>
+    </linearGradient>
+    <linearGradient id="canopy" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7fd3ff"/><stop offset=".6" stop-color="#1f5f8f"/><stop offset="1" stop-color="#0b2740"/>
+    </linearGradient>
+    <filter id="soft" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#04111f" flood-opacity=".45"/></filter>
+  </defs>
+  <g filter="url(#soft)" transform="translate(800 470) rotate(-7)">
+    <!-- wings: long, straight, slightly tapered (1-26 style) -->
+    <path d="M-40 -18 L-700 -6 Q-735 -4 -738 10 L-736 22 Q-732 30 -700 30 L-40 34 Z" fill="url(#wing)"/>
+    <path d="M40 -18 L700 -6 Q735 -4 738 10 L736 22 Q732 30 700 30 L40 34 Z" fill="url(#wing)"/>
+    <path d="M-700 24 L-60 30 M60 30 L700 24" stroke="#8aa3bb" stroke-width="3" fill="none" opacity=".7"/>
+    <!-- spoilers -->
+    <rect x="-330" y="-4" width="90" height="7" rx="3" fill="#8aa3bb"/><rect x="240" y="-4" width="90" height="7" rx="3" fill="#8aa3bb"/>
+    <!-- fuselage (top view) -->
+    <path d="M0 -250 C34 -246 48 -200 50 -120 L44 60 C40 160 22 300 12 380 L-12 380 C-22 300 -40 160 -44 60 L-50 -120 C-48 -200 -34 -246 0 -250 Z" fill="url(#body)"/>
+    <!-- canopy -->
+    <path d="M0 -215 C26 -212 34 -170 33 -120 C32 -92 20 -76 0 -74 C-20 -76 -32 -92 -33 -120 C-34 -170 -26 -212 0 -215 Z" fill="url(#canopy)"/>
+    <path d="M-12 -200 C-4 -206 8 -204 14 -196 C2 -186 -8 -170 -14 -150 Z" fill="#fff" opacity=".55"/>
+    <!-- horizontal tail -->
+    <path d="M-10 345 L-190 352 Q-205 354 -205 366 L-203 378 Q-200 384 -186 384 L-10 386 Z" fill="url(#wing)"/>
+    <path d="M10 345 L190 352 Q205 354 205 366 L203 378 Q200 384 186 384 L10 386 Z" fill="url(#wing)"/>
+    <!-- fin -->
+    <rect x="-6" y="330" width="12" height="70" rx="6" fill="#7f97ad"/>
+    <!-- accent stripe -->
+    <path d="M-700 2 L-60 -6 M60 -6 L700 2" stroke="#2ea8ff" stroke-width="5" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

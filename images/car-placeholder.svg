@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Vehicle placeholder">
+  <defs><linearGradient id="b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9dee4"/><stop offset="1" stop-color="#7d8792"/></linearGradient></defs>
+  <g transform="translate(800 560)">
+    <path d="M-560 60 L-540 -40 Q-520 -90 -440 -100 L-300 -110 L-160 -220 Q-120 -250 -60 -250 L260 -250 Q330 -250 380 -200 L470 -110 L520 -100 Q570 -90 575 -30 L580 60 Q580 80 560 80 L-540 80 Q-560 80 -560 60 Z" fill="url(#b)" opacity=".85"/>
+    <path d="M-130 -200 L-60 -230 L120 -230 L120 -115 L-250 -115 Z M150 -230 L270 -230 Q320 -228 350 -190 L410 -115 L150 -115 Z" fill="#1d2731"/>
+    <circle cx="-330" cy="80" r="95" fill="#11161c"/><circle cx="-330" cy="80" r="50" fill="#9aa4ae"/>
+    <circle cx="350" cy="80" r="95" fill="#11161c"/><circle cx="350" cy="80" r="50" fill="#9aa4ae"/>
+  </g>
+  <text x="800" y="820" text-anchor="middle" font-family="sans-serif" font-size="40" fill="#8fa0b2">Tap “Change photo” to add yours</text>
+</svg>
